@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class SimpleTerm implements Term {
     final private char symbol;
@@ -62,5 +63,18 @@ public class SimpleTerm implements Term {
         return other instanceof SimpleTerm && isComparable((SimpleTerm) other);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SimpleTerm that = (SimpleTerm) o;
+        return symbol == that.symbol &&
+                quantity == that.quantity &&
+                exponent == that.exponent;
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(symbol, quantity, exponent);
+    }
 }
