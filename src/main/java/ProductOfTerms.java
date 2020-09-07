@@ -13,9 +13,9 @@ public class ProductOfTerms implements Term{
     }
 
     @Override
-    public boolean isComparable(Term other) {
-        return false; /*TODO: We need other to be a ProductOfTerms, and each element of this must pair up as
-        comparable with a respective element of other.
+    public boolean isComparable(Term otherTerm) {
+        return false; /*TODO: We need otherTerm to be a ProductOfTerms, and each element of this must pair up as
+        comparable with a respective element of otherTerm.
         */
     }
 }

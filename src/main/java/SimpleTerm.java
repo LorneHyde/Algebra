@@ -30,24 +30,24 @@ public class SimpleTerm implements Term {
         return exponent;
     }
 
-    public Term sumWith(SimpleTerm other) {
-        if (isComparable(other)) {
-            return new SimpleTerm(symbol, quantity + other.quantity, exponent);
+    public Term sumWith(SimpleTerm otherTerm) {
+        if (isComparable(otherTerm)) {
+            return new SimpleTerm(symbol, quantity + otherTerm.quantity, exponent);
         } else {
             var sum = new HashSet<Term>();
             sum.add(this);
-            sum.add(other);
+            sum.add(otherTerm);
             return new SumOfTerms(sum);
         }
     }
 
-    public SumOfTerms sumWith(SumOfTerms other) {
+    public SumOfTerms sumWith(SumOfTerms otherTerm) {
         var sumSoFar = new HashSet<Term>();
-        boolean isOtherAlreadyAdded = false;
-        for (Term x : other.getSet()) {
-            if (!isOtherAlreadyAdded && isComparable(x)) { //Add the 'other' term to its comparable term
+        boolean hasOtherTermBeenAdded = false;
+        for (Term x : otherTerm.getSet()) {
+            if (!hasOtherTermBeenAdded && isComparable(x)) { //Add 'otherTerm' to its comparable term
                 sumSoFar.add(sumWith((SimpleTerm) x));
-                isOtherAlreadyAdded = true; // If the 'other' term has already been added, we need not add it again
+                hasOtherTermBeenAdded = true; // If 'otherTerm' has already been added, we need not add it again
             } else {
                 // Keep x unchanged in the new sum
                 sumSoFar.add(x);
@@ -56,22 +56,22 @@ public class SimpleTerm implements Term {
         return new SumOfTerms(sumSoFar);
     }
 
-    private boolean isComparable(SimpleTerm other) {
-        return other.symbol == symbol && other.exponent == exponent;
+    private boolean isComparable(SimpleTerm otherTerm) {
+        return otherTerm.symbol == symbol && otherTerm.exponent == exponent;
     }
 
-    public boolean isComparable(Term other) {
-        return other instanceof SimpleTerm && isComparable((SimpleTerm) other);
+    public boolean isComparable(Term otherTerm) {
+        return otherTerm instanceof SimpleTerm && isComparable((SimpleTerm) otherTerm);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SimpleTerm that = (SimpleTerm) o;
-        return symbol == that.symbol &&
-                quantity == that.quantity &&
-                exponent == that.exponent;
+        SimpleTerm otherTerm = (SimpleTerm) o;
+        return symbol == otherTerm.symbol &&
+                quantity == otherTerm.quantity &&
+                exponent == otherTerm.exponent;
     }
 
     @Override

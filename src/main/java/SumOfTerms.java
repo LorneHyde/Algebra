@@ -12,16 +12,16 @@ public class SumOfTerms implements Term {
         return theSum;
     }
 
-    public SumOfTerms sumWith(SimpleTerm other) {
-        return other.sumWith(this);
+    public SumOfTerms sumWith(SimpleTerm otherTerm) {
+        return otherTerm.sumWith(this);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SumOfTerms that = (SumOfTerms) o;
-        return Objects.equals(theSum, that.theSum);
+        SumOfTerms otherTerm = (SumOfTerms) o;
+        return Objects.equals(theSum, otherTerm.theSum);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class SumOfTerms implements Term {
     }
 
     @Override
-    public boolean isComparable(Term other) {
+    public boolean isComparable(Term otherTerm) {
         return true;
     }
 }

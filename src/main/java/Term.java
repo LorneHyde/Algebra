@@ -1,3 +1,3 @@
 public interface Term {
-    boolean isComparable(Term other);
+    boolean isComparable(Term otherTerm);
 }
