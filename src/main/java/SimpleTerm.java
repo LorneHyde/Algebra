@@ -1,3 +1,4 @@
+import java.beans.Expression;
 import java.util.HashSet;
 import java.util.Objects;
 
@@ -30,7 +31,7 @@ public class SimpleTerm implements Term {
         return exponent;
     }
 
-    public Term sumWith(SimpleTerm otherTerm) {
+    public AlgebraicExpression sumWith(SimpleTerm otherTerm) {
         if (isComparable(otherTerm)) {
             return new SimpleTerm(symbol, quantity + otherTerm.quantity, exponent);
         } else {
@@ -46,7 +47,9 @@ public class SimpleTerm implements Term {
         boolean hasOtherTermBeenAdded = false;
         for (Term x : otherTerm.getSet()) {
             if (!hasOtherTermBeenAdded && isComparable(x)) { //Add 'otherTerm' to its comparable term
-                sumSoFar.add(sumWith((SimpleTerm) x));
+                //sumSoFar.add(sumWith((SimpleTerm) x)); TODO: This line has been commented out but it is important.
+                // We need to provide some sort of adding function in SumOfTerms that can merge two sums of terms
+                // but this makes SumOfTerms mutable which may not be desirable.
                 hasOtherTermBeenAdded = true; // If 'otherTerm' has already been added, we need not add it again
             } else {
                 // Keep x unchanged in the new sum
