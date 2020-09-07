@@ -10,4 +10,8 @@ public class SumOfTerms implements Term {
     final ArrayList<Term> getAll() {
         return theSum;
     }
+
+    public SumOfTerms add(SimpleTerm other) {
+        return other.add(this);
+    }
 }

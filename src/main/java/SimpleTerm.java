@@ -40,7 +40,7 @@ public class SimpleTerm implements Term {
         }
     }
 
-    public Term add(SumOfTerms other) {
+    public SumOfTerms add(SumOfTerms other) {
         var sumSoFar = new ArrayList<Term>();
         boolean foundComparable = false;
         for (Term x : other.getAll()) {
