@@ -40,6 +40,20 @@ public class SimpleTerm implements Term {
         }
     }
 
+    public Term add(SumOfTerms other) {
+        var sumSoFar = new ArrayList<Term>();
+        boolean foundComparable = false;
+        for (Term x : other.getAll()) {
+            if (isComparable(x) && !foundComparable) {
+                foundComparable = true;
+                sumSoFar.add(add((SimpleTerm) x));
+            } else {
+                sumSoFar.add(x);
+            }
+        }
+        return new SumOfTerms(sumSoFar);
+    }
+
     private Boolean isComparable(SimpleTerm other) {
         return other.symbol == symbol && other.exponent == exponent;
     }
@@ -47,5 +61,6 @@ public class SimpleTerm implements Term {
     Boolean isComparable(Term other) {
         return other instanceof SimpleTerm && isComparable((SimpleTerm) other);
     }
+
 
 }
