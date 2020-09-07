@@ -1,4 +1,5 @@
-public class TermWithExponent {
+public class TermWithExponent implements Term {
+
     final private VariableTerm termInside;
     final private int exponent;
 
