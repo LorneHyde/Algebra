@@ -12,7 +12,7 @@ public class SumOfTerms implements Term {
         return theSum;
     }
 
-    public SumOfTerms add(SimpleTerm other) {
+    public SumOfTerms sumWith(SimpleTerm other) {
         return other.sumWith(this);
     }
 
@@ -27,5 +27,10 @@ public class SumOfTerms implements Term {
     @Override
     public int hashCode() {
         return Objects.hash(theSum);
+    }
+
+    @Override
+    public boolean isComparable(Term other) {
+        return true;
     }
 }

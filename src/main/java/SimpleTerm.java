@@ -56,11 +56,11 @@ public class SimpleTerm implements Term {
         return new SumOfTerms(sumSoFar);
     }
 
-    private Boolean isComparable(SimpleTerm other) {
+    private boolean isComparable(SimpleTerm other) {
         return other.symbol == symbol && other.exponent == exponent;
     }
 
-    private Boolean isComparable(Term other) {
+    public boolean isComparable(Term other) {
         return other instanceof SimpleTerm && isComparable((SimpleTerm) other);
     }
 
