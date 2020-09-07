@@ -30,7 +30,7 @@ public class SimpleTerm implements Term {
     }
 
     public Term add(SimpleTerm other) {
-        if (other.symbol == symbol && exponent == other.exponent) {
+        if (isComparable(other)) {
             return new SimpleTerm(symbol, quantity + other.quantity, exponent);
         } else {
             ArrayList<Term> sum = new ArrayList<Term>();
@@ -39,4 +39,13 @@ public class SimpleTerm implements Term {
             return new SumOfTerms(sum);
         }
     }
+
+    private Boolean isComparable(SimpleTerm other) {
+        return other.symbol == symbol && other.exponent == exponent;
+    }
+
+    Boolean isComparable(Term other) {
+        return other instanceof SimpleTerm && isComparable((SimpleTerm) other);
+    }
+
 }
