@@ -17,7 +17,7 @@ public class TestSimpleTerm {
     public void testAddTwoSimpleTermsWithSameSymbol() throws Throwable {
         var two_x = new SimpleTerm('x', 2, 1);
         var x = new SimpleTerm('x');
-        var sum = x.add(two_x);
+        var sum = x.sumWith(two_x);
         assertTrue(sum instanceof SimpleTerm);
         assertEquals(((SimpleTerm) sum).getQuantity(), 3);
     }
@@ -26,7 +26,7 @@ public class TestSimpleTerm {
     public void testAddTwoSimpleTermsWithDifferentSymbols() throws Throwable {
         var x = new SimpleTerm('x');
         var y = new SimpleTerm('y');
-        var sum = x.add(y);
+        var sum = x.sumWith(y);
         HashSet<Term> termList;
         if (sum instanceof SumOfTerms) {
             termList = ((SumOfTerms) sum).getSet();
@@ -40,7 +40,7 @@ public class TestSimpleTerm {
     public void testAddTwoSimpleTermsWithDifferentExponents() throws Throwable {
         var x = new SimpleTerm('x');
         var xSquared = new SimpleTerm('x', 1, 2);
-        var sum = x.add(xSquared);
+        var sum = x.sumWith(xSquared);
 
         HashSet<Term> termList;
         if (sum instanceof SumOfTerms) {

@@ -30,7 +30,7 @@ public class SimpleTerm implements Term {
         return exponent;
     }
 
-    public Term add(SimpleTerm other) {
+    public Term sumWith(SimpleTerm other) {
         if (isComparable(other)) {
             return new SimpleTerm(symbol, quantity + other.quantity, exponent);
         } else {
@@ -41,14 +41,15 @@ public class SimpleTerm implements Term {
         }
     }
 
-    public SumOfTerms add(SumOfTerms other) { //TODO: Add comments to explain here
+    public SumOfTerms sumWith(SumOfTerms other) {
         var sumSoFar = new HashSet<Term>();
-        boolean foundComparable = false;
+        boolean isOtherAlreadyAdded = false;
         for (Term x : other.getSet()) {
-            if (!foundComparable && isComparable(x)) {
-                foundComparable = true;
-                sumSoFar.add(add((SimpleTerm) x));
+            if (!isOtherAlreadyAdded && isComparable(x)) { //Add the 'other' term to its comparable term
+                sumSoFar.add(sumWith((SimpleTerm) x));
+                isOtherAlreadyAdded = true; // If the 'other' term has already been added, we need not add it again
             } else {
+                // Keep x unchanged in the new sum
                 sumSoFar.add(x);
             }
         }

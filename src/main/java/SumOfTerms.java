@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Objects;
 import java.util.HashSet;
 
@@ -14,7 +13,7 @@ public class SumOfTerms implements Term {
     }
 
     public SumOfTerms add(SimpleTerm other) {
-        return other.add(this);
+        return other.sumWith(this);
     }
 
     @Override
