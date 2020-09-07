@@ -33,18 +33,18 @@ public class SimpleTerm implements Term {
         if (isComparable(other)) {
             return new SimpleTerm(symbol, quantity + other.quantity, exponent);
         } else {
-            ArrayList<Term> sum = new ArrayList<Term>();
+            var sum = new ArrayList<Term>();
             sum.add(this);
             sum.add(other);
             return new SumOfTerms(sum);
         }
     }
 
-    public SumOfTerms add(SumOfTerms other) {
+    public SumOfTerms add(SumOfTerms other) { //TODO: Add comments to explain here
         var sumSoFar = new ArrayList<Term>();
         boolean foundComparable = false;
-        for (Term x : other.getAll()) {
-            if (isComparable(x) && !foundComparable) {
+        for (Term x : other.getList()) {
+            if (!foundComparable && isComparable(x)) {
                 foundComparable = true;
                 sumSoFar.add(add((SimpleTerm) x));
             } else {
@@ -58,7 +58,7 @@ public class SimpleTerm implements Term {
         return other.symbol == symbol && other.exponent == exponent;
     }
 
-    Boolean isComparable(Term other) {
+    private Boolean isComparable(Term other) {
         return other instanceof SimpleTerm && isComparable((SimpleTerm) other);
     }
 

@@ -7,7 +7,7 @@ public class SumOfTerms implements Term {
         this.theSum = theSum;
     }
 
-    final ArrayList<Term> getAll() {
+    final ArrayList<Term> getList() {
         return theSum;
     }
 

@@ -7,7 +7,7 @@ public class ProductOfTerms {
         this.theProduct = theProduct;
     }
 
-    final ArrayList<Term> getAll() {
+    final ArrayList<Term> getList() {
         return theProduct;
     }
 }
