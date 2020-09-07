@@ -1,13 +1,14 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class ProductOfTerms {
-    final private ArrayList<Term> theProduct;
+    final private HashSet<Term> theProduct;
 
-    public ProductOfTerms(ArrayList<Term> theProduct) {
+    public ProductOfTerms(HashSet<Term> theProduct) {
         this.theProduct = theProduct;
     }
 
-    final ArrayList<Term> getList() {
+    final HashSet<Term> getSet() {
         return theProduct;
     }
 }

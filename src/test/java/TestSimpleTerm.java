@@ -1,6 +1,6 @@
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -27,9 +27,9 @@ public class TestSimpleTerm {
         var x = new SimpleTerm('x');
         var y = new SimpleTerm('y');
         var sum = x.add(y);
-        ArrayList<Term> termList;
+        HashSet<Term> termList;
         if (sum instanceof SumOfTerms) {
-            termList = ((SumOfTerms) sum).getList();
+            termList = ((SumOfTerms) sum).getSet();
         }
         else termList = null;
         assertTrue(sum instanceof SumOfTerms);
@@ -42,9 +42,9 @@ public class TestSimpleTerm {
         var xSquared = new SimpleTerm('x', 1, 2);
         var sum = x.add(xSquared);
 
-        ArrayList<Term> termList;
+        HashSet<Term> termList;
         if (sum instanceof SumOfTerms) {
-            termList = ((SumOfTerms) sum).getList();
+            termList = ((SumOfTerms) sum).getSet();
         }
         else termList = null;
 

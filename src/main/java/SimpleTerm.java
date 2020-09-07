@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Objects;
 
 public class SimpleTerm implements Term {
@@ -34,7 +34,7 @@ public class SimpleTerm implements Term {
         if (isComparable(other)) {
             return new SimpleTerm(symbol, quantity + other.quantity, exponent);
         } else {
-            var sum = new ArrayList<Term>();
+            var sum = new HashSet<Term>();
             sum.add(this);
             sum.add(other);
             return new SumOfTerms(sum);
@@ -42,9 +42,9 @@ public class SimpleTerm implements Term {
     }
 
     public SumOfTerms add(SumOfTerms other) { //TODO: Add comments to explain here
-        var sumSoFar = new ArrayList<Term>();
+        var sumSoFar = new HashSet<Term>();
         boolean foundComparable = false;
-        for (Term x : other.getList()) {
+        for (Term x : other.getSet()) {
             if (!foundComparable && isComparable(x)) {
                 foundComparable = true;
                 sumSoFar.add(add((SimpleTerm) x));
