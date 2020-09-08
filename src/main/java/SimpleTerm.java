@@ -39,37 +39,7 @@ public class SimpleTerm implements Term {
         return new SimpleTerm(symbol, quantity + theOtherTerm.quantity, exponent);
     }
 
-    SumOfTerms plusIncomparable(SimpleTerm otherTerm) {
-        var sum = new HashSet<Term>();
-        sum.add(this);
-        sum.add(otherTerm);
-        return new SumOfTerms(sum);
-    }
 
-    AlgebraicExpression plus(SimpleTerm otherTerm){
-        if (isComparable(otherTerm)) {
-            return plusComparable(otherTerm);
-        }
-        else {
-            return plusIncomparable(otherTerm);
-        }
-    }
-
-    public SumOfTerms plus(SumOfTerms otherTerm) {
-        var sumSoFar = new SumOfTerms();
-        boolean hasOtherTermBeenAdded = false;
-        for (Term x : otherTerm.getSet()) {
-            if (!hasOtherTermBeenAdded && isComparable(x)) { //Add 'otherTerm' to its comparable term
-                var mergedTerm = plusComparable(x);
-                sumSoFar = sumSoFar.plusIncomparable(mergedTerm);
-                hasOtherTermBeenAdded = true; // If 'otherTerm' has already been added, we need not add it again
-            } else {
-                // Keep x unchanged in the new sum
-                sumSoFar = sumSoFar.plusIncomparable(x);
-            }
-        }
-        return sumSoFar;
-    }
 
     private boolean isComparable(SimpleTerm otherTerm) {
         return otherTerm.symbol == symbol && otherTerm.exponent == exponent;

@@ -43,6 +43,7 @@ public class SumOfTerms implements AlgebraicExpression {
         return new SumOfTerms(sumSoFar);
     }
 
+
     private Term findComparable(Term x) {
         boolean found = false;
         Term comparableTerm = null;
@@ -66,5 +67,21 @@ public class SumOfTerms implements AlgebraicExpression {
     @Override
     public int hashCode() {
         return Objects.hash(theSum);
+    }
+
+    @Override
+    public AlgebraicExpression plus(AlgebraicExpression otherExpression) {
+        AlgebraicExpression sum;
+        if (otherExpression instanceof SumOfTerms) {
+            sum = plus((SumOfTerms) otherExpression);
+        }
+        else if (otherExpression instanceof Term){
+            sum = ((Term) otherExpression).plus(this);
+        }
+        else {
+            throw new IllegalArgumentException("An algebraic expression should only ever be either a Term" +
+                    "or a sum of terms.");
+        }
+        return sum;
     }
 }
