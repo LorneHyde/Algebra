@@ -1,11 +1,12 @@
 import java.util.HashSet;
+import java.util.Objects;
 
+//TODO: Next up is to write tests for ProductOfTerms
+//TODO: Then, add comments everywhere
+//TODO: Then, add some multiplication function in AlgebraicExpression
 public class ProductOfTerms implements Term, TermSet {
     final private HashSet<Term> termSet;
     final private int quantity;
-    final int termCount() {
-        return termSet.size();
-    }
 
     public ProductOfTerms(HashSet<Term> termSet, int quantity) {
         this.termSet = termSet;
@@ -15,6 +16,10 @@ public class ProductOfTerms implements Term, TermSet {
     public ProductOfTerms(HashSet<Term> termSet) {
         this.termSet = termSet;
         this.quantity = 1;
+    }
+
+    final int termCount() {
+        return termSet.size();
     }
 
     public boolean isComparable(Term otherTerm) {
@@ -27,7 +32,7 @@ public class ProductOfTerms implements Term, TermSet {
 
     private boolean isComparableToProduct(ProductOfTerms otherTerm) {
         var foundIncomparableTerm = false;
-        var unpairedTerms = otherTerm.getSet();
+        var unpairedTerms = new HashSet<>(otherTerm.getSet()); // This is a new set to prevent concurrent modification
         for (Term x : getSet()) {
             var comparableTerm = otherTerm.findComparable(x);
             if (comparableTerm == null) {
@@ -42,7 +47,7 @@ public class ProductOfTerms implements Term, TermSet {
 
     public ProductOfTerms plusComparable(Term otherTerm) {
         if (!(otherTerm instanceof ProductOfTerms)) {
-            throw new IllegalArgumentException("otherTerm must be an instance of SimpleTerm to be comparable.");
+            throw new IllegalArgumentException("otherTerm must be an instance of ProductOfTerms to be comparable.");
         }
         var theOtherTerm = (ProductOfTerms) otherTerm;
         return new ProductOfTerms(termSet, quantity + theOtherTerm.quantity);
@@ -54,5 +59,19 @@ public class ProductOfTerms implements Term, TermSet {
 
     public int getQuantity() {
         return quantity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProductOfTerms that = (ProductOfTerms) o;
+        return quantity == that.quantity &&
+                Objects.equals(termSet, that.termSet);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(termSet, quantity);
     }
 }
