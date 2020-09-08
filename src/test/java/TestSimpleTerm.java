@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestSimpleTerm {
 
     @Test
-    public void testPlusOnTwoSimpleTermsWithSameSymbol() throws Throwable {
+    public void testPlusOnTwoSimpleTermsWithSameSymbol() {
         var two_x = new SimpleTerm('x', 2, 1);
         var x = new SimpleTerm('x');
         var sum = x.plus(two_x);
@@ -16,7 +16,7 @@ public class TestSimpleTerm {
     }
 
     @Test
-    public void testPlusOnTwoSimpleTermsWithDifferentSymbols() throws Throwable {
+    public void testPlusOnTwoSimpleTermsWithDifferentSymbols() {
         var x = new SimpleTerm('x');
         var y = new SimpleTerm('y');
         var sum = x.plus(y);
@@ -30,7 +30,7 @@ public class TestSimpleTerm {
     }
 
     @Test
-    public void testPlusOnTwoSimpleTermsWithDifferentExponents() throws Throwable {
+    public void testPlusOnTwoSimpleTermsWithDifferentExponents() {
         var x = new SimpleTerm('x');
         var xSquared = new SimpleTerm('x', 1, 2);
         var sum = x.plus(xSquared);
@@ -46,7 +46,7 @@ public class TestSimpleTerm {
     }
 
     @Test
-    public void testPlusOnSumOfTerms() throws Throwable {
+    public void testPlusOnSumOfTerms() {
         var x = new SimpleTerm('x');
         var sumSet = new HashSet<Term>();
         sumSet.add(new SimpleTerm('y'));
@@ -66,27 +66,27 @@ public class TestSimpleTerm {
     }
 
     @Test
-    public void testEqualsReturnsTrueWhenAppropriate() throws Throwable {
+    public void testEqualsReturnsTrueWhenAppropriate() {
         var x = new SimpleTerm('x');
         var also_x = new SimpleTerm('x', 1, 1);
         assertEquals(x, also_x);
     }
 
     @Test
-    public void testEqualsReturnsFalseWhenGivenTermsWithDifferentSymbols() throws Throwable {
+    public void testEqualsReturnsFalseWhenGivenTermsWithDifferentSymbols() {
         var x = new SimpleTerm('x');
         var y = new SimpleTerm('y');
         assertNotEquals(x, y);
     }
 
     @Test
-    public void testEqualsReturnsFalseWhenGivenTermsWithDifferentExponents() throws Throwable {
+    public void testEqualsReturnsFalseWhenGivenTermsWithDifferentExponents() {
         var x = new SimpleTerm('x');
         var x_squared = new SimpleTerm('x', 1, 2);
         assertNotEquals(x, x_squared);
     }
     @Test
-    public void testEqualsReturnsFalseWhenGivenDifferentQuantities() throws Throwable {
+    public void testEqualsReturnsFalseWhenGivenDifferentQuantities() {
         var x = new SimpleTerm('x');
         var two_x = new SimpleTerm('x', 2, 1);
         assertNotEquals(x, two_x);
