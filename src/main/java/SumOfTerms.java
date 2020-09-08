@@ -1,7 +1,7 @@
 import java.util.Objects;
 import java.util.HashSet;
 
-public class SumOfTerms implements AlgebraicExpression {
+public class SumOfTerms implements AlgebraicExpression, TermSet {
     final private HashSet<Term> theSum;
 
     public SumOfTerms(HashSet<Term> theSum) {
@@ -12,7 +12,7 @@ public class SumOfTerms implements AlgebraicExpression {
         this.theSum = new HashSet<>();
     }
 
-    final HashSet<Term> getSet() {
+    public final HashSet<Term> getSet() {
         return theSum;
     }
 
@@ -41,19 +41,6 @@ public class SumOfTerms implements AlgebraicExpression {
         }
         sumSoFar.addAll(unpairedTerms);
         return new SumOfTerms(sumSoFar);
-    }
-
-
-    private Term findComparable(Term x) {
-        boolean found = false;
-        Term comparableTerm = null;
-        for (Term i : getSet()) {
-            if (!found && i.isComparable(x)) {
-                found = true;
-                comparableTerm = i;
-            }
-        }
-        return comparableTerm;
     }
 
     @Override
