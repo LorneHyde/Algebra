@@ -16,7 +16,7 @@ public class ProductOfTerms implements Term{
     }
 
     @Override
-    public Term sumWithComparable(Term comparableTerm) {
+    public Term plusComparable(Term comparableTerm) {
         return null; // TODO!
     }
 

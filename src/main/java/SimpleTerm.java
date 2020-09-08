@@ -31,38 +31,41 @@ public class SimpleTerm implements Term {
         return exponent;
     }
 
-    public SimpleTerm sumWithComparable(Term otherTerm) {
+    public SimpleTerm plusComparable(Term otherTerm) {
+        if (!(otherTerm instanceof SimpleTerm)) {
+            throw new IllegalArgumentException("otherTerm must be an instance of SimpleTerm to be comparable.");
+        }
         var theOtherTerm = (SimpleTerm) otherTerm;
         return new SimpleTerm(symbol, quantity + theOtherTerm.quantity, exponent);
     }
 
-    SumOfTerms sumWithIncomparable(SimpleTerm otherTerm) {
+    SumOfTerms plusIncomparable(SimpleTerm otherTerm) {
         var sum = new HashSet<Term>();
         sum.add(this);
         sum.add(otherTerm);
         return new SumOfTerms(sum);
     }
 
-    AlgebraicExpression sumWith(SimpleTerm otherTerm){
+    AlgebraicExpression plus(SimpleTerm otherTerm){
         if (isComparable(otherTerm)) {
-            return sumWithComparable(otherTerm);
+            return plusComparable(otherTerm);
         }
         else {
-            return sumWithIncomparable(otherTerm);
+            return plusIncomparable(otherTerm);
         }
     }
 
-    public SumOfTerms sumWith(SumOfTerms otherTerm) {
+    public SumOfTerms plus(SumOfTerms otherTerm) {
         var sumSoFar = new SumOfTerms();
         boolean hasOtherTermBeenAdded = false;
         for (Term x : otherTerm.getSet()) {
             if (!hasOtherTermBeenAdded && isComparable(x)) { //Add 'otherTerm' to its comparable term
-                var mergedTerm = sumWithComparable(x);
-                sumSoFar = sumSoFar.sumWithIncomparable(mergedTerm);
+                var mergedTerm = plusComparable(x);
+                sumSoFar = sumSoFar.plusIncomparable(mergedTerm);
                 hasOtherTermBeenAdded = true; // If 'otherTerm' has already been added, we need not add it again
             } else {
                 // Keep x unchanged in the new sum
-                sumSoFar = sumSoFar.sumWithIncomparable(x);
+                sumSoFar = sumSoFar.plusIncomparable(x);
             }
         }
         return sumSoFar;

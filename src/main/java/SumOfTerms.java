@@ -16,17 +16,17 @@ public class SumOfTerms implements AlgebraicExpression {
         return theSum;
     }
 
-    public SumOfTerms sumWith(SimpleTerm otherTerm) {
-        return otherTerm.sumWith(this);
+    public SumOfTerms plus(SimpleTerm otherTerm) {
+        return otherTerm.plus(this);
     }
 
-    public SumOfTerms sumWithIncomparable(Term otherTerm) {
+    public SumOfTerms plusIncomparable(Term otherTerm) {
         var newSet = new HashSet<>(getSet());
         newSet.add(otherTerm);
         return new SumOfTerms(newSet);
     }
 
-    public SumOfTerms sumWith(SumOfTerms otherTerm) {
+    public SumOfTerms plus(SumOfTerms otherTerm) {
         var sumSoFar = new HashSet<Term>();
         var unpairedTerms = otherTerm.getSet();
         for (Term x : getSet()) {
@@ -35,7 +35,7 @@ public class SumOfTerms implements AlgebraicExpression {
                 sumSoFar.add(x);
             }
             else {
-                sumSoFar.add(x.sumWithComparable(comparableTerm));
+                sumSoFar.add(x.plusComparable(comparableTerm));
                 unpairedTerms.remove(comparableTerm);
             }
         }
