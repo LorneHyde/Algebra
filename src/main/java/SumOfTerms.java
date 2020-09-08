@@ -26,8 +26,6 @@ public class SumOfTerms implements AlgebraicExpression {
         return new SumOfTerms(newSet);
     }
 
-    //TODO: fill in missing terms for the commented function below
-    /*
     public SumOfTerms sumWith(SumOfTerms otherTerm) {
         var sumSoFar = new HashSet<Term>();
         var unpairedTerms = otherTerm.getSet();
@@ -35,18 +33,27 @@ public class SumOfTerms implements AlgebraicExpression {
             var comparableTerm = otherTerm.findComparable(x);
             if (comparableTerm == null) {
                 sumSoFar.add(x);
-                unpairedTerms.remove(comparableTerm);
             }
             else {
-                sumSoFar.add(x.sumWith(comparableTerm));
+                sumSoFar.add(x.sumWithComparable(comparableTerm));
+                unpairedTerms.remove(comparableTerm);
             }
         }
-        for (Term y : unpairedTerms) {
-            sumSoFar.add(y);
-        }
-        return SumOfTerms(sumSoFar);
+        sumSoFar.addAll(unpairedTerms);
+        return new SumOfTerms(sumSoFar);
     }
-    */
+
+    private Term findComparable(Term x) {
+        boolean found = false;
+        Term comparableTerm = null;
+        for (Term i : getSet()) {
+            if (!found && i.isComparable(x)) {
+                found = true;
+                comparableTerm = i;
+            }
+        }
+        return comparableTerm;
+    }
 
     @Override
     public boolean equals(Object o) {

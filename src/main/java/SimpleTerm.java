@@ -31,7 +31,7 @@ public class SimpleTerm implements Term {
         return exponent;
     }
 
-    private SimpleTerm sumWithComparable(Term otherTerm) {
+    public SimpleTerm sumWithComparable(Term otherTerm) {
         var theOtherTerm = (SimpleTerm) otherTerm;
         return new SimpleTerm(symbol, quantity + theOtherTerm.quantity, exponent);
     }
