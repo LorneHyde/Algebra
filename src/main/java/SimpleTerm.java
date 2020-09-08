@@ -57,7 +57,8 @@ public class SimpleTerm implements Term {
         boolean hasOtherTermBeenAdded = false;
         for (Term x : otherTerm.getSet()) {
             if (!hasOtherTermBeenAdded && isComparable(x)) { //Add 'otherTerm' to its comparable term
-                sumSoFar = sumSoFar.sumWithIncomparable(sumWithComparable(x)); // TODO: Make this code more legible
+                var mergedTerm = sumWithComparable(x);
+                sumSoFar = sumSoFar.sumWithIncomparable(mergedTerm);
                 hasOtherTermBeenAdded = true; // If 'otherTerm' has already been added, we need not add it again
             } else {
                 // Keep x unchanged in the new sum
