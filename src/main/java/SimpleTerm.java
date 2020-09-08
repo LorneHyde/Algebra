@@ -31,32 +31,40 @@ public class SimpleTerm implements Term {
         return exponent;
     }
 
-    public AlgebraicExpression sumWith(SimpleTerm otherTerm) {
+    private SimpleTerm sumWithComparable(Term otherTerm) {
+        var theOtherTerm = (SimpleTerm) otherTerm;
+        return new SimpleTerm(symbol, quantity + theOtherTerm.quantity, exponent);
+    }
+
+    SumOfTerms sumWithIncomparable(SimpleTerm otherTerm) {
+        var sum = new HashSet<Term>();
+        sum.add(this);
+        sum.add(otherTerm);
+        return new SumOfTerms(sum);
+    }
+
+    AlgebraicExpression sumWith(SimpleTerm otherTerm){
         if (isComparable(otherTerm)) {
-            return new SimpleTerm(symbol, quantity + otherTerm.quantity, exponent);
-        } else {
-            var sum = new HashSet<Term>();
-            sum.add(this);
-            sum.add(otherTerm);
-            return new SumOfTerms(sum);
+            return sumWithComparable(otherTerm);
+        }
+        else {
+            return sumWithIncomparable(otherTerm);
         }
     }
 
     public SumOfTerms sumWith(SumOfTerms otherTerm) {
-        var sumSoFar = new HashSet<Term>();
+        var sumSoFar = new SumOfTerms();
         boolean hasOtherTermBeenAdded = false;
         for (Term x : otherTerm.getSet()) {
             if (!hasOtherTermBeenAdded && isComparable(x)) { //Add 'otherTerm' to its comparable term
-                //sumSoFar.add(sumWith((SimpleTerm) x)); TODO: This line has been commented out but it is important.
-                // We need to provide some sort of adding function in SumOfTerms that can merge two sums of terms
-                // but this makes SumOfTerms mutable which may not be desirable.
+                sumSoFar = sumSoFar.sumWithIncomparable(sumWithComparable(x)); // TODO: Make this code more legible
                 hasOtherTermBeenAdded = true; // If 'otherTerm' has already been added, we need not add it again
             } else {
                 // Keep x unchanged in the new sum
-                sumSoFar.add(x);
+                sumSoFar = sumSoFar.sumWithIncomparable(x);
             }
         }
-        return new SumOfTerms(sumSoFar);
+        return sumSoFar;
     }
 
     private boolean isComparable(SimpleTerm otherTerm) {

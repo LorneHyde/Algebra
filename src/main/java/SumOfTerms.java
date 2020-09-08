@@ -8,12 +8,22 @@ public class SumOfTerms implements AlgebraicExpression {
         this.theSum = theSum;
     }
 
+    public SumOfTerms() {
+        this.theSum = new HashSet<>();
+    }
+
     final HashSet<Term> getSet() {
         return theSum;
     }
 
     public SumOfTerms sumWith(SimpleTerm otherTerm) {
         return otherTerm.sumWith(this);
+    }
+
+    public SumOfTerms sumWithIncomparable(Term otherTerm) {
+        var newSet = new HashSet<>(getSet());
+        newSet.add(otherTerm);
+        return new SumOfTerms(newSet);
     }
 
     //TODO: fill in missing terms for the commented function below
