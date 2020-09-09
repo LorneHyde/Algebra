@@ -1,5 +1,6 @@
 import java.util.HashSet;
 
 public interface AlgebraicExpression {
-    //TODO: Put all the possible different plus methods here.
+    AlgebraicExpression plus(Term s);
+    AlgebraicExpression plus(SumOfTerms s);
 }
