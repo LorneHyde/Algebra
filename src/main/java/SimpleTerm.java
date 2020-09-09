@@ -1,3 +1,4 @@
+import java.util.HashSet;
 import java.util.Objects;
 
 /**
@@ -7,6 +8,7 @@ public class SimpleTerm implements Term {
     final private char symbol;
     final private int coefficient;
     final private int exponent;
+    final private HashSet<Term> termInSet;
 
     /**
      * @param symbol      A single unicode character to represent the variable in this term.
@@ -17,6 +19,8 @@ public class SimpleTerm implements Term {
         this.symbol = symbol;
         this.coefficient = coefficient;
         this.exponent = exponent;
+        termInSet = new HashSet<>();
+        termInSet.add(this);
     }
 
     /**
@@ -28,6 +32,8 @@ public class SimpleTerm implements Term {
         this.symbol = symbol;
         this.coefficient = 1;
         this.exponent = 1;
+        termInSet = new HashSet<>();
+        termInSet.add(this);
     }
 
     public char getSymbol() {
@@ -51,6 +57,11 @@ public class SimpleTerm implements Term {
         }
         var theOtherTerm = (SimpleTerm) otherTerm;
         return new SimpleTerm(symbol, coefficient + theOtherTerm.coefficient, exponent);
+    }
+
+    @Override
+    final public int factorCount() {
+        return 1;
     }
 
     private boolean isComparable(SimpleTerm otherTerm) {
@@ -78,5 +89,10 @@ public class SimpleTerm implements Term {
     @Override
     public int hashCode() {
         return Objects.hash(symbol, coefficient, exponent);
+    }
+
+    @Override
+    public HashSet<Term> getSet() {
+        return termInSet;
     }
 }

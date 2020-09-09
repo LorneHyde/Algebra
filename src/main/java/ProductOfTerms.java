@@ -17,19 +17,19 @@ public class ProductOfTerms implements Term, TermSet {
         this.coefficient = 1;
     }
 
-    final int termCount() {
+    public final int factorCount() {
         return termSet.size();
     }
 
     public boolean isComparable(Term otherTerm) {
-        if (otherTerm instanceof ProductOfTerms && (termCount() == ((ProductOfTerms) otherTerm).termCount())) {
-            return isComparableToProduct((ProductOfTerms) otherTerm);
+        if (factorCount() == otherTerm.factorCount()) {
+            return isComparableToProduct(otherTerm);
         } else {
             return false;
         }
     }
 
-    private boolean isComparableToProduct(ProductOfTerms otherTerm) {
+    private boolean isComparableToProduct(Term otherTerm) {
         var foundIncomparableTerm = false;
         var unpairedTerms = new HashSet<>(otherTerm.getSet()); // This is a new set to prevent concurrent modification
         for (Term x : getSet()) {
@@ -45,8 +45,8 @@ public class ProductOfTerms implements Term, TermSet {
     }
 
     public ProductOfTerms plusComparable(Term otherTerm) {
-        if (!(otherTerm instanceof ProductOfTerms)) {
-            throw new IllegalArgumentException("otherTerm must be an instance of ProductOfTerms to be comparable.");
+        if (!isComparable(otherTerm)) {
+            throw new IllegalArgumentException("plusComparable was called on incomparable term.");
         }
         var theOtherTerm = (ProductOfTerms) otherTerm;
         return new ProductOfTerms(termSet, coefficient + theOtherTerm.coefficient);
@@ -56,7 +56,7 @@ public class ProductOfTerms implements Term, TermSet {
         return termSet;
     }
 
-    public int getcoefficient() {
+    public int getCoefficient() {
         return coefficient;
     }
 

@@ -5,6 +5,8 @@ public interface Term extends AlgebraicExpression {
 
     Term plusComparable(Term comparableTerm);
 
+    int factorCount();
+
     default SumOfTerms plusIncomparable(Term otherTerm) {
         var sum = new HashSet<Term>();
         sum.add(this);
@@ -40,14 +42,14 @@ public interface Term extends AlgebraicExpression {
         AlgebraicExpression sum;
         if (otherExpression instanceof SumOfTerms) {
             sum = plus((SumOfTerms) otherExpression);
-        }
-        else if (otherExpression instanceof Term){
+        } else if (otherExpression instanceof Term) {
             sum = ((Term) otherExpression).plus(this);
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("An algebraic expression should only ever be either a Term" +
                     "or a sum of terms.");
         }
         return sum;
     }
+
+
 }
