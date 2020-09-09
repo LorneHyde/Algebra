@@ -11,10 +11,10 @@ public class ProductOfTerms implements CompositeTerm {
         this.coefficient = coefficient;
     }
 
-    public ProductOfTerms(HashSet<TermWithoutCoefficient> termSet) {
+    public ProductOfTerms(HashSet<TermWithCoefficient> termSet) {
         var constituentSet = new HashSet<SimpleTerm>();
         var totalCoefficient = 1;
-        for (TermWithoutCoefficient i : termSet) {
+        for (TermWithCoefficient i : termSet) {
             constituentSet.add(new SimpleTerm(i.getSymbol(), i.getExponent()));
             totalCoefficient *= i.getCoefficient();
         }

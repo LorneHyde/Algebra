@@ -18,11 +18,11 @@ public class TestProductOfTerms {
 
     @Test
     public void testPlusWhenGivenSimpleTerm() {
-        var termSet = new HashSet<TermWithoutCoefficient>();
-        termSet.add(new TermWithoutCoefficient('x'));
-        termSet.add(new TermWithoutCoefficient('y', 1, 2));
+        var termSet = new HashSet<TermWithCoefficient>();
+        termSet.add(new TermWithCoefficient('x'));
+        termSet.add(new TermWithCoefficient('y', 1, 2));
         var product1 = new ProductOfTerms(termSet);
-        var simpleTerm = new TermWithoutCoefficient('x');
+        var simpleTerm = new TermWithCoefficient('x');
         var sum = product1.plus(simpleTerm);
         var expectedTermSet = new HashSet<CompositeTerm>();
         expectedTermSet.add(product1);
@@ -33,12 +33,12 @@ public class TestProductOfTerms {
 
     @Test
     public void testPlusWhenGivenIncomparableProduct() {
-        var termSet1 = new HashSet<TermWithoutCoefficient>();
-        termSet1.add(new TermWithoutCoefficient('x'));
-        termSet1.add(new TermWithoutCoefficient('y', 1, 2));
-        var termSet2 = new HashSet<TermWithoutCoefficient>();
-        termSet2.add(new TermWithoutCoefficient('x'));
-        termSet2.add(new TermWithoutCoefficient('y', 1, 3));
+        var termSet1 = new HashSet<TermWithCoefficient>();
+        termSet1.add(new TermWithCoefficient('x'));
+        termSet1.add(new TermWithCoefficient('y', 1, 2));
+        var termSet2 = new HashSet<TermWithCoefficient>();
+        termSet2.add(new TermWithCoefficient('x'));
+        termSet2.add(new TermWithCoefficient('y', 1, 3));
         var product1 = new ProductOfTerms(termSet1);
         var product2 = new ProductOfTerms(termSet2);
         var sum = product1.plus(product2);

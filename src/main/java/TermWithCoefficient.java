@@ -4,7 +4,7 @@ import java.util.Objects;
 /**
  * A class to represent an algebraic variable with a coefficient and exponent.
  */
-public class TermWithoutCoefficient implements CompositeTerm {
+public class TermWithCoefficient implements CompositeTerm {
     final private char symbol;
     final private int coefficient;
     final private int exponent;
@@ -15,7 +15,7 @@ public class TermWithoutCoefficient implements CompositeTerm {
      * @param coefficient The number multiplied by this variable.
      * @param exponent    The power to which this variable is raised.
      */
-    public TermWithoutCoefficient(char symbol, int coefficient, int exponent) {
+    public TermWithCoefficient(char symbol, int coefficient, int exponent) {
         this.symbol = symbol;
         this.coefficient = coefficient;
         this.exponent = exponent;
@@ -28,7 +28,7 @@ public class TermWithoutCoefficient implements CompositeTerm {
      *
      * @param symbol A single unicode character to represent the variable in this term.
      */
-    public TermWithoutCoefficient(char symbol) {
+    public TermWithCoefficient(char symbol) {
         this.symbol = symbol;
         this.coefficient = 1;
         this.exponent = 1;
@@ -49,12 +49,12 @@ public class TermWithoutCoefficient implements CompositeTerm {
     }
 
 
-    public TermWithoutCoefficient plusComparable(CompositeTerm otherTerm) {
+    public TermWithCoefficient plusComparable(CompositeTerm otherTerm) {
         if (!isComparable(otherTerm)) {
             throw new IllegalArgumentException("plusComparable was called on incomparable term.");
         }
-        var theOtherTerm = (TermWithoutCoefficient) otherTerm;
-        return new TermWithoutCoefficient(symbol, coefficient + theOtherTerm.coefficient, exponent);
+        var theOtherTerm = (TermWithCoefficient) otherTerm;
+        return new TermWithCoefficient(symbol, coefficient + theOtherTerm.coefficient, exponent);
     }
 
     @Override
@@ -77,7 +77,7 @@ public class TermWithoutCoefficient implements CompositeTerm {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TermWithoutCoefficient otherTerm = (TermWithoutCoefficient) o;
+        TermWithCoefficient otherTerm = (TermWithCoefficient) o;
         return symbol == otherTerm.symbol &&
                 coefficient == otherTerm.coefficient &&
                 exponent == otherTerm.exponent;

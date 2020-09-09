@@ -16,7 +16,7 @@ public class SumOfTerms implements AlgebraicExpression {
         return theSum;
     }
 
-    public SumOfTerms plus(TermWithoutCoefficient otherTerm) {
+    public SumOfTerms plus(TermWithCoefficient otherTerm) {
         return otherTerm.plus(this);
     }
 
@@ -38,6 +38,7 @@ public class SumOfTerms implements AlgebraicExpression {
         return new SumOfTerms(newSet);
     }
 
+    @Override
     public SumOfTerms plus(SumOfTerms otherTerm) {
         var sumSoFar = new HashSet<CompositeTerm>();
         var unpairedTerms = otherTerm.getSet();

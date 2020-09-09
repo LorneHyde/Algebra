@@ -4,21 +4,21 @@ import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestTermWithoutCoefficient {
+public class TestTermWithCoefficient {
 
     @Test
     public void testPlusOnTwoSimpleTermsWithSameSymbol() {
-        var two_x = new TermWithoutCoefficient('x', 2, 1);
-        var x = new TermWithoutCoefficient('x');
+        var two_x = new TermWithCoefficient('x', 2, 1);
+        var x = new TermWithCoefficient('x');
         var sum = x.plus(two_x);
-        assertTrue(sum instanceof TermWithoutCoefficient);
-        assertEquals(((TermWithoutCoefficient) sum).getCoefficient(), 3);
+        assertTrue(sum instanceof TermWithCoefficient);
+        assertEquals(((TermWithCoefficient) sum).getCoefficient(), 3);
     }
 
     @Test
     public void testPlusOnTwoSimpleTermsWithDifferentSymbols() {
-        var x = new TermWithoutCoefficient('x');
-        var y = new TermWithoutCoefficient('y');
+        var x = new TermWithCoefficient('x');
+        var y = new TermWithCoefficient('y');
         var sum = x.plus(y);
         HashSet<CompositeTerm> termList;
         if (sum instanceof SumOfTerms) {
@@ -31,8 +31,8 @@ public class TestTermWithoutCoefficient {
 
     @Test
     public void testPlusOnTwoSimpleTermsWithDifferentExponents() {
-        var x = new TermWithoutCoefficient('x');
-        var xSquared = new TermWithoutCoefficient('x', 1, 2);
+        var x = new TermWithCoefficient('x');
+        var xSquared = new TermWithCoefficient('x', 1, 2);
         var sum = x.plus(xSquared);
 
         HashSet<CompositeTerm> termList;
@@ -47,16 +47,16 @@ public class TestTermWithoutCoefficient {
 
     @Test
     public void testPlusOnSumOfTerms() {
-        var x = new TermWithoutCoefficient('x');
+        var x = new TermWithCoefficient('x');
         var sumSet = new HashSet<CompositeTerm>();
-        sumSet.add(new TermWithoutCoefficient('y'));
-        sumSet.add(new TermWithoutCoefficient('x', 2, 2));
-        sumSet.add(new TermWithoutCoefficient('x', 3, 1));
+        sumSet.add(new TermWithCoefficient('y'));
+        sumSet.add(new TermWithCoefficient('x', 2, 2));
+        sumSet.add(new TermWithCoefficient('x', 3, 1));
         var sum = new SumOfTerms(sumSet);
         var expected_answer_set = new HashSet<CompositeTerm>();
-        expected_answer_set.add(new TermWithoutCoefficient('y'));
-        expected_answer_set.add(new TermWithoutCoefficient('x', 2, 2));
-        expected_answer_set.add(new TermWithoutCoefficient('x', 4, 1));
+        expected_answer_set.add(new TermWithCoefficient('y'));
+        expected_answer_set.add(new TermWithCoefficient('x', 2, 2));
+        expected_answer_set.add(new TermWithCoefficient('x', 4, 1));
 
         var answer = x.plus(sum);
         var also_answer = sum.plus(x);
@@ -67,28 +67,28 @@ public class TestTermWithoutCoefficient {
 
     @Test
     public void testEqualsReturnsTrueWhenAppropriate() {
-        var x = new TermWithoutCoefficient('x');
-        var also_x = new TermWithoutCoefficient('x', 1, 1);
+        var x = new TermWithCoefficient('x');
+        var also_x = new TermWithCoefficient('x', 1, 1);
         assertEquals(x, also_x);
     }
 
     @Test
     public void testEqualsReturnsFalseWhenGivenTermsWithDifferentSymbols() {
-        var x = new TermWithoutCoefficient('x');
-        var y = new TermWithoutCoefficient('y');
+        var x = new TermWithCoefficient('x');
+        var y = new TermWithCoefficient('y');
         assertNotEquals(x, y);
     }
 
     @Test
     public void testEqualsReturnsFalseWhenGivenTermsWithDifferentExponents() {
-        var x = new TermWithoutCoefficient('x');
-        var x_squared = new TermWithoutCoefficient('x', 1, 2);
+        var x = new TermWithCoefficient('x');
+        var x_squared = new TermWithCoefficient('x', 1, 2);
         assertNotEquals(x, x_squared);
     }
     @Test
     public void testEqualsReturnsFalseWhenGivenDifferentQuantities() {
-        var x = new TermWithoutCoefficient('x');
-        var two_x = new TermWithoutCoefficient('x', 2, 1);
+        var x = new TermWithCoefficient('x');
+        var two_x = new TermWithCoefficient('x', 2, 1);
         assertNotEquals(x, two_x);
     }
 }
