@@ -1,5 +1,5 @@
 import java.util.HashSet;
 
 public interface AlgebraicExpression {
-    AlgebraicExpression plus (AlgebraicExpression otherExpression);
+    //TODO: Put all the possible different plus methods here.
 }

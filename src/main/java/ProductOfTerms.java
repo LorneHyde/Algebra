@@ -2,7 +2,7 @@ import java.util.HashSet;
 import java.util.Objects;
 
 //TODO: Then, add some multiplication function in AlgebraicExpression
-public class ProductOfTerms implements Term, TermSet {
+public class ProductOfTerms implements Term {
     final private HashSet<SimpleTermWithoutExponent> termSet;
     final private int coefficient;
 

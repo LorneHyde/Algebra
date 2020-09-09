@@ -42,19 +42,6 @@ public interface Term extends AlgebraicExpression {
         return sumSoFar;
     }
 
-    default AlgebraicExpression plus(AlgebraicExpression otherExpression) {
-        AlgebraicExpression sum;
-        if (otherExpression instanceof SumOfTerms) {
-            sum = plus((SumOfTerms) otherExpression);
-        } else if (otherExpression instanceof Term) {
-            sum = ((Term) otherExpression).plus(this);
-        } else {
-            throw new IllegalArgumentException("An algebraic expression should only ever be either a Term" +
-                    "or a sum of terms.");
-        }
-        return sum;
-    }
-
     HashSet<SimpleTermWithoutExponent> getSet();
 
     default SimpleTermWithoutExponent findComparable(SimpleTermWithoutExponent x) {
@@ -68,5 +55,4 @@ public interface Term extends AlgebraicExpression {
         }
         return comparableTerm;
     }
-
 }

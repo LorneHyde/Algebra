@@ -1,7 +1,7 @@
 import java.util.Objects;
 import java.util.HashSet;
 
-public class SumOfTerms implements AlgebraicExpression, TermSet {
+public class SumOfTerms implements AlgebraicExpression {
     final private HashSet<Term> theSum;
 
     public SumOfTerms(HashSet<Term> theSum) {
@@ -68,19 +68,7 @@ public class SumOfTerms implements AlgebraicExpression, TermSet {
         return Objects.hash(theSum);
     }
 
-    @Override
-    public AlgebraicExpression plus(AlgebraicExpression otherExpression) {
-        AlgebraicExpression sum;
-        if (otherExpression instanceof SumOfTerms) {
-            sum = plus((SumOfTerms) otherExpression);
-        }
-        else if (otherExpression instanceof Term){
-            sum = ((Term) otherExpression).plus(this);
-        }
-        else {
-            throw new IllegalArgumentException("An algebraic expression should only ever be either a Term" +
-                    "or a sum of terms.");
-        }
-        return sum;
+    public SumOfTerms plus(Term otherTerm) {
+        return otherTerm.plus(this);
     }
 }
