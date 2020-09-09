@@ -13,7 +13,7 @@ public class TestProductOfTerms {
         var product1 = new ProductOfTerms(termSet);
         var product2 = new ProductOfTerms(termSet, 3);
         var sum = product1.plus(product2);
-        assertEquals(sum, new ProductOfTerms(termSet, 4));
+        assertEquals(new ProductOfTerms(termSet, 4), sum);
     }
 
     @Test

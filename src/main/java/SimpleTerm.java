@@ -42,9 +42,7 @@ public class SimpleTerm implements Term {
         return exponent;
     }
 
-    /**
-     * Adds this term to a comparable SimpleTerm.
-     */
+
     public SimpleTerm plusComparable(Term otherTerm) {
         if (!isComparable(otherTerm)) {
             throw new IllegalArgumentException("plusComparable was called on incomparable term.");
@@ -57,10 +55,7 @@ public class SimpleTerm implements Term {
         return otherTerm.symbol == symbol && otherTerm.exponent == exponent;
     }
 
-    /**
-     * Returns whether the other term is comparable to this term. Comparable terms can be added together by simply
-     * adding their coefficients, rather than making a SumOfTerms object.
-     */
+
     public boolean isComparable(Term otherTerm) {
         return otherTerm instanceof SimpleTerm && isComparable((SimpleTerm) otherTerm);
     }
