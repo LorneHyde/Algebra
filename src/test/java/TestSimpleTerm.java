@@ -12,7 +12,7 @@ public class TestSimpleTerm {
         var x = new SimpleTerm('x');
         var sum = x.plus(two_x);
         assertTrue(sum instanceof SimpleTerm);
-        assertEquals(((SimpleTerm) sum).getcoefficient(), 3);
+        assertEquals(((SimpleTerm) sum).getCoefficient(), 3);
     }
 
     @Test

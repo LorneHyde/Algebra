@@ -1,19 +1,29 @@
-import java.beans.Expression;
-import java.util.HashSet;
 import java.util.Objects;
 
-/** A class to represent an algebraic variable with a coefficient and exponent.*/
+/**
+ * A class to represent an algebraic variable with a coefficient and exponent.
+ */
 public class SimpleTerm implements Term {
     final private char symbol;
     final private int coefficient;
     final private int exponent;
 
+    /**
+     * @param symbol      A single unicode character to represent the variable in this term.
+     * @param coefficient The number multiplied by this variable.
+     * @param exponent    The power to which this variable is raised.
+     */
     public SimpleTerm(char symbol, int coefficient, int exponent) {
         this.symbol = symbol;
         this.coefficient = coefficient;
         this.exponent = exponent;
     }
 
+    /**
+     * The coefficient and exponent are assigned to 1 if not otherwise specified.
+     *
+     * @param symbol A single unicode character to represent the variable in this term.
+     */
     public SimpleTerm(char symbol) {
         this.symbol = symbol;
         this.coefficient = 1;
@@ -24,7 +34,7 @@ public class SimpleTerm implements Term {
         return symbol;
     }
 
-    public int getcoefficient() {
+    public int getCoefficient() {
         return coefficient;
     }
 
@@ -32,20 +42,25 @@ public class SimpleTerm implements Term {
         return exponent;
     }
 
+    /**
+     * Adds this term to a comparable SimpleTerm.
+     */
     public SimpleTerm plusComparable(Term otherTerm) {
-        if (!(otherTerm instanceof SimpleTerm)) {
-            throw new IllegalArgumentException("otherTerm must be an instance of SimpleTerm to be comparable.");
+        if (!isComparable(otherTerm)) {
+            throw new IllegalArgumentException("plusComparable was called on incomparable term.");
         }
         var theOtherTerm = (SimpleTerm) otherTerm;
         return new SimpleTerm(symbol, coefficient + theOtherTerm.coefficient, exponent);
     }
 
-
-
     private boolean isComparable(SimpleTerm otherTerm) {
         return otherTerm.symbol == symbol && otherTerm.exponent == exponent;
     }
 
+    /**
+     * Returns whether the other term is comparable to this term. Comparable terms can be added together by simply
+     * adding their coefficients, rather than making a SumOfTerms object.
+     */
     public boolean isComparable(Term otherTerm) {
         return otherTerm instanceof SimpleTerm && isComparable((SimpleTerm) otherTerm);
     }
