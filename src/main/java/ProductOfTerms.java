@@ -1,21 +1,20 @@
 import java.util.HashSet;
 import java.util.Objects;
 
-//TODO: Next up is to write tests for ProductOfTerms
 //TODO: Then, add comments everywhere
 //TODO: Then, add some multiplication function in AlgebraicExpression
 public class ProductOfTerms implements Term, TermSet {
     final private HashSet<Term> termSet;
-    final private int quantity;
+    final private int coefficient;
 
-    public ProductOfTerms(HashSet<Term> termSet, int quantity) {
+    public ProductOfTerms(HashSet<Term> termSet, int coefficient) {
         this.termSet = termSet;
-        this.quantity = quantity;
+        this.coefficient = coefficient;
     }
 
     public ProductOfTerms(HashSet<Term> termSet) {
         this.termSet = termSet;
-        this.quantity = 1;
+        this.coefficient = 1;
     }
 
     final int termCount() {
@@ -50,15 +49,15 @@ public class ProductOfTerms implements Term, TermSet {
             throw new IllegalArgumentException("otherTerm must be an instance of ProductOfTerms to be comparable.");
         }
         var theOtherTerm = (ProductOfTerms) otherTerm;
-        return new ProductOfTerms(termSet, quantity + theOtherTerm.quantity);
+        return new ProductOfTerms(termSet, coefficient + theOtherTerm.coefficient);
     }
 
     public HashSet<Term> getSet() {
         return termSet;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getcoefficient() {
+        return coefficient;
     }
 
     @Override
@@ -66,12 +65,12 @@ public class ProductOfTerms implements Term, TermSet {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductOfTerms that = (ProductOfTerms) o;
-        return quantity == that.quantity &&
+        return coefficient == that.coefficient &&
                 Objects.equals(termSet, that.termSet);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(termSet, quantity);
+        return Objects.hash(termSet, coefficient);
     }
 }

@@ -2,20 +2,21 @@ import java.beans.Expression;
 import java.util.HashSet;
 import java.util.Objects;
 
+/** A class to represent an algebraic variable with a coefficient and exponent.*/
 public class SimpleTerm implements Term {
     final private char symbol;
-    final private int quantity;
+    final private int coefficient;
     final private int exponent;
 
-    public SimpleTerm(char symbol, int quantity, int exponent) {
+    public SimpleTerm(char symbol, int coefficient, int exponent) {
         this.symbol = symbol;
-        this.quantity = quantity;
+        this.coefficient = coefficient;
         this.exponent = exponent;
     }
 
     public SimpleTerm(char symbol) {
         this.symbol = symbol;
-        this.quantity = 1;
+        this.coefficient = 1;
         this.exponent = 1;
     }
 
@@ -23,8 +24,8 @@ public class SimpleTerm implements Term {
         return symbol;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getcoefficient() {
+        return coefficient;
     }
 
     public int getExponent() {
@@ -36,7 +37,7 @@ public class SimpleTerm implements Term {
             throw new IllegalArgumentException("otherTerm must be an instance of SimpleTerm to be comparable.");
         }
         var theOtherTerm = (SimpleTerm) otherTerm;
-        return new SimpleTerm(symbol, quantity + theOtherTerm.quantity, exponent);
+        return new SimpleTerm(symbol, coefficient + theOtherTerm.coefficient, exponent);
     }
 
 
@@ -55,12 +56,12 @@ public class SimpleTerm implements Term {
         if (o == null || getClass() != o.getClass()) return false;
         SimpleTerm otherTerm = (SimpleTerm) o;
         return symbol == otherTerm.symbol &&
-                quantity == otherTerm.quantity &&
+                coefficient == otherTerm.coefficient &&
                 exponent == otherTerm.exponent;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(symbol, quantity, exponent);
+        return Objects.hash(symbol, coefficient, exponent);
     }
 }
