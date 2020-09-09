@@ -64,16 +64,15 @@ public class SimpleTerm implements Term {
         return 1;
     }
 
-    private boolean isComparable(SimpleTerm otherTerm) {
-        return otherTerm.symbol == symbol && otherTerm.exponent == exponent;
-    }
 
-    /**
-     * Returns whether the other term is comparable to this term. Comparable terms can be added together by simply
-     * adding their coefficients, rather than making a SumOfTerms object.
-     */
     public boolean isComparable(Term otherTerm) {
-        return otherTerm instanceof SimpleTerm && isComparable((SimpleTerm) otherTerm);
+        if (otherTerm.getSet().size() == 1) {
+            var unwrappedOtherTerm = otherTerm.getSet().iterator().next();
+            return unwrappedOtherTerm.getExponent() == exponent && unwrappedOtherTerm.getSymbol() == symbol;
+        }
+        else {
+            return false;
+        }
     }
 
     @Override

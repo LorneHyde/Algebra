@@ -1,7 +1,6 @@
 import java.util.HashSet;
 import java.util.Objects;
 
-//TODO: Then, add comments everywhere
 //TODO: Then, add some multiplication function in AlgebraicExpression
 public class ProductOfTerms implements Term, TermSet {
     final private HashSet<SimpleTermWithoutExponent> termSet;

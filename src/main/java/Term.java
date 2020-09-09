@@ -1,6 +1,10 @@
 import java.util.HashSet;
 
 public interface Term extends AlgebraicExpression {
+    /**
+     * Returns whether the other term is comparable to this term. Comparable terms can be added together by simply
+     * adding their coefficients, rather than making a SumOfTerms object.
+     */
     boolean isComparable(Term otherTerm);
 
     Term plusComparable(Term comparableTerm);
