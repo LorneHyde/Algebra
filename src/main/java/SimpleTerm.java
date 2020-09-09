@@ -8,7 +8,7 @@ public class SimpleTerm implements Term {
     final private char symbol;
     final private int coefficient;
     final private int exponent;
-    final private HashSet<Term> termInSet;
+    final private HashSet<SimpleTermWithoutExponent> termInSet;
 
     /**
      * @param symbol      A single unicode character to represent the variable in this term.
@@ -20,7 +20,7 @@ public class SimpleTerm implements Term {
         this.coefficient = coefficient;
         this.exponent = exponent;
         termInSet = new HashSet<>();
-        termInSet.add(this);
+        termInSet.add(new SimpleTermWithoutExponent(symbol, exponent));
     }
 
     /**
@@ -33,7 +33,7 @@ public class SimpleTerm implements Term {
         this.coefficient = 1;
         this.exponent = 1;
         termInSet = new HashSet<>();
-        termInSet.add(this);
+        termInSet.add(new SimpleTermWithoutExponent(symbol, exponent));
     }
 
     public char getSymbol() {
@@ -92,7 +92,7 @@ public class SimpleTerm implements Term {
     }
 
     @Override
-    public HashSet<Term> getSet() {
+    public HashSet<SimpleTermWithoutExponent> getSet() {
         return termInSet;
     }
 }

@@ -20,6 +20,18 @@ public class SumOfTerms implements AlgebraicExpression, TermSet {
         return otherTerm.plus(this);
     }
 
+    public Term findComparable(Term x) {
+        boolean found = false;
+        Term comparableTerm = null;
+        for (Term i : getSet()) {
+            if (!found && i.isComparable(x)) {
+                found = true;
+                comparableTerm = i;
+            }
+        }
+        return comparableTerm;
+    }
+
     public SumOfTerms plusIncomparable(Term otherTerm) {
         var newSet = new HashSet<>(getSet());
         newSet.add(otherTerm);

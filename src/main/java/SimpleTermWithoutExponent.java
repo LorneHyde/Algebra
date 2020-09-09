@@ -7,10 +7,9 @@ public class SimpleTermWithoutExponent {
 
     /**
      * @param symbol      A single unicode character to represent the variable in this term.
-     * @param coefficient The number multiplied by this variable.
      * @param exponent    The power to which this variable is raised.
      */
-    public SimpleTermWithoutExponent(char symbol, int coefficient, int exponent) {
+    public SimpleTermWithoutExponent(char symbol, int exponent) {
         this.symbol = symbol;
         this.exponent = exponent;
     }

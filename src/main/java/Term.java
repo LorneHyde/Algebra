@@ -51,5 +51,18 @@ public interface Term extends AlgebraicExpression {
         return sum;
     }
 
+    HashSet<SimpleTermWithoutExponent> getSet();
+
+    default SimpleTermWithoutExponent findComparable(SimpleTermWithoutExponent x) {
+        boolean found = false;
+        SimpleTermWithoutExponent comparableTerm = null;
+        for (SimpleTermWithoutExponent i : getSet()) {
+            if (!found && i.isComparable(x)) {
+                found = true;
+                comparableTerm = i;
+            }
+        }
+        return comparableTerm;
+    }
 
 }
