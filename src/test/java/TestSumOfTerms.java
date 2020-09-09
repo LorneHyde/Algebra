@@ -2,14 +2,14 @@ import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestSumOfTerms {
 
     @Test
     public void testPlusWhenGivenSumOfTerms() {
         var x = new SimpleTerm('x');
-        var two_x_squared = new SimpleTerm('x',2,2);
+        var two_x_squared = new SimpleTerm('x', 2, 2);
         var x_squared = new SimpleTerm('x', 1, 2);
         var y = new SimpleTerm('y');
         var three_x_squared = new SimpleTerm('x', 3, 2);

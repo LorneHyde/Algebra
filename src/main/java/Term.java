@@ -13,10 +13,9 @@ public interface Term extends AlgebraicExpression {
      */
     Term plusComparable(Term comparableTerm);
 
-    /**
-     * Adds this term to an incomparable Term, to create a new sum of terms.
-     */
-    private SumOfTerms plusIncomparable(Term otherTerm) {
+    int factorCount();
+
+    default SumOfTerms plusIncomparable(Term otherTerm) {
         var sum = new HashSet<Term>();
         sum.add(this);
         sum.add(otherTerm);
@@ -54,19 +53,17 @@ public interface Term extends AlgebraicExpression {
         return sumSoFar;
     }
 
-    /**
-     * Creates a new AlgebraicExpression obtained by adding this term to the given AlgebraicExpression parameter.
-     */
-    default AlgebraicExpression plus(AlgebraicExpression otherExpression) {
-        AlgebraicExpression sum;
-        if (otherExpression instanceof SumOfTerms) {
-            sum = plus((SumOfTerms) otherExpression);
-        } else if (otherExpression instanceof Term) {
-            sum = ((Term) otherExpression).plus(this);
-        } else {
-            throw new IllegalArgumentException("An algebraic expression should only ever be either a Term" +
-                    "or a sum of terms.");
+    HashSet<SimpleTermWithoutExponent> getSet();
+
+    default SimpleTermWithoutExponent findComparable(SimpleTermWithoutExponent x) {
+        boolean found = false;
+        SimpleTermWithoutExponent comparableTerm = null;
+        for (SimpleTermWithoutExponent i : getSet()) {
+            if (!found && i.isComparable(x)) {
+                found = true;
+                comparableTerm = i;
+            }
         }
-        return sum;
+        return comparableTerm;
     }
 }

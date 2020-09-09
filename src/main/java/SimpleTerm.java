@@ -1,3 +1,4 @@
+import java.util.HashSet;
 import java.util.Objects;
 
 /**
@@ -7,6 +8,7 @@ public class SimpleTerm implements Term {
     final private char symbol;
     final private int coefficient;
     final private int exponent;
+    final private HashSet<SimpleTermWithoutExponent> termInSet;
 
     /**
      * @param symbol      A single unicode character to represent the variable in this term.
@@ -17,6 +19,8 @@ public class SimpleTerm implements Term {
         this.symbol = symbol;
         this.coefficient = coefficient;
         this.exponent = exponent;
+        termInSet = new HashSet<>();
+        termInSet.add(new SimpleTermWithoutExponent(symbol, exponent));
     }
 
     /**
@@ -28,6 +32,8 @@ public class SimpleTerm implements Term {
         this.symbol = symbol;
         this.coefficient = 1;
         this.exponent = 1;
+        termInSet = new HashSet<>();
+        termInSet.add(new SimpleTermWithoutExponent(symbol, exponent));
     }
 
     public char getSymbol() {
@@ -51,13 +57,20 @@ public class SimpleTerm implements Term {
         return new SimpleTerm(symbol, coefficient + theOtherTerm.coefficient, exponent);
     }
 
-    private boolean isComparable(SimpleTerm otherTerm) {
-        return otherTerm.symbol == symbol && otherTerm.exponent == exponent;
+    @Override
+    final public int factorCount() {
+        return 1;
     }
 
 
     public boolean isComparable(Term otherTerm) {
-        return otherTerm instanceof SimpleTerm && isComparable((SimpleTerm) otherTerm);
+        if (otherTerm.getSet().size() == 1) {
+            var unwrappedOtherTerm = otherTerm.getSet().iterator().next();
+            return unwrappedOtherTerm.getExponent() == exponent && unwrappedOtherTerm.getSymbol() == symbol;
+        }
+        else {
+            return false;
+        }
     }
 
     @Override
@@ -73,5 +86,10 @@ public class SimpleTerm implements Term {
     @Override
     public int hashCode() {
         return Objects.hash(symbol, coefficient, exponent);
+    }
+
+    @Override
+    public HashSet<SimpleTermWithoutExponent> getSet() {
+        return termInSet;
     }
 }
