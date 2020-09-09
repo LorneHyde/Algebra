@@ -30,6 +30,10 @@ public class SimpleTerm {
         return exponent;
     }
 
+    /**
+     * Returns whether the other term is comparable to this term. Comparable terms can be added together by simply
+     * adding their coefficients, rather than making a SumOfTerms object.
+     */
     public boolean isComparable(SimpleTerm otherTerm) {
         return symbol == otherTerm.symbol && exponent == otherTerm.exponent;
     }
