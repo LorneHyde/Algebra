@@ -2,9 +2,9 @@ import java.util.Objects;
 import java.util.HashSet;
 
 public class SumOfTerms implements AlgebraicExpression {
-    final private HashSet<Term> theSum;
+    final private HashSet<CompositeTerm> theSum;
 
-    public SumOfTerms(HashSet<Term> theSum) {
+    public SumOfTerms(HashSet<CompositeTerm> theSum) {
         this.theSum = theSum;
     }
 
@@ -12,18 +12,18 @@ public class SumOfTerms implements AlgebraicExpression {
         this.theSum = new HashSet<>();
     }
 
-    public final HashSet<Term> getSet() {
+    public final HashSet<CompositeTerm> getSet() {
         return theSum;
     }
 
-    public SumOfTerms plus(SimpleTerm otherTerm) {
+    public SumOfTerms plus(TermWithoutCoefficient otherTerm) {
         return otherTerm.plus(this);
     }
 
-    public Term findComparable(Term x) {
+    public CompositeTerm findComparable(CompositeTerm x) {
         boolean found = false;
-        Term comparableTerm = null;
-        for (Term i : getSet()) {
+        CompositeTerm comparableTerm = null;
+        for (CompositeTerm i : getSet()) {
             if (!found && i.isComparable(x)) {
                 found = true;
                 comparableTerm = i;
@@ -32,16 +32,16 @@ public class SumOfTerms implements AlgebraicExpression {
         return comparableTerm;
     }
 
-    public SumOfTerms plusIncomparable(Term otherTerm) {
+    public SumOfTerms plusIncomparable(CompositeTerm otherTerm) {
         var newSet = new HashSet<>(getSet());
         newSet.add(otherTerm);
         return new SumOfTerms(newSet);
     }
 
     public SumOfTerms plus(SumOfTerms otherTerm) {
-        var sumSoFar = new HashSet<Term>();
+        var sumSoFar = new HashSet<CompositeTerm>();
         var unpairedTerms = otherTerm.getSet();
-        for (Term x : getSet()) {
+        for (CompositeTerm x : getSet()) {
             var comparableTerm = otherTerm.findComparable(x);
             if (comparableTerm == null) {
                 sumSoFar.add(x);
@@ -68,7 +68,7 @@ public class SumOfTerms implements AlgebraicExpression {
         return Objects.hash(theSum);
     }
 
-    public SumOfTerms plus(Term otherTerm) {
+    public SumOfTerms plus(CompositeTerm otherTerm) {
         return otherTerm.plus(this);
     }
 }

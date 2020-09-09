@@ -1,22 +1,22 @@
 import java.util.HashSet;
 
-public interface Term extends AlgebraicExpression {
+public interface CompositeTerm extends AlgebraicExpression {
     /**
      * Returns whether the other term is comparable to this term. Comparable terms can be added together by simply
      * adding their coefficients, rather than making a SumOfTerms object.
      */
-    boolean isComparable(Term otherTerm);
+    boolean isComparable(CompositeTerm otherTerm);
 
     /**
      * Adds this term to a comparable Term of the same class. Should only be called if we are certain that isComparable
      * would return true.
      */
-    Term plusComparable(Term comparableTerm);
+    CompositeTerm plusComparable(CompositeTerm comparableTerm);
 
     int factorCount();
 
-    default SumOfTerms plusIncomparable(Term otherTerm) {
-        var sum = new HashSet<Term>();
+    default SumOfTerms plusIncomparable(CompositeTerm otherTerm) {
+        var sum = new HashSet<CompositeTerm>();
         sum.add(this);
         sum.add(otherTerm);
         return new SumOfTerms(sum);
@@ -26,7 +26,7 @@ public interface Term extends AlgebraicExpression {
      * Adds this term to the parameter Term, only creating a SumOfTerms if the result cannot possibly be expressed
      * as a Term.
      */
-    default AlgebraicExpression plus(Term otherTerm) {
+    default AlgebraicExpression plus(CompositeTerm otherTerm) {
         if (isComparable(otherTerm)) {
             return plusComparable(otherTerm);
         } else {
@@ -40,7 +40,7 @@ public interface Term extends AlgebraicExpression {
     default SumOfTerms plus(SumOfTerms otherTerm) {
         var sumSoFar = new SumOfTerms();
         boolean hasOtherTermBeenAdded = false;
-        for (Term x : otherTerm.getSet()) {
+        for (CompositeTerm x : otherTerm.getSet()) {
             if (!hasOtherTermBeenAdded && isComparable(x)) { //Add 'otherTerm' to its comparable term
                 var mergedTerm = plusComparable(x);
                 sumSoFar = sumSoFar.plusIncomparable(mergedTerm);
@@ -53,12 +53,12 @@ public interface Term extends AlgebraicExpression {
         return sumSoFar;
     }
 
-    HashSet<SimpleTermWithoutExponent> getSet();
+    HashSet<SimpleTerm> getSet();
 
-    default SimpleTermWithoutExponent findComparable(SimpleTermWithoutExponent x) {
+    default SimpleTerm findComparable(SimpleTerm x) {
         boolean found = false;
-        SimpleTermWithoutExponent comparableTerm = null;
-        for (SimpleTermWithoutExponent i : getSet()) {
+        SimpleTerm comparableTerm = null;
+        for (SimpleTerm i : getSet()) {
             if (!found && i.isComparable(x)) {
                 found = true;
                 comparableTerm = i;

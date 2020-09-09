@@ -4,23 +4,23 @@ import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestSimpleTerm {
+public class TestTermWithoutCoefficient {
 
     @Test
     public void testPlusOnTwoSimpleTermsWithSameSymbol() {
-        var two_x = new SimpleTerm('x', 2, 1);
-        var x = new SimpleTerm('x');
+        var two_x = new TermWithoutCoefficient('x', 2, 1);
+        var x = new TermWithoutCoefficient('x');
         var sum = x.plus(two_x);
-        assertTrue(sum instanceof SimpleTerm);
-        assertEquals(((SimpleTerm) sum).getCoefficient(), 3);
+        assertTrue(sum instanceof TermWithoutCoefficient);
+        assertEquals(((TermWithoutCoefficient) sum).getCoefficient(), 3);
     }
 
     @Test
     public void testPlusOnTwoSimpleTermsWithDifferentSymbols() {
-        var x = new SimpleTerm('x');
-        var y = new SimpleTerm('y');
+        var x = new TermWithoutCoefficient('x');
+        var y = new TermWithoutCoefficient('y');
         var sum = x.plus(y);
-        HashSet<Term> termList;
+        HashSet<CompositeTerm> termList;
         if (sum instanceof SumOfTerms) {
             termList = ((SumOfTerms) sum).getSet();
         }
@@ -31,11 +31,11 @@ public class TestSimpleTerm {
 
     @Test
     public void testPlusOnTwoSimpleTermsWithDifferentExponents() {
-        var x = new SimpleTerm('x');
-        var xSquared = new SimpleTerm('x', 1, 2);
+        var x = new TermWithoutCoefficient('x');
+        var xSquared = new TermWithoutCoefficient('x', 1, 2);
         var sum = x.plus(xSquared);
 
-        HashSet<Term> termList;
+        HashSet<CompositeTerm> termList;
         if (sum instanceof SumOfTerms) {
             termList = ((SumOfTerms) sum).getSet();
         }
@@ -47,16 +47,16 @@ public class TestSimpleTerm {
 
     @Test
     public void testPlusOnSumOfTerms() {
-        var x = new SimpleTerm('x');
-        var sumSet = new HashSet<Term>();
-        sumSet.add(new SimpleTerm('y'));
-        sumSet.add(new SimpleTerm('x', 2, 2));
-        sumSet.add(new SimpleTerm('x', 3, 1));
+        var x = new TermWithoutCoefficient('x');
+        var sumSet = new HashSet<CompositeTerm>();
+        sumSet.add(new TermWithoutCoefficient('y'));
+        sumSet.add(new TermWithoutCoefficient('x', 2, 2));
+        sumSet.add(new TermWithoutCoefficient('x', 3, 1));
         var sum = new SumOfTerms(sumSet);
-        var expected_answer_set = new HashSet<Term>();
-        expected_answer_set.add(new SimpleTerm('y'));
-        expected_answer_set.add(new SimpleTerm('x', 2, 2));
-        expected_answer_set.add(new SimpleTerm('x', 4, 1));
+        var expected_answer_set = new HashSet<CompositeTerm>();
+        expected_answer_set.add(new TermWithoutCoefficient('y'));
+        expected_answer_set.add(new TermWithoutCoefficient('x', 2, 2));
+        expected_answer_set.add(new TermWithoutCoefficient('x', 4, 1));
 
         var answer = x.plus(sum);
         var also_answer = sum.plus(x);
@@ -67,28 +67,28 @@ public class TestSimpleTerm {
 
     @Test
     public void testEqualsReturnsTrueWhenAppropriate() {
-        var x = new SimpleTerm('x');
-        var also_x = new SimpleTerm('x', 1, 1);
+        var x = new TermWithoutCoefficient('x');
+        var also_x = new TermWithoutCoefficient('x', 1, 1);
         assertEquals(x, also_x);
     }
 
     @Test
     public void testEqualsReturnsFalseWhenGivenTermsWithDifferentSymbols() {
-        var x = new SimpleTerm('x');
-        var y = new SimpleTerm('y');
+        var x = new TermWithoutCoefficient('x');
+        var y = new TermWithoutCoefficient('y');
         assertNotEquals(x, y);
     }
 
     @Test
     public void testEqualsReturnsFalseWhenGivenTermsWithDifferentExponents() {
-        var x = new SimpleTerm('x');
-        var x_squared = new SimpleTerm('x', 1, 2);
+        var x = new TermWithoutCoefficient('x');
+        var x_squared = new TermWithoutCoefficient('x', 1, 2);
         assertNotEquals(x, x_squared);
     }
     @Test
     public void testEqualsReturnsFalseWhenGivenDifferentQuantities() {
-        var x = new SimpleTerm('x');
-        var two_x = new SimpleTerm('x', 2, 1);
+        var x = new TermWithoutCoefficient('x');
+        var two_x = new TermWithoutCoefficient('x', 2, 1);
         assertNotEquals(x, two_x);
     }
 }

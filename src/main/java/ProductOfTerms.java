@@ -2,31 +2,33 @@ import java.util.HashSet;
 import java.util.Objects;
 
 //TODO: Then, add some multiplication function in AlgebraicExpression
-public class ProductOfTerms implements Term {
-    final private HashSet<SimpleTermWithoutExponent> termSet;
+public class ProductOfTerms implements CompositeTerm {
+    final private HashSet<SimpleTerm> termSet;
     final private int coefficient;
 
-    public ProductOfTerms(HashSet<SimpleTermWithoutExponent> termSet, int coefficient) {
+    public ProductOfTerms(HashSet<SimpleTerm> termSet, int coefficient) {
         this.termSet = termSet;
         this.coefficient = coefficient;
     }
 
-    public ProductOfTerms(HashSet<SimpleTerm> termSet) {
-        var constituentSet = new HashSet<SimpleTermWithoutExponent>();
+    public ProductOfTerms(HashSet<TermWithoutCoefficient> termSet) {
+        var constituentSet = new HashSet<SimpleTerm>();
         var totalCoefficient = 1;
-        for (SimpleTerm i : termSet) {
-            constituentSet.add(new SimpleTermWithoutExponent(i.getSymbol(), i.getExponent()));
+        for (TermWithoutCoefficient i : termSet) {
+            constituentSet.add(new SimpleTerm(i.getSymbol(), i.getExponent()));
             totalCoefficient *= i.getCoefficient();
         }
         this.termSet = constituentSet;
         this.coefficient = totalCoefficient;
     }
 
+    /** Returns the number of factors in the set of terms*/
     public final int factorCount() {
         return termSet.size();
     }
 
-    public boolean isComparable(Term otherTerm) {
+    @Override
+    public boolean isComparable(CompositeTerm otherTerm) {
         if (factorCount() == otherTerm.factorCount()) {
             return isComparableToProduct(otherTerm);
         } else {
@@ -34,10 +36,10 @@ public class ProductOfTerms implements Term {
         }
     }
 
-    private boolean isComparableToProduct(Term otherTerm) {
+    private boolean isComparableToProduct(CompositeTerm otherTerm) {
         var foundIncomparableTerm = false;
         var unpairedTerms = new HashSet<>(otherTerm.getSet()); // This is a new set to prevent concurrent modification
-        for (SimpleTermWithoutExponent x : getSet()) {
+        for (SimpleTerm x : getSet()) {
             var comparableTerm = otherTerm.findComparable(x);
             if (comparableTerm == null) {
                 foundIncomparableTerm = true;
@@ -49,7 +51,7 @@ public class ProductOfTerms implements Term {
         return !foundIncomparableTerm && unpairedTerms.isEmpty();
     }
 
-    public ProductOfTerms plusComparable(Term otherTerm) {
+    public ProductOfTerms plusComparable(CompositeTerm otherTerm) {
         if (!isComparable(otherTerm)) {
             throw new IllegalArgumentException("plusComparable was called on incomparable term.");
         }
@@ -57,7 +59,7 @@ public class ProductOfTerms implements Term {
         return new ProductOfTerms(termSet, coefficient + theOtherTerm.coefficient);
     }
 
-    public HashSet<SimpleTermWithoutExponent> getSet() {
+    public HashSet<SimpleTerm> getSet() {
         return termSet;
     }
 

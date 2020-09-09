@@ -1,6 +1,4 @@
-import java.util.HashSet;
-
 public interface AlgebraicExpression {
-    AlgebraicExpression plus(Term s);
+    AlgebraicExpression plus(CompositeTerm s);
     AlgebraicExpression plus(SumOfTerms s);
 }
