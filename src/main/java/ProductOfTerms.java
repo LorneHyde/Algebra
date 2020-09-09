@@ -22,7 +22,9 @@ public class ProductOfTerms implements CompositeTerm {
         this.coefficient = totalCoefficient;
     }
 
-    /** Returns the number of factors in the set of terms*/
+    /**
+     * Returns the number of factors in the set of terms
+     */
     public final int factorCount() {
         return termSet.size();
     }
@@ -51,6 +53,7 @@ public class ProductOfTerms implements CompositeTerm {
         return !foundIncomparableTerm && unpairedTerms.isEmpty();
     }
 
+    @Override
     public ProductOfTerms plusComparable(CompositeTerm otherTerm) {
         if (!isComparable(otherTerm)) {
             throw new IllegalArgumentException("plusComparable was called on incomparable term.");
@@ -59,6 +62,7 @@ public class ProductOfTerms implements CompositeTerm {
         return new ProductOfTerms(termSet, coefficient + theOtherTerm.coefficient);
     }
 
+    @Override
     public HashSet<SimpleTerm> getSet() {
         return termSet;
     }
