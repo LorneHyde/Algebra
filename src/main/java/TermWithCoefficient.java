@@ -48,6 +48,23 @@ public class TermWithCoefficient implements CompositeTerm {
         return exponent;
     }
 
+    private boolean sameSymbol(TermWithCoefficient otherTerm) {
+        return symbol == otherTerm.symbol;
+    }
+
+    public CompositeTerm multiply(TermWithCoefficient otherTerm) {
+        if (sameSymbol(otherTerm)) {
+            var newCoefficient = coefficient * otherTerm.coefficient;
+            var newExponent = exponent + otherTerm.exponent;
+            return new TermWithCoefficient(symbol, newCoefficient, newExponent);
+        }
+        else {
+            var termSet = new HashSet<TermWithCoefficient>();
+            termSet.add(this);
+            termSet.add(otherTerm);
+            return new ProductOfTerms(termSet);
+        }
+    }
 
     @Override
     public TermWithCoefficient plusComparable(CompositeTerm otherTerm) {
@@ -91,5 +108,10 @@ public class TermWithCoefficient implements CompositeTerm {
     @Override
     public HashSet<SimpleTerm> getSet() {
         return termInSet;
+    }
+
+    @Override
+    public String toString() {
+        return coefficient + Character.toString(symbol) + "^" + exponent ;
     }
 }
