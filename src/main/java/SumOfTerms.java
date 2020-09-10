@@ -19,10 +19,6 @@ public class SumOfTerms implements AlgebraicExpression {
         return new HashSet<>(theSum);
     }
 
-    public SumOfTerms plus(TermWithCoefficient otherTerm) {
-        return otherTerm.plus(this);
-    }
-
     /** Returns a term in the sum that can be added to the given parameter to produce a CompositeTerm
      * (rather than a sum of terms), or returns null if no such term exists. */
     public CompositeTerm findComparable(CompositeTerm x) {

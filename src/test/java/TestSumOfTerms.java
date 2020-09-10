@@ -8,11 +8,11 @@ public class TestSumOfTerms {
 
     @Test
     public void testPlusWhenGivenSumOfTerms() {
-        var x = new TermWithCoefficient('x');
-        var two_x_squared = new TermWithCoefficient('x', 2, 2);
-        var x_squared = new TermWithCoefficient('x', 1, 2);
-        var y = new TermWithCoefficient('y');
-        var three_x_squared = new TermWithCoefficient('x', 3, 2);
+        var x = new CompositeTerm('x');
+        var two_x_squared = new CompositeTerm('x', 2, 2);
+        var x_squared = new CompositeTerm('x', 1, 2);
+        var y = new CompositeTerm('y');
+        var three_x_squared = new CompositeTerm('x', 3, 2);
 
         var termSet1 = new HashSet<CompositeTerm>();
         termSet1.add(x);
@@ -32,3 +32,4 @@ public class TestSumOfTerms {
         assertEquals(expectedSum, actualSum);
     }
 }
+

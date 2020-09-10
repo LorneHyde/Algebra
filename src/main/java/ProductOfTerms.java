@@ -1,3 +1,5 @@
+/* Important to keep this around for comparison purposes right now
+
 import java.util.HashSet;
 import java.util.Objects;
 
@@ -24,7 +26,7 @@ public class ProductOfTerms implements CompositeTerm {
 
     /**
      * Returns the number of factors in the set of terms
-     */
+
     public final int factorCount() {
         return termSet.size();
     }
@@ -86,3 +88,4 @@ public class ProductOfTerms implements CompositeTerm {
         return Objects.hash(termSet, coefficient);
     }
 }
+*/

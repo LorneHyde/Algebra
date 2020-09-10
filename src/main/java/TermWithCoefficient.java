@@ -1,9 +1,11 @@
+/** Important to keep this around for comparison purposes right now.
+
 import java.util.HashSet;
 import java.util.Objects;
 
 /**
  * A class to represent an algebraic variable with a coefficient and exponent.
- */
+
 public class TermWithCoefficient implements CompositeTerm {
     final private char symbol;
     final private int coefficient;
@@ -14,7 +16,7 @@ public class TermWithCoefficient implements CompositeTerm {
      * @param symbol      A single unicode character to represent the variable in this term.
      * @param coefficient The number multiplied by this variable.
      * @param exponent    The power to which this variable is raised.
-     */
+
     public TermWithCoefficient(char symbol, int coefficient, int exponent) {
         this.symbol = symbol;
         this.coefficient = coefficient;
@@ -27,7 +29,7 @@ public class TermWithCoefficient implements CompositeTerm {
      * The coefficient and exponent are assigned to 1 if not otherwise specified.
      *
      * @param symbol A single unicode character to represent the variable in this term.
-     */
+
     public TermWithCoefficient(char symbol) {
         this.symbol = symbol;
         this.coefficient = 1;
@@ -106,3 +108,4 @@ public class TermWithCoefficient implements CompositeTerm {
         return coefficient + Character.toString(symbol) + "^" + exponent;
     }
 }
+*/

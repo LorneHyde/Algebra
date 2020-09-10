@@ -1,23 +1,42 @@
 import java.util.HashSet;
+import java.util.Objects;
 
-public interface CompositeTerm extends AlgebraicExpression {
+public class CompositeTerm implements AlgebraicExpression{
+
+    final private int coefficient;
+    final private HashSet<SimpleTerm> termSet;
+
     /**
-     * Returns whether the other term is comparable to this term. Comparable terms can be added together by simply
-     * adding their coefficients, rather than making a SumOfTerms object.
+     * @param symbol      A single unicode character to represent the variable in this term.
+     * @param coefficient The number multiplied by this variable.
+     * @param exponent    The power to which this variable is raised.
      */
-    boolean isComparable(CompositeTerm otherTerm);
+    public CompositeTerm(char symbol, int coefficient, int exponent) {
+        this.coefficient = coefficient;
+        termSet = new HashSet<>();
+        termSet.add(new SimpleTerm(symbol, exponent));
+    }
+
 
     /**
-     * Adds this term to a comparable Term of the same class. Should only be called if we are certain that isComparable
-     * would return true.
+     * The coefficient and exponent are assigned to 1 if not otherwise specified.
+     *
+     * @param symbol A single unicode character to represent the variable in this term.
      */
-    CompositeTerm plusComparable(CompositeTerm comparableTerm);
+    public CompositeTerm(char symbol) {
+        this(symbol, 1, 1);
+    }
 
-    int factorCount();
+    public CompositeTerm(SimpleTerm termInside, int coefficient) {
+        this(termInside.getSymbol(), coefficient, termInside.getExponent());
+    }
 
-    int getCoefficient();
+    public CompositeTerm(HashSet<SimpleTerm> termSet) {
+        this(termSet, 1);
+    }
 
-    default SumOfTerms plusIncomparable(CompositeTerm otherTerm) {
+
+    public SumOfTerms plusIncomparable(CompositeTerm otherTerm) {
         var sum = new HashSet<CompositeTerm>();
         sum.add(this);
         sum.add(otherTerm);
@@ -28,7 +47,7 @@ public interface CompositeTerm extends AlgebraicExpression {
      * Adds this term to the parameter Term, only creating a SumOfTerms if the result cannot possibly be expressed
      * as a Term.
      */
-    default AlgebraicExpression plus(CompositeTerm otherTerm) {
+    public AlgebraicExpression plus(CompositeTerm otherTerm) {
         if (isComparable(otherTerm)) {
             return plusComparable(otherTerm);
         } else {
@@ -39,7 +58,7 @@ public interface CompositeTerm extends AlgebraicExpression {
     /**
      * Creates a new SumOfTerms object obtained by adding this term to the given SumOfTerms parameter.
      */
-    default SumOfTerms plus(SumOfTerms otherTerm) {
+    public SumOfTerms plus(SumOfTerms otherTerm) {
         var sumSoFar = new SumOfTerms();
         boolean hasOtherTermBeenAdded = false;
         for (CompositeTerm x : otherTerm.getSet()) {
@@ -55,22 +74,11 @@ public interface CompositeTerm extends AlgebraicExpression {
         return sumSoFar;
     }
 
-    HashSet<SimpleTerm> getSet();
-
-    default CompositeTerm newCompositeTerm(HashSet<SimpleTerm> set, int coefficient) {
-        if (set.size() == 1) {
-            return new TermWithCoefficient(set.iterator().next(), coefficient);
-        }
-        else {
-            return new ProductOfTerms(set, coefficient);
-        }
-    }
-
     /**
-     * Returns a term in the product that can be added to the given parameter to produce a CompositeTerm
+     * Returns a term in the product that can be added to the given parameter to produce a Term
      * (rather than a sum of terms), or returns null if no such term exists.
      */
-    default SimpleTerm findComparable(SimpleTerm x) {
+    SimpleTerm findComparable(SimpleTerm x) {
         boolean found = false;
         SimpleTerm comparableTerm = null;
         for (SimpleTerm i : getSet()) {
@@ -82,26 +90,24 @@ public interface CompositeTerm extends AlgebraicExpression {
         return comparableTerm;
     }
 
-
-    default CompositeTerm multiply(CompositeTerm otherTerm) {
+    CompositeTerm multiply(CompositeTerm otherTerm) {
         var newTermSet = new HashSet<SimpleTerm>();
         var unusedTerms = otherTerm.getSet();
-        for(SimpleTerm t1 : getSet()) {
+        for (SimpleTerm t1 : getSet()) {
             var t2 = findTermWithSameSymbol(unusedTerms, t1);
             if (t2 == null) {
                 newTermSet.add(t1);
-            }
-            else {
+            } else {
                 newTermSet.add(t1.multiplyWithSameSymbol(t2));
                 unusedTerms.remove(t2);
             }
         }
         newTermSet.addAll(unusedTerms);
-        var newcoefficient = getCoefficient() * otherTerm.getCoefficient();
-        return newCompositeTerm(newTermSet, newcoefficient);
+        var newCoefficient = getCoefficient() * otherTerm.getCoefficient();
+        return new CompositeTerm(newTermSet, newCoefficient);
     }
 
-    default SimpleTerm findTermWithSameSymbol(HashSet<SimpleTerm> termSet, SimpleTerm t) {
+    SimpleTerm findTermWithSameSymbol(HashSet<SimpleTerm> termSet, SimpleTerm t) {
         boolean found = false;
         SimpleTerm termWithSameSymbol = null;
         for (SimpleTerm i : termSet) {
@@ -113,4 +119,67 @@ public interface CompositeTerm extends AlgebraicExpression {
         return termWithSameSymbol;
     }
 
+    public CompositeTerm(HashSet<SimpleTerm> termSet, int coefficient) {
+        this.termSet = termSet;
+        this.coefficient = coefficient;
+    }
+
+    /**
+     * Returns the number of factors in the set of terms
+     */
+    public final int factorCount() {
+        return termSet.size();
+    }
+
+    public boolean isComparable(CompositeTerm otherTerm) {
+        if (factorCount() == otherTerm.factorCount()) {
+            return isComparableToProduct(otherTerm);
+        } else {
+            return false;
+        }
+    }
+
+    private boolean isComparableToProduct(CompositeTerm otherTerm) {
+        var foundIncomparableTerm = false;
+        var unpairedTerms = otherTerm.getSet(); // This is a new set to prevent concurrent modification
+        for (SimpleTerm x : getSet()) {
+            var comparableTerm = otherTerm.findComparable(x);
+            if (comparableTerm == null) {
+                foundIncomparableTerm = true;
+                break;
+            } else {
+                unpairedTerms.remove(comparableTerm);
+            }
+        }
+        return !foundIncomparableTerm && unpairedTerms.isEmpty();
+    }
+
+    public CompositeTerm plusComparable(CompositeTerm otherTerm) {
+        if (!isComparable(otherTerm)) {
+            throw new IllegalArgumentException("plusComparable was called on incomparable term.");
+        }
+        return new CompositeTerm(termSet, coefficient + otherTerm.coefficient);
+    }
+
+    public HashSet<SimpleTerm> getSet() {
+        return new HashSet<>(termSet);
+    }
+
+    public int getCoefficient() {
+        return coefficient;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CompositeTerm that = (CompositeTerm) o;
+        return coefficient == that.coefficient &&
+                Objects.equals(termSet, that.termSet);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(termSet, coefficient);
+    }
 }
