@@ -38,6 +38,17 @@ public class SimpleTerm {
         return symbol == otherTerm.symbol && exponent == otherTerm.exponent;
     }
 
+    /** When supplied with a SimpleTerm with the same symbol, returns the product of this term and the argument term.
+     * @throws IllegalArgumentException if the symbol is not the same. */
+    public SimpleTerm multiplyWithSameSymbol(SimpleTerm otherTerm) {
+        if (symbol == otherTerm.getSymbol()) {
+            return new SimpleTerm(symbol, exponent + otherTerm.exponent);
+        }
+        else {
+            throw new IllegalArgumentException(symbol + " is not the same symbol as " + otherTerm.getSymbol());
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
