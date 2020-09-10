@@ -57,6 +57,15 @@ public interface CompositeTerm extends AlgebraicExpression {
 
     HashSet<SimpleTerm> getSet();
 
+    default CompositeTerm newCompositeTerm(HashSet<SimpleTerm> set, int coefficient) {
+        if (set.size() == 1) {
+            return new TermWithCoefficient(set.iterator().next(), coefficient);
+        }
+        else {
+            return new ProductOfTerms(set, coefficient);
+        }
+    }
+
     /**
      * Returns a term in the product that can be added to the given parameter to produce a CompositeTerm
      * (rather than a sum of terms), or returns null if no such term exists.
@@ -73,13 +82,35 @@ public interface CompositeTerm extends AlgebraicExpression {
         return comparableTerm;
     }
 
-    /*
+
     default CompositeTerm multiply(CompositeTerm otherTerm) {
-        var termSet = new HashSet<SimpleTerm>();
-        var term
-        if (termSet.size() == 1) {
-            return new TermWithCoefficient(termSet);
+        var newTermSet = new HashSet<SimpleTerm>();
+        var unusedTerms = otherTerm.getSet();
+        for(SimpleTerm t1 : getSet()) {
+            var t2 = findTermWithSameSymbol(unusedTerms, t1);
+            if (t2 == null) {
+                newTermSet.add(t1);
+            }
+            else {
+                newTermSet.add(t1.multiplyWithSameSymbol(t2));
+                unusedTerms.remove(t2);
+            }
         }
+        newTermSet.addAll(unusedTerms);
+        var newcoefficient = getCoefficient() * otherTerm.getCoefficient();
+        return newCompositeTerm(newTermSet, newcoefficient);
     }
-     */
+
+    default SimpleTerm findTermWithSameSymbol(HashSet<SimpleTerm> termSet, SimpleTerm t) {
+        boolean found = false;
+        SimpleTerm termWithSameSymbol = null;
+        for (SimpleTerm i : termSet) {
+            if (!found && i.getSymbol() == t.getSymbol()) {
+                found = true;
+                termWithSameSymbol = i;
+            }
+        }
+        return termWithSameSymbol;
+    }
+
 }

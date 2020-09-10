@@ -64,4 +64,9 @@ public class SimpleTerm {
     public int hashCode() {
         return Objects.hash(symbol, exponent);
     }
+
+    @Override
+    public String toString() {
+        return symbol + "^" + exponent;
+    }
 }
