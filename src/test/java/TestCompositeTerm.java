@@ -48,4 +48,28 @@ public class TestCompositeTerm {
         assertEquals(expectedResult, actualResult);
         assertEquals(expectedResult, alsoActualResult);
     }
+
+    @Test
+    public void TestMultiplyWhenGivenTwoProductsOfTerms() {
+        var termSet1 = new HashSet<SimpleTerm>();
+        termSet1.add(new SimpleTerm('w'));
+        termSet1.add(new SimpleTerm('x', 2));
+        termSet1.add(new SimpleTerm('y', 3));
+        var termSet2 = new HashSet<SimpleTerm>();
+        termSet2.add(new SimpleTerm('x'));
+        termSet2.add(new SimpleTerm('y', 8));
+        termSet2.add(new SimpleTerm('z'));
+        var expectedTermSet = new HashSet<SimpleTerm>();
+        expectedTermSet.add(new SimpleTerm('w'));
+        expectedTermSet.add(new SimpleTerm('x', 3));
+        expectedTermSet.add(new SimpleTerm('y', 11));
+        expectedTermSet.add(new SimpleTerm('z'));
+        var product1 = new ProductOfTerms(termSet1, 2);
+        var product2 = new ProductOfTerms(termSet2, 3);
+        var expectedProduct = new ProductOfTerms(expectedTermSet, 6);
+        var actualResult = product1.multiply(product2);
+        var alsoActualResult = product2.multiply(product1);
+        assertEquals(expectedProduct, actualResult);
+        assertEquals(expectedProduct, alsoActualResult);
+    }
 }
