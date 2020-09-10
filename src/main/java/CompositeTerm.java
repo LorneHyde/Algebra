@@ -15,6 +15,8 @@ public interface CompositeTerm extends AlgebraicExpression {
 
     int factorCount();
 
+    int getCoefficient();
+
     default SumOfTerms plusIncomparable(CompositeTerm otherTerm) {
         var sum = new HashSet<CompositeTerm>();
         sum.add(this);
@@ -55,8 +57,10 @@ public interface CompositeTerm extends AlgebraicExpression {
 
     HashSet<SimpleTerm> getSet();
 
-    /** Returns a term in the product that can be added to the given parameter to produce a CompositeTerm
-     * (rather than a sum of terms), or returns null if no such term exists. */
+    /**
+     * Returns a term in the product that can be added to the given parameter to produce a CompositeTerm
+     * (rather than a sum of terms), or returns null if no such term exists.
+     */
     default SimpleTerm findComparable(SimpleTerm x) {
         boolean found = false;
         SimpleTerm comparableTerm = null;

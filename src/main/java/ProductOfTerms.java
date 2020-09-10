@@ -67,6 +67,7 @@ public class ProductOfTerms implements CompositeTerm {
         return termSet;
     }
 
+    @Override
     public int getCoefficient() {
         return coefficient;
     }

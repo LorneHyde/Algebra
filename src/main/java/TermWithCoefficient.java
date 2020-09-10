@@ -40,6 +40,7 @@ public class TermWithCoefficient implements CompositeTerm {
         return symbol;
     }
 
+    @Override
     public int getCoefficient() {
         return coefficient;
     }
@@ -57,8 +58,7 @@ public class TermWithCoefficient implements CompositeTerm {
             var newCoefficient = coefficient * otherTerm.coefficient;
             var newExponent = exponent + otherTerm.exponent;
             return new TermWithCoefficient(symbol, newCoefficient, newExponent);
-        }
-        else {
+        } else {
             var termSet = new HashSet<TermWithCoefficient>();
             termSet.add(this);
             termSet.add(otherTerm);
@@ -112,6 +112,6 @@ public class TermWithCoefficient implements CompositeTerm {
 
     @Override
     public String toString() {
-        return coefficient + Character.toString(symbol) + "^" + exponent ;
+        return coefficient + Character.toString(symbol) + "^" + exponent;
     }
 }
