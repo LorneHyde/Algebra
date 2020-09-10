@@ -39,6 +39,33 @@ public class CompositeTerm implements AlgebraicExpression {
     }
 
     /**
+     * Returns whether the given term parameter can be added to this to create a CompositeTerm (rather
+     * than a SumOfTerms)
+     */
+    public boolean isComparable(CompositeTerm otherTerm) {
+        if (factorCount() == otherTerm.factorCount()) {
+            return isComparableToProduct(otherTerm);
+        } else {
+            return false;
+        }
+    }
+
+    private boolean isComparableToProduct(CompositeTerm otherTerm) {
+        var foundIncomparableTerm = false;
+        var unpairedTerms = otherTerm.getSet(); // This is a new set to prevent concurrent modification
+        for (SimpleTerm x : getSet()) {
+            var comparableTerm = otherTerm.findComparable(x);
+            if (comparableTerm == null) {
+                foundIncomparableTerm = true;
+                break;
+            } else {
+                unpairedTerms.remove(comparableTerm);
+            }
+        }
+        return !foundIncomparableTerm && unpairedTerms.isEmpty();
+    }
+
+    /**
      * Adds together this CompositeTerm with the given parameter, without attempting to find a comparable
      * term. This produces a new SumOfTerms object containing both.
      *
@@ -52,6 +79,20 @@ public class CompositeTerm implements AlgebraicExpression {
         sum.add(this);
         sum.add(otherTerm);
         return new SumOfTerms(sum);
+    }
+
+    /**
+     * Returns the sum of this and the given parameter term, given that the parameter is comparable to this.
+     *
+     * @throws IllegalArgumentException if the given parameter term is not actually comparable to this.
+     *                                  Note that comparable terms can be added together to produce a CompositeTerm rather than a
+     *                                  SumOfTerms.
+     */
+    public CompositeTerm plusComparable(CompositeTerm otherTerm) {
+        if (!isComparable(otherTerm)) {
+            throw new IllegalArgumentException("plusComparable was called on incomparable term.");
+        }
+        return new CompositeTerm(termSet, coefficient + otherTerm.coefficient);
     }
 
     /**
@@ -133,55 +174,19 @@ public class CompositeTerm implements AlgebraicExpression {
         return termWithSameSymbol;
     }
 
-    /**
-     * Returns the number of factors in the set of terms
-     */
-    private int factorCount() {
-        return termSet.size();
-    }
-
-    /** Returns whether the given term parameter can be added to this to create a CompositeTerm (rather
-     * than a SumOfTerms)*/
-    public boolean isComparable(CompositeTerm otherTerm) {
-        if (factorCount() == otherTerm.factorCount()) {
-            return isComparableToProduct(otherTerm);
-        } else {
-            return false;
-        }
-    }
-
-    private boolean isComparableToProduct(CompositeTerm otherTerm) {
-        var foundIncomparableTerm = false;
-        var unpairedTerms = otherTerm.getSet(); // This is a new set to prevent concurrent modification
-        for (SimpleTerm x : getSet()) {
-            var comparableTerm = otherTerm.findComparable(x);
-            if (comparableTerm == null) {
-                foundIncomparableTerm = true;
-                break;
-            } else {
-                unpairedTerms.remove(comparableTerm);
-            }
-        }
-        return !foundIncomparableTerm && unpairedTerms.isEmpty();
-    }
-
-    /** Returns the sum of this and the given parameter term, given that the parameter is comparable to this.
-     * @throws IllegalArgumentException if the given parameter term is not actually comparable to this.
-     * Note that comparable terms can be added together to produce a CompositeTerm rather than a
-     * SumOfTerms.*/
-    public CompositeTerm plusComparable(CompositeTerm otherTerm) {
-        if (!isComparable(otherTerm)) {
-            throw new IllegalArgumentException("plusComparable was called on incomparable term.");
-        }
-        return new CompositeTerm(termSet, coefficient + otherTerm.coefficient);
-    }
-
     private HashSet<SimpleTerm> getSet() {
         return new HashSet<>(termSet);
     }
 
     public int getCoefficient() {
         return coefficient;
+    }
+
+    /**
+     * Returns the number of factors in the set of terms
+     */
+    private int factorCount() {
+        return termSet.size();
     }
 
     @Override
