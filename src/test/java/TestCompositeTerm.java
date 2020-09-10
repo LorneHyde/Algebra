@@ -129,9 +129,7 @@ public class TestCompositeTerm {
     }
 }
 
-//TODO: Then, put the functions in TestTerm into an appropriate order
-//TODO: Then, add appropriate comments
-//TODO: Then, fix AlgebraicExpression interface
+//TODO: Then, put the functions in CompositeTerm into an appropriate order
 //TODO: Then add some method for multiplying a Term with a SumOfTerms, with appropriate test
 //TODO: Work on bringing in GUI
 //TODO: Any sort of fraction or division can then come in later if and only if I have time

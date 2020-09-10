@@ -1,7 +1,7 @@
 import java.util.HashSet;
 import java.util.Objects;
 
-public class CompositeTerm implements AlgebraicExpression{
+public class CompositeTerm implements AlgebraicExpression {
 
     final private int coefficient;
     final private HashSet<SimpleTerm> termSet;
@@ -27,16 +27,27 @@ public class CompositeTerm implements AlgebraicExpression{
         this(symbol, 1, 1);
     }
 
-    public CompositeTerm(SimpleTerm termInside, int coefficient) {
-        this(termInside.getSymbol(), coefficient, termInside.getExponent());
-    }
 
     public CompositeTerm(HashSet<SimpleTerm> termSet) {
         this(termSet, 1);
     }
 
 
-    public SumOfTerms plusIncomparable(CompositeTerm otherTerm) {
+    public CompositeTerm(HashSet<SimpleTerm> termSet, int coefficient) {
+        this.termSet = termSet;
+        this.coefficient = coefficient;
+    }
+
+    /**
+     * Adds together this CompositeTerm with the given parameter, without attempting to find a comparable
+     * term. This produces a new SumOfTerms object containing both.
+     *
+     * @throws IllegalArgumentException if the parameter is comparable to this.
+     */
+    private SumOfTerms plusIncomparable(CompositeTerm otherTerm) {
+        if (isComparable(otherTerm)) {
+            throw new IllegalArgumentException(otherTerm + " is comparable to " + this);
+        }
         var sum = new HashSet<CompositeTerm>();
         sum.add(this);
         sum.add(otherTerm);
@@ -90,6 +101,9 @@ public class CompositeTerm implements AlgebraicExpression{
         return comparableTerm;
     }
 
+    /**
+     * Returns the result of multiplying this by the given parameter term.
+     */
     CompositeTerm multiply(CompositeTerm otherTerm) {
         var newTermSet = new HashSet<SimpleTerm>();
         var unusedTerms = otherTerm.getSet();
@@ -107,7 +121,7 @@ public class CompositeTerm implements AlgebraicExpression{
         return new CompositeTerm(newTermSet, newCoefficient);
     }
 
-    SimpleTerm findTermWithSameSymbol(HashSet<SimpleTerm> termSet, SimpleTerm t) {
+    private SimpleTerm findTermWithSameSymbol(HashSet<SimpleTerm> termSet, SimpleTerm t) {
         boolean found = false;
         SimpleTerm termWithSameSymbol = null;
         for (SimpleTerm i : termSet) {
@@ -119,18 +133,15 @@ public class CompositeTerm implements AlgebraicExpression{
         return termWithSameSymbol;
     }
 
-    public CompositeTerm(HashSet<SimpleTerm> termSet, int coefficient) {
-        this.termSet = termSet;
-        this.coefficient = coefficient;
-    }
-
     /**
      * Returns the number of factors in the set of terms
      */
-    public final int factorCount() {
+    private int factorCount() {
         return termSet.size();
     }
 
+    /** Returns whether the given term parameter can be added to this to create a CompositeTerm (rather
+     * than a SumOfTerms)*/
     public boolean isComparable(CompositeTerm otherTerm) {
         if (factorCount() == otherTerm.factorCount()) {
             return isComparableToProduct(otherTerm);
@@ -154,6 +165,10 @@ public class CompositeTerm implements AlgebraicExpression{
         return !foundIncomparableTerm && unpairedTerms.isEmpty();
     }
 
+    /** Returns the sum of this and the given parameter term, given that the parameter is comparable to this.
+     * @throws IllegalArgumentException if the given parameter term is not actually comparable to this.
+     * Note that comparable terms can be added together to produce a CompositeTerm rather than a
+     * SumOfTerms.*/
     public CompositeTerm plusComparable(CompositeTerm otherTerm) {
         if (!isComparable(otherTerm)) {
             throw new IllegalArgumentException("plusComparable was called on incomparable term.");
@@ -161,7 +176,7 @@ public class CompositeTerm implements AlgebraicExpression{
         return new CompositeTerm(termSet, coefficient + otherTerm.coefficient);
     }
 
-    public HashSet<SimpleTerm> getSet() {
+    private HashSet<SimpleTerm> getSet() {
         return new HashSet<>(termSet);
     }
 

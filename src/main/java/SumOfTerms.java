@@ -33,7 +33,6 @@ public class SumOfTerms implements AlgebraicExpression {
         return comparableTerm;
     }
 
-    @Override
     public SumOfTerms plusIncomparable(CompositeTerm otherTerm) {
         var newSet = getSet();
         newSet.add(otherTerm);
