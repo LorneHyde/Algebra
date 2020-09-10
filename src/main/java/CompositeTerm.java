@@ -55,6 +55,8 @@ public interface CompositeTerm extends AlgebraicExpression {
 
     HashSet<SimpleTerm> getSet();
 
+    /** Returns a term in the product that can be added to the given parameter to produce a CompositeTerm
+     * (rather than a sum of terms), or returns null if no such term exists. */
     default SimpleTerm findComparable(SimpleTerm x) {
         boolean found = false;
         SimpleTerm comparableTerm = null;

@@ -49,6 +49,7 @@ public class TermWithCoefficient implements CompositeTerm {
     }
 
 
+    @Override
     public TermWithCoefficient plusComparable(CompositeTerm otherTerm) {
         if (!isComparable(otherTerm)) {
             throw new IllegalArgumentException("plusComparable was called on incomparable term.");
@@ -62,13 +63,12 @@ public class TermWithCoefficient implements CompositeTerm {
         return 1;
     }
 
-
+    @Override
     public boolean isComparable(CompositeTerm otherTerm) {
         if (otherTerm.getSet().size() == 1) {
             var unwrappedOtherTerm = otherTerm.getSet().iterator().next();
             return unwrappedOtherTerm.getExponent() == exponent && unwrappedOtherTerm.getSymbol() == symbol;
-        }
-        else {
+        } else {
             return false;
         }
     }

@@ -4,14 +4,17 @@ import java.util.HashSet;
 public class SumOfTerms implements AlgebraicExpression {
     final private HashSet<CompositeTerm> theSum;
 
+    /** @param theSum is a set of all terms in the sum.*/
     public SumOfTerms(HashSet<CompositeTerm> theSum) {
         this.theSum = theSum;
     }
 
+    /** Creates an empty sum of terms. */
     public SumOfTerms() {
         this.theSum = new HashSet<>();
     }
 
+    /** Returns a set of all terms in the sum. */
     public final HashSet<CompositeTerm> getSet() {
         return theSum;
     }
@@ -20,6 +23,8 @@ public class SumOfTerms implements AlgebraicExpression {
         return otherTerm.plus(this);
     }
 
+    /** Returns a term in the sum that can be added to the given parameter to produce a CompositeTerm
+     * (rather than a sum of terms), or returns null if no such term exists. */
     public CompositeTerm findComparable(CompositeTerm x) {
         boolean found = false;
         CompositeTerm comparableTerm = null;
@@ -32,6 +37,7 @@ public class SumOfTerms implements AlgebraicExpression {
         return comparableTerm;
     }
 
+    @Override
     public SumOfTerms plusIncomparable(CompositeTerm otherTerm) {
         var newSet = new HashSet<>(getSet());
         newSet.add(otherTerm);
