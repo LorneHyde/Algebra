@@ -40,7 +40,7 @@ public class ProductOfTerms implements CompositeTerm {
 
     private boolean isComparableToProduct(CompositeTerm otherTerm) {
         var foundIncomparableTerm = false;
-        var unpairedTerms = new HashSet<>(otherTerm.getSet()); // This is a new set to prevent concurrent modification
+        var unpairedTerms = otherTerm.getSet(); // This is a new set to prevent concurrent modification
         for (SimpleTerm x : getSet()) {
             var comparableTerm = otherTerm.findComparable(x);
             if (comparableTerm == null) {
@@ -64,7 +64,7 @@ public class ProductOfTerms implements CompositeTerm {
 
     @Override
     public HashSet<SimpleTerm> getSet() {
-        return termSet;
+        return new HashSet<>(termSet);
     }
 
     @Override

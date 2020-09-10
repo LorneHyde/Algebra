@@ -72,4 +72,14 @@ public interface CompositeTerm extends AlgebraicExpression {
         }
         return comparableTerm;
     }
+
+    /*
+    default CompositeTerm multiply(CompositeTerm otherTerm) {
+        var termSet = new HashSet<SimpleTerm>();
+        var term
+        if (termSet.size() == 1) {
+            return new TermWithCoefficient(termSet);
+        }
+    }
+     */
 }

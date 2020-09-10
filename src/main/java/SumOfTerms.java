@@ -16,7 +16,7 @@ public class SumOfTerms implements AlgebraicExpression {
 
     /** Returns a set of all terms in the sum. */
     public final HashSet<CompositeTerm> getSet() {
-        return theSum;
+        return new HashSet<>(theSum);
     }
 
     public SumOfTerms plus(TermWithCoefficient otherTerm) {
@@ -39,7 +39,7 @@ public class SumOfTerms implements AlgebraicExpression {
 
     @Override
     public SumOfTerms plusIncomparable(CompositeTerm otherTerm) {
-        var newSet = new HashSet<>(getSet());
+        var newSet = getSet();
         newSet.add(otherTerm);
         return new SumOfTerms(newSet);
     }

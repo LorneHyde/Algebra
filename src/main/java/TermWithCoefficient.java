@@ -107,7 +107,7 @@ public class TermWithCoefficient implements CompositeTerm {
 
     @Override
     public HashSet<SimpleTerm> getSet() {
-        return termInSet;
+        return new HashSet<>(termInSet);
     }
 
     @Override
