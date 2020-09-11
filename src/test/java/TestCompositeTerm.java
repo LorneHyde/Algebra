@@ -44,7 +44,7 @@ public class TestCompositeTerm {
     }
 
     @Test
-    public void testPlusOnSingleVariableTermWithSumOfTerms() {
+    public void testPlusOnSingleVariableTermWithComparableSumOfTerms() {
         var x = new CompositeTerm('x');
         var sumSet = new HashSet<CompositeTerm>();
         sumSet.add(new CompositeTerm('y'));
@@ -61,6 +61,27 @@ public class TestCompositeTerm {
 
         assertEquals(answer, also_answer);
         assertEquals(answer, new SumOfTerms(expected_answer_set));
+    }
+
+    @Test
+    public void testPlusOnSingleVariableTermWithIncomparableSumOfTerms() {
+        var x = new CompositeTerm('z');
+        var sumSet = new HashSet<CompositeTerm>();
+        sumSet.add(new CompositeTerm('y'));
+        sumSet.add(new CompositeTerm('x', 2, 2));
+        sumSet.add(new CompositeTerm('x', 3, 1));
+        var sum = new SumOfTerms(sumSet);
+        var expected_answer_set = new HashSet<CompositeTerm>();
+        expected_answer_set.add(new CompositeTerm('y'));
+        expected_answer_set.add(new CompositeTerm('x', 2, 2));
+        expected_answer_set.add(new CompositeTerm('x', 3, 1));
+        expected_answer_set.add(new CompositeTerm('z'));
+
+        var answer = x.plus(sum);
+        var also_answer = sum.plus(x);
+
+        assertEquals(new SumOfTerms(expected_answer_set), answer);
+        assertEquals(new SumOfTerms(expected_answer_set), also_answer);
     }
 
     @Test

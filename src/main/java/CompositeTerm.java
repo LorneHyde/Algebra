@@ -118,16 +118,19 @@ public class CompositeTerm implements AlgebraicExpression {
      */
     public SumOfTerms plus(SumOfTerms otherTerm) {
         var sumSoFar = new SumOfTerms();
-        boolean hasOtherTermBeenAdded = false;
+        boolean hasThisTermBeenAdded = false;
         for (CompositeTerm x : otherTerm.getSumSet()) {
-            if (!hasOtherTermBeenAdded && isComparable(x)) { //Add 'otherTerm' to its comparable term
+            if (!hasThisTermBeenAdded && isComparable(x)) { //Add this to its comparable term
                 var mergedTerm = plusComparable(x);
                 sumSoFar = sumSoFar.plusIncomparable(mergedTerm);
-                hasOtherTermBeenAdded = true; // If 'otherTerm' has already been added, we need not add it again
+                hasThisTermBeenAdded = true; // If 'otherTerm' has already been added, we need not add it again
             } else {
                 // Keep x unchanged in the new sum
                 sumSoFar = sumSoFar.plusIncomparable(x);
             }
+        }
+        if (!hasThisTermBeenAdded) {
+            sumSoFar = sumSoFar.plusIncomparable(this); //TODO: Put an if/else into plus method in SumOfTerms to remove plusIncomparable
         }
         return sumSoFar;
     }
@@ -220,5 +223,12 @@ public class CompositeTerm implements AlgebraicExpression {
     @Override
     public int hashCode() {
         return Objects.hash(termSet, coefficient);
+    }
+
+    @Override
+    public String toString() {
+        String stringSoFar = String.valueOf(coefficient);
+        stringSoFar += getSet().toString();
+        return stringSoFar;
     }
 }
