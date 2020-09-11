@@ -33,11 +33,7 @@ public class SumOfTerms implements AlgebraicExpression {
         return comparableTerm;
     }
 
-    public SumOfTerms plusIncomparable(CompositeTerm otherTerm) {
-        var newSet = getSumSet();
-        newSet.add(otherTerm);
-        return new SumOfTerms(newSet);
-    }
+
 
     public SumOfTerms multiply(CompositeTerm t) {
         var newTermSet = new HashSet<CompositeTerm>();

@@ -113,6 +113,12 @@ public class CompositeTerm implements AlgebraicExpression {
         }
     }
 
+    private SumOfTerms plusIncomparableSum(SumOfTerms s) {
+        var newSet = s.getSumSet();
+        newSet.add(this);
+        return new SumOfTerms(newSet);
+    }
+
     /**
      * Creates a new SumOfTerms object obtained by adding this term to the given SumOfTerms parameter.
      */
@@ -122,15 +128,15 @@ public class CompositeTerm implements AlgebraicExpression {
         for (CompositeTerm x : otherTerm.getSumSet()) {
             if (!hasThisTermBeenAdded && isComparable(x)) { //Add this to its comparable term
                 var mergedTerm = plusComparable(x);
-                sumSoFar = sumSoFar.plusIncomparable(mergedTerm);
+                sumSoFar = mergedTerm.plusIncomparableSum(sumSoFar);
                 hasThisTermBeenAdded = true; // If 'otherTerm' has already been added, we need not add it again
             } else {
                 // Keep x unchanged in the new sum
-                sumSoFar = sumSoFar.plusIncomparable(x);
+                sumSoFar = x.plusIncomparableSum(sumSoFar);
             }
         }
         if (!hasThisTermBeenAdded) {
-            sumSoFar = sumSoFar.plusIncomparable(this); //TODO: Put an if/else into plus method in SumOfTerms to remove plusIncomparable
+            sumSoFar = plusIncomparableSum(sumSoFar); 
         }
         return sumSoFar;
     }
