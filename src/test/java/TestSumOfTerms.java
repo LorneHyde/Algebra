@@ -43,9 +43,25 @@ public class TestSumOfTerms {
                 (new CompositeTerm('x', 2, 4)).plus
                 (x_cubed.multiply(xy)));
         var actualProduct = sumToMultiplyBy.multiply(x_cubed);
-        var also_actual_product = x_cubed.multiply(sumToMultiplyBy);
+        var AlsoActualProduct = x_cubed.multiply(sumToMultiplyBy);
         assertEquals(expectedProduct, actualProduct);
-        assertEquals(expectedProduct, also_actual_product);
+        assertEquals(expectedProduct, AlsoActualProduct);
+    }
+
+    @Test
+    public void testMultiplyAndSimplifyWhenGivenSumOfTerms() {
+        var x = new CompositeTerm('x');
+        var y = new CompositeTerm('y');
+        var two_xy = x.multiply(new CompositeTerm('y', 2, 1));
+        var x_squared = x.multiply(x);
+        var y_squared = y.multiply(y);
+        var x_plus_y_set = new HashSet<CompositeTerm>();
+        x_plus_y_set.add(x);
+        x_plus_y_set.add(y);
+        var x_plus_y = new SumOfTerms(x_plus_y_set);
+        var expectedResult = x_squared.plus(y_squared).plus(two_xy);
+        var actualResult = x_plus_y.multiplyAndSimplify(x_plus_y);
+        assertEquals(expectedResult, actualResult);
     }
 }
 

@@ -48,11 +48,23 @@ public class SumOfTerms implements AlgebraicExpression {
     }
 
     public SumOfTerms multiplyWithoutSimplifying(SumOfTerms sum2) {
-        return null;
+        var newTermSet = new HashSet<CompositeTerm>();
+        for (CompositeTerm i : getSumSet()) {
+            for (CompositeTerm j : sum2.getSumSet()) {
+                newTermSet.add(i.multiply(j));
+            }
+        }
+        return new SumOfTerms(newTermSet);
     }
 
     public SumOfTerms multiplyAndSimplify(SumOfTerms sum2) {
-        return null;
+        var sumSoFar = new SumOfTerms(new HashSet<>());
+        for (CompositeTerm i : getSumSet()) {
+            for (CompositeTerm j : sum2.getSumSet()) {
+                sumSoFar = sumSoFar.plus(i.multiply(j));
+            }
+        }
+        return sumSoFar;
     }
 
     public SumOfTerms simplify() {
@@ -88,6 +100,11 @@ public class SumOfTerms implements AlgebraicExpression {
     @Override
     public int hashCode() {
         return Objects.hash(theSum);
+    }
+
+    @Override
+    public String toString() {
+        return theSum.toString();
     }
 
     public SumOfTerms plus(CompositeTerm otherTerm) {
