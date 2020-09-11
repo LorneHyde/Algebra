@@ -150,6 +150,7 @@ public class TestCompositeTerm {
     }
 }
 
-//TODO: Then add some method for multiplying a Term with a SumOfTerms, with appropriate test
+//TODO: Enum stuff
+//TODO: Write simplify method for SumOfTerms
 //TODO: Work on bringing in GUI
 //TODO: Any sort of fraction or division can then come in later if and only if I have time
