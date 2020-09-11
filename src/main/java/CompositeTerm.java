@@ -50,6 +50,12 @@ public class CompositeTerm implements AlgebraicExpression {
         }
     }
 
+    public HashSet<CompositeTerm> getSumSet() {
+        var set = new HashSet<CompositeTerm>();
+        set.add(this);
+        return set;
+    }
+
     private boolean isComparableToProduct(CompositeTerm otherTerm) {
         var foundIncomparableTerm = false;
         var unpairedTerms = otherTerm.getSet(); // This is a new set to prevent concurrent modification
@@ -113,7 +119,7 @@ public class CompositeTerm implements AlgebraicExpression {
     public SumOfTerms plus(SumOfTerms otherTerm) {
         var sumSoFar = new SumOfTerms();
         boolean hasOtherTermBeenAdded = false;
-        for (CompositeTerm x : otherTerm.getSet()) {
+        for (CompositeTerm x : otherTerm.getSumSet()) {
             if (!hasOtherTermBeenAdded && isComparable(x)) { //Add 'otherTerm' to its comparable term
                 var mergedTerm = plusComparable(x);
                 sumSoFar = sumSoFar.plusIncomparable(mergedTerm);
@@ -145,7 +151,7 @@ public class CompositeTerm implements AlgebraicExpression {
     /**
      * Returns the result of multiplying this by the given parameter term.
      */
-    CompositeTerm multiply(CompositeTerm otherTerm) {
+    public CompositeTerm multiply(CompositeTerm otherTerm) {
         var newTermSet = new HashSet<SimpleTerm>();
         var unusedTerms = otherTerm.getSet();
         for (SimpleTerm t1 : getSet()) {
@@ -160,6 +166,19 @@ public class CompositeTerm implements AlgebraicExpression {
         newTermSet.addAll(unusedTerms);
         var newCoefficient = getCoefficient() * otherTerm.getCoefficient();
         return new CompositeTerm(newTermSet, newCoefficient);
+    }
+
+    public SumOfTerms multiply(SumOfTerms s) {
+        return s.multiply(this);
+    }
+
+    public AlgebraicExpression multiply(AlgebraicExpression e) {
+        if (e.isSum()) {
+            return multiply((SumOfTerms) e);
+        }
+        else {
+            return multiply(e.giveATerm());
+        }
     }
 
     private SimpleTerm findTermWithSameSymbol(HashSet<SimpleTerm> termSet, SimpleTerm t) {

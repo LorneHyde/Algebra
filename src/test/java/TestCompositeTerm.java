@@ -22,7 +22,7 @@ public class TestCompositeTerm {
         var sum = x.plus(y);
         HashSet<CompositeTerm> termList;
         if (sum instanceof SumOfTerms) {
-            termList = ((SumOfTerms) sum).getSet();
+            termList = ((SumOfTerms) sum).getSumSet();
         } else termList = null;
         assertTrue(sum instanceof SumOfTerms);
         assertTrue((termList.contains(x) && termList.contains(y) && termList.size() == 2));
@@ -36,7 +36,7 @@ public class TestCompositeTerm {
 
         HashSet<CompositeTerm> termList;
         if (sum instanceof SumOfTerms) {
-            termList = ((SumOfTerms) sum).getSet();
+            termList = ((SumOfTerms) sum).getSumSet();
         } else termList = null;
 
         assertTrue(sum instanceof SumOfTerms);

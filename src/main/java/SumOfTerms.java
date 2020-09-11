@@ -15,7 +15,7 @@ public class SumOfTerms implements AlgebraicExpression {
     }
 
     /** Returns a set of all terms in the sum. */
-    public final HashSet<CompositeTerm> getSet() {
+    public final HashSet<CompositeTerm> getSumSet() {
         return new HashSet<>(theSum);
     }
 
@@ -24,7 +24,7 @@ public class SumOfTerms implements AlgebraicExpression {
     public CompositeTerm findComparable(CompositeTerm x) {
         boolean found = false;
         CompositeTerm comparableTerm = null;
-        for (CompositeTerm i : getSet()) {
+        for (CompositeTerm i : getSumSet()) {
             if (!found && i.isComparable(x)) {
                 found = true;
                 comparableTerm = i;
@@ -34,16 +34,36 @@ public class SumOfTerms implements AlgebraicExpression {
     }
 
     public SumOfTerms plusIncomparable(CompositeTerm otherTerm) {
-        var newSet = getSet();
+        var newSet = getSumSet();
         newSet.add(otherTerm);
         return new SumOfTerms(newSet);
+    }
+
+    public SumOfTerms multiply(CompositeTerm t) {
+        var newTermSet = new HashSet<CompositeTerm>();
+        for (CompositeTerm i : getSumSet()) {
+            newTermSet.add(i.multiply(t));
+        }
+        return new SumOfTerms(newTermSet);
+    }
+
+    public SumOfTerms multiplyWithoutSimplifying(SumOfTerms sum2) {
+        return null;
+    }
+
+    public SumOfTerms multiplyAndSimplify(SumOfTerms sum2) {
+        return null;
+    }
+
+    public SumOfTerms simplify() {
+        return null;
     }
 
     @Override
     public SumOfTerms plus(SumOfTerms otherTerm) {
         var sumSoFar = new HashSet<CompositeTerm>();
-        var unpairedTerms = otherTerm.getSet();
-        for (CompositeTerm x : getSet()) {
+        var unpairedTerms = otherTerm.getSumSet();
+        for (CompositeTerm x : getSumSet()) {
             var comparableTerm = otherTerm.findComparable(x);
             if (comparableTerm == null) {
                 sumSoFar.add(x);
