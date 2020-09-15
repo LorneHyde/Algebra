@@ -299,7 +299,13 @@ public class CompositeTerm implements AlgebraicExpression {
     @Override
     public String toString() {
         String stringSoFar = String.valueOf(coefficient);
-        stringSoFar += getSet().toString();
-        return stringSoFar;
+        if (isNumber()) {
+            return stringSoFar;
+        }
+        else {
+            stringSoFar += getSet().toString();
+            return stringSoFar;
+        }
+
     }
 }
