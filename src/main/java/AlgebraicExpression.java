@@ -6,6 +6,9 @@ public interface AlgebraicExpression {
     AlgebraicExpression plus(SumOfTerms s);
     AlgebraicExpression multiply(CompositeTerm t);
     AlgebraicExpression multiply(SumOfTerms s);
+    AlgebraicExpression asNegative();
+    AlgebraicExpression subtract(CompositeTerm t);
+    AlgebraicExpression subtract(SumOfTerms s);
     HashSet<CompositeTerm> getSumSet();
     default boolean isSum() {
         return getSumSet().size() > 1;

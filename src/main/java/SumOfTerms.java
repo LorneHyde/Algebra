@@ -64,6 +64,15 @@ public class SumOfTerms implements AlgebraicExpression {
         return sumSoFar;
     }
 
+    @Override
+    public SumOfTerms asNegative() {
+        var newSumSet = getSumSet();
+        for (CompositeTerm i : getSumSet()) {
+            newSumSet.add(i.asNegative());
+        }
+        return new SumOfTerms(newSumSet);
+    }
+
     public SumOfTerms simplify() { //TODO: Write a test for this
         var newSum = new SumOfTerms(new HashSet<>());
         for (CompositeTerm i : getSumSet()) {
@@ -88,6 +97,14 @@ public class SumOfTerms implements AlgebraicExpression {
         }
         sumSoFar.addAll(unpairedTerms);
         return new SumOfTerms(sumSoFar);
+    }
+
+    public AlgebraicExpression subtract(CompositeTerm t) {
+        return plus(t.asNegative());
+    }
+
+    public AlgebraicExpression subtract(SumOfTerms s) {
+        return plus(s.asNegative());
     }
 
     @Override
