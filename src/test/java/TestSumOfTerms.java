@@ -49,7 +49,7 @@ public class TestSumOfTerms {
     }
 
     @Test
-    public void testMultiplyAndSimplifyWhenGivenSumOfTerms() {
+    public void testMultiplyWhenGivenSumOfTerms() {
         var x = new CompositeTerm('x');
         var y = new CompositeTerm('y');
         var two_xy = x.multiply(new CompositeTerm('y', 2, 1));

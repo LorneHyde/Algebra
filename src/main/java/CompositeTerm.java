@@ -28,14 +28,47 @@ public class CompositeTerm implements AlgebraicExpression {
     }
 
 
+    /**
+     * The coefficient is assigned to 1 if not otherwise specified.
+     *
+     * @param termSet A hashset of constituent SimpleTerm objects which are multiplied together
+     *                to create this CompositeTerm.
+     */
     public CompositeTerm(HashSet<SimpleTerm> termSet) {
         this(termSet, 1);
     }
 
-
+    /**
+     * @param termSet A hashset of constituent SimpleTerm objects which are multiplied together
+     *                to create this CompositeTerm.
+     */
     public CompositeTerm(HashSet<SimpleTerm> termSet, int coefficient) {
         this.termSet = termSet;
         this.coefficient = coefficient;
+    }
+
+    /**
+     * Creates a new CompositeTerm to represent an integer.
+     *
+     * @param i The integer that this CompositeTerm will represent.
+     */
+    public CompositeTerm(int i) {
+        this('x', i, 0);
+    }
+
+
+    /**
+     * Returns whether this is simply a number (rather than a term with variables)
+     */
+    public boolean isNumber() {
+        var foundNonZeroExponent = false;
+        for (SimpleTerm i : termSet) {
+            if (i.getExponent() != 0) {
+                foundNonZeroExponent = true;
+                break;
+            }
+        }
+        return !foundNonZeroExponent;
     }
 
     /**
@@ -108,6 +141,8 @@ public class CompositeTerm implements AlgebraicExpression {
     public AlgebraicExpression plus(CompositeTerm otherTerm) {
         if (isComparable(otherTerm)) {
             return plusComparable(otherTerm);
+        } else if (isNumber() && otherTerm.isNumber()) {
+            return new CompositeTerm(coefficient + otherTerm.coefficient);
         } else {
             return plusIncomparable(otherTerm);
         }
@@ -123,22 +158,49 @@ public class CompositeTerm implements AlgebraicExpression {
      * Creates a new SumOfTerms object obtained by adding this term to the given SumOfTerms parameter.
      */
     public SumOfTerms plus(SumOfTerms otherTerm) {
-        var sumSoFar = new SumOfTerms();
-        boolean hasThisTermBeenAdded = false;
-        for (CompositeTerm x : otherTerm.getSumSet()) {
-            if (!hasThisTermBeenAdded && isComparable(x)) { //Add this to its comparable term
-                var mergedTerm = plusComparable(x);
-                sumSoFar = mergedTerm.plusIncomparableSum(sumSoFar);
-                hasThisTermBeenAdded = true; // If 'otherTerm' has already been added, we need not add it again
-            } else {
-                // Keep x unchanged in the new sum
-                sumSoFar = x.plusIncomparableSum(sumSoFar);
+        if (isNumber()) {
+            return numberPlus(otherTerm);
+        } else {
+            var sumSoFar = new SumOfTerms();
+            boolean hasThisTermBeenAdded = false;
+            for (CompositeTerm x : otherTerm.getSumSet()) {
+                if (!hasThisTermBeenAdded && isComparable(x)) { //Add this to its comparable term
+                    var mergedTerm = plusComparable(x);
+                    sumSoFar = mergedTerm.plusIncomparableSum(sumSoFar);
+                    hasThisTermBeenAdded = true; // If 'otherTerm' has already been added, we need not add it again
+                } else {
+                    // Keep x unchanged in the new sum
+                    sumSoFar = x.plusIncomparableSum(sumSoFar);
+                }
             }
+            if (!hasThisTermBeenAdded) {
+                sumSoFar = plusIncomparableSum(sumSoFar);
+            }
+            return sumSoFar;
         }
-        if (!hasThisTermBeenAdded) {
-            sumSoFar = plusIncomparableSum(sumSoFar); 
+    }
+
+    private SumOfTerms numberPlus(SumOfTerms otherTerm) {
+        if (isNumber()) {
+            var sumSoFar = new SumOfTerms();
+            boolean hasThisTermBeenAdded = false;
+            for (CompositeTerm x : otherTerm.getSumSet()) {
+                if (!hasThisTermBeenAdded && x.isNumber()) { //Add this to its comparable term
+                    var mergedTerm = new CompositeTerm(coefficient + x.coefficient);
+                    sumSoFar = mergedTerm.plusIncomparableSum(sumSoFar);
+                    hasThisTermBeenAdded = true; // If 'otherTerm' has already been added, we need not add it again
+                } else {
+                    // Keep x unchanged in the new sum
+                    sumSoFar = x.plusIncomparableSum(sumSoFar);
+                }
+            }
+            if (!hasThisTermBeenAdded) {
+                sumSoFar = plusIncomparableSum(sumSoFar);
+            }
+            return sumSoFar;
+        } else {
+            throw new IllegalArgumentException(this + " is a term, not a number.");
         }
-        return sumSoFar;
     }
 
     /**
@@ -184,8 +246,7 @@ public class CompositeTerm implements AlgebraicExpression {
     public AlgebraicExpression multiply(AlgebraicExpression e) {
         if (e.isSum()) {
             return multiply((SumOfTerms) e);
-        }
-        else {
+        } else {
             return multiply(e.giveATerm());
         }
     }
@@ -222,8 +283,12 @@ public class CompositeTerm implements AlgebraicExpression {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CompositeTerm that = (CompositeTerm) o;
-        return coefficient == that.coefficient &&
-                Objects.equals(termSet, that.termSet);
+        if (isNumber() && that.isNumber()) {
+            return this.coefficient == that.coefficient;
+        } else {
+            return coefficient == that.coefficient &&
+                    Objects.equals(termSet, that.termSet);
+        }
     }
 
     @Override

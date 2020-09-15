@@ -129,6 +129,29 @@ public class TestCompositeTerm {
     }
 
     @Test
+    public void testPlusWhenGivenNumberAndSingleVariableTerm() {
+        var x_cubed = new CompositeTerm('x', 3, 3);
+        var three = new CompositeTerm(3);
+        var expectedTermSet = new HashSet<CompositeTerm>();
+        expectedTermSet.add(x_cubed);
+        expectedTermSet.add(three);
+        var expectedResult = new SumOfTerms(expectedTermSet);
+        var result = x_cubed.plus(three);
+        var also_result = three.plus(x_cubed);
+        assertEquals(expectedResult, result);
+        assertEquals(expectedResult, also_result);
+    }
+
+    @Test
+    public void testPlusWhenGivenTwoNumbers() {
+        var three = new CompositeTerm(3);
+        var one = new CompositeTerm(1);
+        var four = new CompositeTerm(4);
+        assertEquals(four, three.plus(one));
+        assertEquals(four, one.plus(three));
+    }
+
+    @Test
     public void testEqualsReturnsFalseWhenGivenSingleVariableTermsWithDifferentSymbols() {
         var x = new CompositeTerm('x');
         var y = new CompositeTerm('y');
@@ -147,5 +170,44 @@ public class TestCompositeTerm {
         var x = new CompositeTerm('x');
         var two_x = new CompositeTerm('x', 2, 1);
         assertNotEquals(x, two_x);
+    }
+
+    @Test
+    public void testPlusOnNumberWithComparableSumOfTerms() {
+        var two = new CompositeTerm(2);
+        var sumSet = new HashSet<CompositeTerm>();
+        sumSet.add(new CompositeTerm(3));
+        sumSet.add(new CompositeTerm('x'));
+        var sum = new SumOfTerms(sumSet);
+        var expected_answer_set = new HashSet<CompositeTerm>();
+        expected_answer_set.add(new CompositeTerm('x'));
+        expected_answer_set.add(new CompositeTerm(5));
+
+        var answer = two.plus(sum);
+        var also_answer = sum.plus(two);
+
+        assertEquals(answer, also_answer);
+        assertEquals(answer, new SumOfTerms(expected_answer_set));
+    }
+
+    @Test
+    public void testPlusOnNumberWithIncomparableSumOfTerms() {
+        var two = new CompositeTerm(2);
+        var sumSet = new HashSet<CompositeTerm>();
+        sumSet.add(new CompositeTerm('y'));
+        sumSet.add(new CompositeTerm('x', 2, 2));
+        sumSet.add(new CompositeTerm('x', 3, 1));
+        var sum = new SumOfTerms(sumSet);
+        var expected_answer_set = new HashSet<CompositeTerm>();
+        expected_answer_set.add(new CompositeTerm('y'));
+        expected_answer_set.add(new CompositeTerm('x', 2, 2));
+        expected_answer_set.add(new CompositeTerm('x', 3, 1));
+        expected_answer_set.add(two);
+
+        var answer = two.plus(sum);
+        var also_answer = sum.plus(two);
+
+        assertEquals(new SumOfTerms(expected_answer_set), answer);
+        assertEquals(new SumOfTerms(expected_answer_set), also_answer);
     }
 }
