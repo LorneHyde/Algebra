@@ -35,7 +35,7 @@ public class SumOfTerms implements AlgebraicExpression {
 
 
 
-    public SumOfTerms multiply(CompositeTerm t) { //TODO: put this in interface
+    public SumOfTerms multiply(CompositeTerm t) {
         var newTermSet = new HashSet<CompositeTerm>();
         for (CompositeTerm i : getSumSet()) {
             newTermSet.add(i.multiply(t));

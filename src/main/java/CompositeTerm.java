@@ -227,14 +227,18 @@ public class CompositeTerm implements AlgebraicExpression {
         var unusedTerms = otherTerm.getSet();
         for (SimpleTerm t1 : getSet()) {
             var t2 = findTermWithSameSymbol(unusedTerms, t1);
-            if (t2 == null) {
+            if (!isNumber() && t2 == null) {
                 newTermSet.add(t1);
             } else {
                 newTermSet.add(t1.multiplyWithSameSymbol(t2));
                 unusedTerms.remove(t2);
             }
         }
-        newTermSet.addAll(unusedTerms);
+        for (SimpleTerm i : unusedTerms) {
+            if (i.notSimpleNumber()) {
+                newTermSet.add(i);
+            }
+        }
         var newCoefficient = getCoefficient() * otherTerm.getCoefficient();
         return new CompositeTerm(newTermSet, newCoefficient);
     }
@@ -275,7 +279,13 @@ public class CompositeTerm implements AlgebraicExpression {
      * Returns the number of factors in the set of terms
      */
     private int factorCount() {
-        return termSet.size();
+        var count = 0;
+        for (SimpleTerm i : termSet) {
+            if (i.notSimpleNumber()) {
+                count += 1;
+            }
+        }
+        return count;
     }
 
     @Override
@@ -301,8 +311,7 @@ public class CompositeTerm implements AlgebraicExpression {
         String stringSoFar = String.valueOf(coefficient);
         if (isNumber()) {
             return stringSoFar;
-        }
-        else {
+        } else {
             stringSoFar += getSet().toString();
             return stringSoFar;
         }

@@ -31,6 +31,17 @@ public class TestMultiplyForCompositeTerm {
     }
 
     @Test
+    public void testMultiplyReturnsCorrectNumberWhenGivenTwoSingleVariableTermsWithSameSymbolOppositeExponents() {
+        var xSquared = new CompositeTerm('x', 1, 2);
+        var three_xToThePowerOfMinus2 = new CompositeTerm('x', 3, -2);
+        var three = new CompositeTerm(3);
+        var shouldBeThree = xSquared.multiply(three_xToThePowerOfMinus2);
+        var alsoShouldBeThree = three_xToThePowerOfMinus2.multiply(xSquared);
+        assertEquals(three, shouldBeThree);
+        assertEquals(three, alsoShouldBeThree);
+    }
+
+    @Test
     public void TestMultiplyReturnsCorrectAnswerWhenGivenSingleVariableTermAndMultiVariableTerm() {
         var term1 = new CompositeTerm('x', 2, 3);
         var term2set = new HashSet<SimpleTerm>();
@@ -71,5 +82,27 @@ public class TestMultiplyForCompositeTerm {
         var alsoActualResult = product2.multiply(product1);
         assertEquals(expectedProduct, actualResult);
         assertEquals(expectedProduct, alsoActualResult);
+    }
+
+    @Test
+    public void testMultiplyWhenGivenNumber() {
+        var x = new CompositeTerm('x');
+        var two = new CompositeTerm(2);
+        var expectedResult = new CompositeTerm('x', 2, 1);
+        var product = x.multiply(two);
+        var alsoProduct = two.multiply(x);
+        assertEquals(expectedResult, product);
+        assertEquals(expectedResult, alsoProduct);
+    }
+
+    @Test
+    public void testMultiplyOnTwoNumbers() {
+        var three = new CompositeTerm(3);
+        var five = new CompositeTerm(5);
+        var fifteen = new CompositeTerm(15);
+        var three_times_five = three.multiply(five);
+        var five_times_three = five.multiply(three);
+        assertEquals(fifteen, three_times_five);
+        assertEquals(fifteen, five_times_three);
     }
 }
