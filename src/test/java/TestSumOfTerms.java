@@ -60,7 +60,7 @@ public class TestSumOfTerms {
         x_plus_y_set.add(y);
         var x_plus_y = new SumOfTerms(x_plus_y_set);
         var expectedResult = x_squared.plus(y_squared).plus(two_xy);
-        var actualResult = x_plus_y.multiplyAndSimplify(x_plus_y);
+        var actualResult = x_plus_y.multiply(x_plus_y);
         assertEquals(expectedResult, actualResult);
     }
 }

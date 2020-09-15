@@ -35,7 +35,7 @@ public class SumOfTerms implements AlgebraicExpression {
 
 
 
-    public SumOfTerms multiply(CompositeTerm t) {
+    public SumOfTerms multiply(CompositeTerm t) { //TODO: put this in interface
         var newTermSet = new HashSet<CompositeTerm>();
         for (CompositeTerm i : getSumSet()) {
             newTermSet.add(i.multiply(t));
@@ -53,7 +53,8 @@ public class SumOfTerms implements AlgebraicExpression {
         return new SumOfTerms(newTermSet);
     }
 
-    public SumOfTerms multiplyAndSimplify(SumOfTerms sum2) {
+    @Override
+    public SumOfTerms multiply(SumOfTerms sum2) {
         var sumSoFar = new SumOfTerms(new HashSet<>());
         for (CompositeTerm i : getSumSet()) {
             for (CompositeTerm j : sum2.getSumSet()) {
@@ -63,8 +64,12 @@ public class SumOfTerms implements AlgebraicExpression {
         return sumSoFar;
     }
 
-    public SumOfTerms simplify() {
-        return null;
+    public SumOfTerms simplify() { //TODO: Write a test for this
+        var newSum = new SumOfTerms(new HashSet<>());
+        for (CompositeTerm i : getSumSet()) {
+            newSum = newSum.plus(i);
+        }
+        return newSum;
     }
 
     @Override
