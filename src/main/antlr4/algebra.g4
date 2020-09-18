@@ -1,6 +1,6 @@
 grammar algebra;
 
-algebraicExpression: potentiallyComplicatedProduct(('-'|'+') potentiallyComplicatedProduct)*;
+algebraicExpression: '-'? potentiallyComplicatedProduct(('-'|'+') potentiallyComplicatedProduct)*;
 
 potentiallyComplicatedProduct: (
     simpleFullyFactorisedExpression
@@ -9,18 +9,19 @@ potentiallyComplicatedProduct: (
     | expressionInBracketsWithPotentialPower 
     )+;
 expressionInBracketsWithPotentialPower: '(' expressionWithoutNestedBrackets ')' ('^' '-'? POSITIVE_INT)? ;
-expressionWithoutNestedBrackets: (sumofterms | simpleFullyFactorisedExpression | compositeterm)
+expressionWithoutNestedBrackets: '-'? (sumofterms | simpleFullyFactorisedExpression | compositeterm)
     ( ('-'|'+') (sumofterms | simpleFullyFactorisedExpression | compositeterm))* ;
 simpleFullyFactorisedExpression: (sumInBracketsPossiblyWithPower | compositeterm) sumInBracketsPossiblyWithPower* ;
 sumInBracketsPossiblyWithPower: '(' sumofterms ')' ('^' '-'? POSITIVE_INT)? ;
-sumofterms: compositeterm(('-'|'+') compositeterm)+ ;
+sumofterms: '-'? compositeterm(('-'|'+') compositeterm)+ ;
 
-compositeterm: coefficient #simpleNumber
-    | coefficient simpleterm ('*'? simpleterm)* #withCoefficient
+compositeterm: coefficient simpleterm ('*'? simpleterm)* #withCoefficient
+    | coefficient #simpleNumber
     | simpleterm ('*'? simpleterm)* #withoutCoefficient
     ;
 
 coefficient: POSITIVE_INT;
+
 simpleterm: CHAR #withoutExponent
     | CHAR '^' POSITIVE_INT #withPositiveExponent
     | CHAR '^' '-' POSITIVE_INT #withNegativeExponent

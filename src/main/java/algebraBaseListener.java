@@ -99,18 +99,6 @@ public class algebraBaseListener implements algebraListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSimpleNumber(algebraParser.SimpleNumberContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSimpleNumber(algebraParser.SimpleNumberContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterWithCoefficient(algebraParser.WithCoefficientContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -118,6 +106,18 @@ public class algebraBaseListener implements algebraListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitWithCoefficient(algebraParser.WithCoefficientContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSimpleNumber(algebraParser.SimpleNumberContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSimpleNumber(algebraParser.SimpleNumberContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -279,7 +279,7 @@ public class CompositeTerm implements AlgebraicExpression {
         return termWithSameSymbol;
     }
 
-    private HashSet<SimpleTerm> getSet() {
+    public HashSet<SimpleTerm> getSet() {
         return new HashSet<>(termSet);
     }
 

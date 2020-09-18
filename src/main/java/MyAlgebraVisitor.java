@@ -1,3 +1,5 @@
+import java.util.HashSet;
+
 public class MyAlgebraVisitor extends algebraBaseVisitor<AlgebraicExpression> {
     @Override
     public AlgebraicExpression visitAlgebraicExpression(algebraParser.AlgebraicExpressionContext ctx) {
@@ -36,17 +38,29 @@ public class MyAlgebraVisitor extends algebraBaseVisitor<AlgebraicExpression> {
 
     @Override
     public AlgebraicExpression visitSimpleNumber(algebraParser.SimpleNumberContext ctx) {
-        return super.visitSimpleNumber(ctx);
+        int coefficient = Integer.parseInt(ctx.coefficient().getText());
+        return new CompositeTerm(coefficient);
     }
 
     @Override
     public AlgebraicExpression visitWithCoefficient(algebraParser.WithCoefficientContext ctx) {
-        return super.visitWithCoefficient(ctx);
+        int coefficient = Integer.parseInt(ctx.coefficient().getText());
+        var newTermSet = new HashSet<SimpleTerm>();
+        for (var i : ctx.simpleterm()) {
+            var term = visit(i);
+            newTermSet.addAll(term.giveATerm().getSet());
+        } //TODO: This would reduce a term such as xx to x. Warn the user.
+        return new CompositeTerm(newTermSet, coefficient);
     }
 
     @Override
     public AlgebraicExpression visitWithoutCoefficient(algebraParser.WithoutCoefficientContext ctx) {
-        return super.visitWithoutCoefficient(ctx);
+        var newTermSet = new HashSet<SimpleTerm>();
+        for (var i : ctx.simpleterm()) {
+            var term = visit(i);
+            newTermSet.addAll(term.giveATerm().getSet());
+        } //TODO: This would reduce a term such as xx to x. Warn the user.
+        return new CompositeTerm(newTermSet);
     }
 
     @Override
@@ -62,11 +76,15 @@ public class MyAlgebraVisitor extends algebraBaseVisitor<AlgebraicExpression> {
 
     @Override
     public AlgebraicExpression visitWithPositiveExponent(algebraParser.WithPositiveExponentContext ctx) {
-        return super.visitWithPositiveExponent(ctx);
+        char character = ctx.CHAR().getText().charAt(0);
+        int exponent = Integer.parseInt(ctx.POSITIVE_INT().getText());
+        return new CompositeTerm(character, 1, exponent);
     }
 
     @Override
     public AlgebraicExpression visitWithNegativeExponent(algebraParser.WithNegativeExponentContext ctx) {
-        return super.visitWithNegativeExponent(ctx);
+        char character = ctx.CHAR().getText().charAt(0);
+        int exponent = -1 * Integer.parseInt(ctx.POSITIVE_INT().getText());
+        return new CompositeTerm(character, 1, exponent);
     }
 }

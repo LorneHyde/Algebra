@@ -77,18 +77,6 @@ public interface algebraListener extends ParseTreeListener {
 	 */
 	void exitSumofterms(algebraParser.SumoftermsContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code simpleNumber}
-	 * labeled alternative in {@link algebraParser#compositeterm}.
-	 * @param ctx the parse tree
-	 */
-	void enterSimpleNumber(algebraParser.SimpleNumberContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code simpleNumber}
-	 * labeled alternative in {@link algebraParser#compositeterm}.
-	 * @param ctx the parse tree
-	 */
-	void exitSimpleNumber(algebraParser.SimpleNumberContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code withCoefficient}
 	 * labeled alternative in {@link algebraParser#compositeterm}.
 	 * @param ctx the parse tree
@@ -100,6 +88,18 @@ public interface algebraListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitWithCoefficient(algebraParser.WithCoefficientContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code simpleNumber}
+	 * labeled alternative in {@link algebraParser#compositeterm}.
+	 * @param ctx the parse tree
+	 */
+	void enterSimpleNumber(algebraParser.SimpleNumberContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code simpleNumber}
+	 * labeled alternative in {@link algebraParser#compositeterm}.
+	 * @param ctx the parse tree
+	 */
+	void exitSimpleNumber(algebraParser.SimpleNumberContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code withoutCoefficient}
 	 * labeled alternative in {@link algebraParser#compositeterm}.

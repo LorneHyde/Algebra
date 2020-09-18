@@ -52,19 +52,19 @@ public interface algebraVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSumofterms(algebraParser.SumoftermsContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code simpleNumber}
-	 * labeled alternative in {@link algebraParser#compositeterm}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSimpleNumber(algebraParser.SimpleNumberContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code withCoefficient}
 	 * labeled alternative in {@link algebraParser#compositeterm}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitWithCoefficient(algebraParser.WithCoefficientContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code simpleNumber}
+	 * labeled alternative in {@link algebraParser#compositeterm}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSimpleNumber(algebraParser.SimpleNumberContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code withoutCoefficient}
 	 * labeled alternative in {@link algebraParser#compositeterm}.

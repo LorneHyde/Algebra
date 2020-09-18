@@ -13,7 +13,7 @@ public class temporarySeeIfItWorks {
         algebraLexer lexer = new algebraLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         algebraParser parser = new algebraParser(tokens);
-        ParseTree tree = parser.simpleterm();
+        ParseTree tree = parser.compositeterm();
         MyAlgebraVisitor expander = new MyAlgebraVisitor();
         AlgebraicExpression a = expander.visit(tree);
         System.out.println(a);
