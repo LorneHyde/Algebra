@@ -8,17 +8,15 @@ import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.*;
 
-import static org.antlr.v4.runtime.RuntimeMetaData.*;
-
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class algebraLexer extends Lexer {
-	static { checkVersion("4.8", VERSION); }
+	static { RuntimeMetaData.checkVersion("4.8", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, POSITIVE_INT=7, CHAR=8, 
+		T__0=1, T__1=2, MUL=3, ADD=4, POWER=5, SUB=6, POSITIVE_INT=7, CHAR=8, 
 		WS=9;
 	public static String[] channelNames = {
 		"DEFAULT_TOKEN_CHANNEL", "HIDDEN"
@@ -30,7 +28,7 @@ public class algebraLexer extends Lexer {
 
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"T__0", "T__1", "T__2", "T__3", "T__4", "T__5", "POSITIVE_INT", "CHAR", 
+			"T__0", "T__1", "MUL", "ADD", "POWER", "SUB", "POSITIVE_INT", "CHAR", 
 			"WS"
 		};
 	}
@@ -38,13 +36,14 @@ public class algebraLexer extends Lexer {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'-'", "'+'", "'('", "')'", "'^'", "'*'"
+			null, "'('", "')'", "'*'", "'+'", "'^'", "'-'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, null, null, null, null, "POSITIVE_INT", "CHAR", "WS"
+			null, null, null, "MUL", "ADD", "POWER", "SUB", "POSITIVE_INT", "CHAR", 
+			"WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -114,9 +113,9 @@ public class algebraLexer extends Lexer {
 		"\5\3\2\2\2\2\7\3\2\2\2\2\t\3\2\2\2\2\13\3\2\2\2\2\r\3\2\2\2\2\17\3\2\2"+
 		"\2\2\21\3\2\2\2\2\23\3\2\2\2\3\25\3\2\2\2\5\27\3\2\2\2\7\31\3\2\2\2\t"+
 		"\33\3\2\2\2\13\35\3\2\2\2\r\37\3\2\2\2\17\"\3\2\2\2\21&\3\2\2\2\23)\3"+
-		"\2\2\2\25\26\7/\2\2\26\4\3\2\2\2\27\30\7-\2\2\30\6\3\2\2\2\31\32\7*\2"+
-		"\2\32\b\3\2\2\2\33\34\7+\2\2\34\n\3\2\2\2\35\36\7`\2\2\36\f\3\2\2\2\37"+
-		" \7,\2\2 \16\3\2\2\2!#\t\2\2\2\"!\3\2\2\2#$\3\2\2\2$\"\3\2\2\2$%\3\2\2"+
+		"\2\2\2\25\26\7*\2\2\26\4\3\2\2\2\27\30\7+\2\2\30\6\3\2\2\2\31\32\7,\2"+
+		"\2\32\b\3\2\2\2\33\34\7-\2\2\34\n\3\2\2\2\35\36\7`\2\2\36\f\3\2\2\2\37"+
+		" \7/\2\2 \16\3\2\2\2!#\t\2\2\2\"!\3\2\2\2#$\3\2\2\2$\"\3\2\2\2$%\3\2\2"+
 		"\2%\20\3\2\2\2&\'\t\3\2\2\'\22\3\2\2\2(*\t\4\2\2)(\3\2\2\2*+\3\2\2\2+"+
 		")\3\2\2\2+,\3\2\2\2,-\3\2\2\2-.\b\n\2\2.\24\3\2\2\2\6\2$)+\3\b\2\2";
 	public static final ATN _ATN =

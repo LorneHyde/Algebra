@@ -13,9 +13,9 @@ public class temporarySeeIfItWorks {
         algebraLexer lexer = new algebraLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         algebraParser parser = new algebraParser(tokens);
-        ParseTree tree = parser.algebraicExpression(); // parse; start at prog <label id="code.tour.main.6"/>
-        System.out.println(tree.toStringTree(parser)); // print tree as text <label id="code.tour.main.7"/>
+        ParseTree tree = parser.simpleterm();
         MyAlgebraVisitor expander = new MyAlgebraVisitor();
-        expander.visit(tree);
+        AlgebraicExpression a = expander.visit(tree);
+        System.out.println(a);
     }
 }

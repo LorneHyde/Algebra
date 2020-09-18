@@ -99,13 +99,37 @@ public class algebraBaseListener implements algebraListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCompositeterm(algebraParser.CompositetermContext ctx) { }
+	@Override public void enterSimpleNumber(algebraParser.SimpleNumberContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCompositeterm(algebraParser.CompositetermContext ctx) { }
+	@Override public void exitSimpleNumber(algebraParser.SimpleNumberContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterWithCoefficient(algebraParser.WithCoefficientContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitWithCoefficient(algebraParser.WithCoefficientContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterWithoutCoefficient(algebraParser.WithoutCoefficientContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitWithoutCoefficient(algebraParser.WithoutCoefficientContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -123,13 +147,37 @@ public class algebraBaseListener implements algebraListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSimpleterm(algebraParser.SimpletermContext ctx) { }
+	@Override public void enterWithoutExponent(algebraParser.WithoutExponentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSimpleterm(algebraParser.SimpletermContext ctx) { }
+	@Override public void exitWithoutExponent(algebraParser.WithoutExponentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterWithPositiveExponent(algebraParser.WithPositiveExponentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitWithPositiveExponent(algebraParser.WithPositiveExponentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterWithNegativeExponent(algebraParser.WithNegativeExponentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitWithNegativeExponent(algebraParser.WithNegativeExponentContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

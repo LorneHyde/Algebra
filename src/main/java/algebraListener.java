@@ -77,15 +77,41 @@ public interface algebraListener extends ParseTreeListener {
 	 */
 	void exitSumofterms(algebraParser.SumoftermsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link algebraParser#compositeterm}.
+	 * Enter a parse tree produced by the {@code simpleNumber}
+	 * labeled alternative in {@link algebraParser#compositeterm}.
 	 * @param ctx the parse tree
 	 */
-	void enterCompositeterm(algebraParser.CompositetermContext ctx);
+	void enterSimpleNumber(algebraParser.SimpleNumberContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link algebraParser#compositeterm}.
+	 * Exit a parse tree produced by the {@code simpleNumber}
+	 * labeled alternative in {@link algebraParser#compositeterm}.
 	 * @param ctx the parse tree
 	 */
-	void exitCompositeterm(algebraParser.CompositetermContext ctx);
+	void exitSimpleNumber(algebraParser.SimpleNumberContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code withCoefficient}
+	 * labeled alternative in {@link algebraParser#compositeterm}.
+	 * @param ctx the parse tree
+	 */
+	void enterWithCoefficient(algebraParser.WithCoefficientContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code withCoefficient}
+	 * labeled alternative in {@link algebraParser#compositeterm}.
+	 * @param ctx the parse tree
+	 */
+	void exitWithCoefficient(algebraParser.WithCoefficientContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code withoutCoefficient}
+	 * labeled alternative in {@link algebraParser#compositeterm}.
+	 * @param ctx the parse tree
+	 */
+	void enterWithoutCoefficient(algebraParser.WithoutCoefficientContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code withoutCoefficient}
+	 * labeled alternative in {@link algebraParser#compositeterm}.
+	 * @param ctx the parse tree
+	 */
+	void exitWithoutCoefficient(algebraParser.WithoutCoefficientContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link algebraParser#coefficient}.
 	 * @param ctx the parse tree
@@ -97,13 +123,39 @@ public interface algebraListener extends ParseTreeListener {
 	 */
 	void exitCoefficient(algebraParser.CoefficientContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link algebraParser#simpleterm}.
+	 * Enter a parse tree produced by the {@code withoutExponent}
+	 * labeled alternative in {@link algebraParser#simpleterm}.
 	 * @param ctx the parse tree
 	 */
-	void enterSimpleterm(algebraParser.SimpletermContext ctx);
+	void enterWithoutExponent(algebraParser.WithoutExponentContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link algebraParser#simpleterm}.
+	 * Exit a parse tree produced by the {@code withoutExponent}
+	 * labeled alternative in {@link algebraParser#simpleterm}.
 	 * @param ctx the parse tree
 	 */
-	void exitSimpleterm(algebraParser.SimpletermContext ctx);
+	void exitWithoutExponent(algebraParser.WithoutExponentContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code withPositiveExponent}
+	 * labeled alternative in {@link algebraParser#simpleterm}.
+	 * @param ctx the parse tree
+	 */
+	void enterWithPositiveExponent(algebraParser.WithPositiveExponentContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code withPositiveExponent}
+	 * labeled alternative in {@link algebraParser#simpleterm}.
+	 * @param ctx the parse tree
+	 */
+	void exitWithPositiveExponent(algebraParser.WithPositiveExponentContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code withNegativeExponent}
+	 * labeled alternative in {@link algebraParser#simpleterm}.
+	 * @param ctx the parse tree
+	 */
+	void enterWithNegativeExponent(algebraParser.WithNegativeExponentContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code withNegativeExponent}
+	 * labeled alternative in {@link algebraParser#simpleterm}.
+	 * @param ctx the parse tree
+	 */
+	void exitWithNegativeExponent(algebraParser.WithNegativeExponentContext ctx);
 }

@@ -52,11 +52,26 @@ public interface algebraVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSumofterms(algebraParser.SumoftermsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link algebraParser#compositeterm}.
+	 * Visit a parse tree produced by the {@code simpleNumber}
+	 * labeled alternative in {@link algebraParser#compositeterm}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitCompositeterm(algebraParser.CompositetermContext ctx);
+	T visitSimpleNumber(algebraParser.SimpleNumberContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code withCoefficient}
+	 * labeled alternative in {@link algebraParser#compositeterm}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWithCoefficient(algebraParser.WithCoefficientContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code withoutCoefficient}
+	 * labeled alternative in {@link algebraParser#compositeterm}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWithoutCoefficient(algebraParser.WithoutCoefficientContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link algebraParser#coefficient}.
 	 * @param ctx the parse tree
@@ -64,9 +79,24 @@ public interface algebraVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCoefficient(algebraParser.CoefficientContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link algebraParser#simpleterm}.
+	 * Visit a parse tree produced by the {@code withoutExponent}
+	 * labeled alternative in {@link algebraParser#simpleterm}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSimpleterm(algebraParser.SimpletermContext ctx);
+	T visitWithoutExponent(algebraParser.WithoutExponentContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code withPositiveExponent}
+	 * labeled alternative in {@link algebraParser#simpleterm}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWithPositiveExponent(algebraParser.WithPositiveExponentContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code withNegativeExponent}
+	 * labeled alternative in {@link algebraParser#simpleterm}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWithNegativeExponent(algebraParser.WithNegativeExponentContext ctx);
 }

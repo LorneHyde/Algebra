@@ -35,8 +35,18 @@ public class MyAlgebraVisitor extends algebraBaseVisitor<AlgebraicExpression> {
     }
 
     @Override
-    public AlgebraicExpression visitCompositeterm(algebraParser.CompositetermContext ctx) {
-        return super.visitCompositeterm(ctx);
+    public AlgebraicExpression visitSimpleNumber(algebraParser.SimpleNumberContext ctx) {
+        return super.visitSimpleNumber(ctx);
+    }
+
+    @Override
+    public AlgebraicExpression visitWithCoefficient(algebraParser.WithCoefficientContext ctx) {
+        return super.visitWithCoefficient(ctx);
+    }
+
+    @Override
+    public AlgebraicExpression visitWithoutCoefficient(algebraParser.WithoutCoefficientContext ctx) {
+        return super.visitWithoutCoefficient(ctx);
     }
 
     @Override
@@ -45,7 +55,18 @@ public class MyAlgebraVisitor extends algebraBaseVisitor<AlgebraicExpression> {
     }
 
     @Override
-    public AlgebraicExpression visitSimpleterm(algebraParser.SimpletermContext ctx) {
-        return super.visitSimpleterm(ctx);
+    public AlgebraicExpression visitWithoutExponent(algebraParser.WithoutExponentContext ctx) {
+        char character = ctx.CHAR().getText().charAt(0);
+        return new CompositeTerm(character);
+    }
+
+    @Override
+    public AlgebraicExpression visitWithPositiveExponent(algebraParser.WithPositiveExponentContext ctx) {
+        return super.visitWithPositiveExponent(ctx);
+    }
+
+    @Override
+    public AlgebraicExpression visitWithNegativeExponent(algebraParser.WithNegativeExponentContext ctx) {
+        return super.visitWithNegativeExponent(ctx);
     }
 }

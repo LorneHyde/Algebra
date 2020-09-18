@@ -14,10 +14,22 @@ expressionWithoutNestedBrackets: (sumofterms | simpleFullyFactorisedExpression |
 simpleFullyFactorisedExpression: (sumInBracketsPossiblyWithPower | compositeterm) sumInBracketsPossiblyWithPower* ;
 sumInBracketsPossiblyWithPower: '(' sumofterms ')' ('^' '-'? POSITIVE_INT)? ;
 sumofterms: compositeterm(('-'|'+') compositeterm)+ ;
-compositeterm: coefficient | (coefficient? simpleterm ('*'? simpleterm)*);
-coefficient: POSITIVE_INT;
-simpleterm: CHAR ('^' '-'? POSITIVE_INT)?;
 
+compositeterm: coefficient #simpleNumber
+    | coefficient simpleterm ('*'? simpleterm)* #withCoefficient
+    | simpleterm ('*'? simpleterm)* #withoutCoefficient
+    ;
+
+coefficient: POSITIVE_INT;
+simpleterm: CHAR #withoutExponent
+    | CHAR '^' POSITIVE_INT #withPositiveExponent
+    | CHAR '^' '-' POSITIVE_INT #withNegativeExponent
+    ;
+
+MUL :   '*' ;
+ADD :   '+' ;
+POWER: '^';
+SUB: '-' ;
 POSITIVE_INT: [0-9]+;
 CHAR: [a-z];
 WS: (' ' | [\t\r\n])+ -> skip;
