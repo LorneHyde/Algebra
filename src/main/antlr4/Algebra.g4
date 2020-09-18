@@ -1,4 +1,4 @@
-grammar algebra;
+grammar Algebra;
 
 algebraicExpression: '-'? potentiallyComplicatedProduct(('-'|'+') potentiallyComplicatedProduct)*;
 
@@ -13,7 +13,10 @@ expressionWithoutNestedBrackets: '-'? (sumofterms | simpleFullyFactorisedExpress
     ( ('-'|'+') (sumofterms | simpleFullyFactorisedExpression | compositeterm))* ;
 simpleFullyFactorisedExpression: (sumInBracketsPossiblyWithPower | compositeterm) sumInBracketsPossiblyWithPower* ;
 sumInBracketsPossiblyWithPower: '(' sumofterms ')' ('^' '-'? POSITIVE_INT)? ;
-sumofterms: '-'? compositeterm(('-'|'+') compositeterm)+ ;
+
+sumofterms: '-' compositeterm(op = ('-'|'+') compositeterm)+ #sumOfTermsFirstTermNegative
+ | compositeterm(('-'|'+') compositeterm)+ #sumOfTermsFirstTermPositive
+ ;
 
 compositeterm: coefficient simpleterm ('*'? simpleterm)* #withCoefficient
     | coefficient #simpleNumber
