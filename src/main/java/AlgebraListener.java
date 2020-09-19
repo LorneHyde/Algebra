@@ -37,15 +37,89 @@ public interface AlgebraListener extends ParseTreeListener {
 	 */
 	void exitExpressionInBracketsWithPotentialPower(AlgebraParser.ExpressionInBracketsWithPotentialPowerContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AlgebraParser#expressionWithoutNestedBrackets}.
+	 * Enter a parse tree produced by the {@code expressionWONestedStartingWithNegativeSFFE}
+	 * labeled alternative in {@link AlgebraParser#expressionWithoutNestedBrackets}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpressionWithoutNestedBrackets(AlgebraParser.ExpressionWithoutNestedBracketsContext ctx);
+	void enterExpressionWONestedStartingWithNegativeSFFE(AlgebraParser.ExpressionWONestedStartingWithNegativeSFFEContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AlgebraParser#expressionWithoutNestedBrackets}.
+	 * Exit a parse tree produced by the {@code expressionWONestedStartingWithNegativeSFFE}
+	 * labeled alternative in {@link AlgebraParser#expressionWithoutNestedBrackets}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpressionWithoutNestedBrackets(AlgebraParser.ExpressionWithoutNestedBracketsContext ctx);
+	void exitExpressionWONestedStartingWithNegativeSFFE(AlgebraParser.ExpressionWONestedStartingWithNegativeSFFEContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code expressionWONestedStartingWithSOT}
+	 * labeled alternative in {@link AlgebraParser#expressionWithoutNestedBrackets}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpressionWONestedStartingWithSOT(AlgebraParser.ExpressionWONestedStartingWithSOTContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code expressionWONestedStartingWithSOT}
+	 * labeled alternative in {@link AlgebraParser#expressionWithoutNestedBrackets}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpressionWONestedStartingWithSOT(AlgebraParser.ExpressionWONestedStartingWithSOTContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code expressionWONestedStartingWithSFFE}
+	 * labeled alternative in {@link AlgebraParser#expressionWithoutNestedBrackets}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpressionWONestedStartingWithSFFE(AlgebraParser.ExpressionWONestedStartingWithSFFEContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code expressionWONestedStartingWithSFFE}
+	 * labeled alternative in {@link AlgebraParser#expressionWithoutNestedBrackets}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpressionWONestedStartingWithSFFE(AlgebraParser.ExpressionWONestedStartingWithSFFEContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code expressionWONestedStartingWithCT}
+	 * labeled alternative in {@link AlgebraParser#expressionWithoutNestedBrackets}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpressionWONestedStartingWithCT(AlgebraParser.ExpressionWONestedStartingWithCTContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code expressionWONestedStartingWithCT}
+	 * labeled alternative in {@link AlgebraParser#expressionWithoutNestedBrackets}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpressionWONestedStartingWithCT(AlgebraParser.ExpressionWONestedStartingWithCTContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code sffeInExprWithoutNestedBrackets}
+	 * labeled alternative in {@link AlgebraParser#termInExprWithoutNestedBrackets}.
+	 * @param ctx the parse tree
+	 */
+	void enterSffeInExprWithoutNestedBrackets(AlgebraParser.SffeInExprWithoutNestedBracketsContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code sffeInExprWithoutNestedBrackets}
+	 * labeled alternative in {@link AlgebraParser#termInExprWithoutNestedBrackets}.
+	 * @param ctx the parse tree
+	 */
+	void exitSffeInExprWithoutNestedBrackets(AlgebraParser.SffeInExprWithoutNestedBracketsContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code sotInExprWithoutNestedBrackets}
+	 * labeled alternative in {@link AlgebraParser#termInExprWithoutNestedBrackets}.
+	 * @param ctx the parse tree
+	 */
+	void enterSotInExprWithoutNestedBrackets(AlgebraParser.SotInExprWithoutNestedBracketsContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code sotInExprWithoutNestedBrackets}
+	 * labeled alternative in {@link AlgebraParser#termInExprWithoutNestedBrackets}.
+	 * @param ctx the parse tree
+	 */
+	void exitSotInExprWithoutNestedBrackets(AlgebraParser.SotInExprWithoutNestedBracketsContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ctInExprWithoutNestedBrackets}
+	 * labeled alternative in {@link AlgebraParser#termInExprWithoutNestedBrackets}.
+	 * @param ctx the parse tree
+	 */
+	void enterCtInExprWithoutNestedBrackets(AlgebraParser.CtInExprWithoutNestedBracketsContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ctInExprWithoutNestedBrackets}
+	 * labeled alternative in {@link AlgebraParser#termInExprWithoutNestedBrackets}.
+	 * @param ctx the parse tree
+	 */
+	void exitCtInExprWithoutNestedBrackets(AlgebraParser.CtInExprWithoutNestedBracketsContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AlgebraParser#simpleFullyFactorisedExpression}.
 	 * @param ctx the parse tree

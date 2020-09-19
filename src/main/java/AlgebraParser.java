@@ -21,15 +21,15 @@ public class AlgebraParser extends Parser {
 	public static final int
 		RULE_algebraicExpression = 0, RULE_potentiallyComplicatedProduct = 1, 
 		RULE_expressionInBracketsWithPotentialPower = 2, RULE_expressionWithoutNestedBrackets = 3, 
-		RULE_simpleFullyFactorisedExpression = 4, RULE_sumInBracketsPossiblyWithPower = 5, 
-		RULE_sumofterms = 6, RULE_termInSum = 7, RULE_compositeterm = 8, RULE_coefficient = 9, 
-		RULE_simpleterm = 10;
+		RULE_termInExprWithoutNestedBrackets = 4, RULE_simpleFullyFactorisedExpression = 5, 
+		RULE_sumInBracketsPossiblyWithPower = 6, RULE_sumofterms = 7, RULE_termInSum = 8, 
+		RULE_compositeterm = 9, RULE_coefficient = 10, RULE_simpleterm = 11;
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"algebraicExpression", "potentiallyComplicatedProduct", "expressionInBracketsWithPotentialPower", 
-			"expressionWithoutNestedBrackets", "simpleFullyFactorisedExpression", 
-			"sumInBracketsPossiblyWithPower", "sumofterms", "termInSum", "compositeterm", 
-			"coefficient", "simpleterm"
+			"expressionWithoutNestedBrackets", "termInExprWithoutNestedBrackets", 
+			"simpleFullyFactorisedExpression", "sumInBracketsPossiblyWithPower", 
+			"sumofterms", "termInSum", "compositeterm", "coefficient", "simpleterm"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -138,25 +138,25 @@ public class AlgebraParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(23);
+			setState(25);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==SUB) {
 				{
-				setState(22);
+				setState(24);
 				match(SUB);
 				}
 			}
 
-			setState(25);
+			setState(27);
 			potentiallyComplicatedProduct();
-			setState(30);
+			setState(32);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==ADD || _la==SUB) {
 				{
 				{
-				setState(26);
+				setState(28);
 				_la = _input.LA(1);
 				if ( !(_la==ADD || _la==SUB) ) {
 				_errHandler.recoverInline(this);
@@ -166,11 +166,11 @@ public class AlgebraParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(27);
+				setState(29);
 				potentiallyComplicatedProduct();
 				}
 				}
-				setState(32);
+				setState(34);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -238,49 +238,49 @@ public class AlgebraParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(43); 
+			setState(45); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
-				setState(43);
+				setState(45);
 				_errHandler.sync(this);
 				switch ( getInterpreter().adaptivePredict(_input,2,_ctx) ) {
 				case 1:
 					{
-					setState(33);
+					setState(35);
 					simpleFullyFactorisedExpression();
 					}
 					break;
 				case 2:
 					{
-					setState(34);
-					match(T__0);
-					setState(35);
-					potentiallyComplicatedProduct();
 					setState(36);
+					match(T__0);
+					setState(37);
+					potentiallyComplicatedProduct();
+					setState(38);
 					match(T__1);
 					}
 					break;
 				case 3:
 					{
-					setState(38);
-					match(T__0);
-					setState(39);
-					algebraicExpression();
 					setState(40);
+					match(T__0);
+					setState(41);
+					algebraicExpression();
+					setState(42);
 					match(T__1);
 					}
 					break;
 				case 4:
 					{
-					setState(42);
+					setState(44);
 					expressionInBracketsWithPotentialPower();
 					}
 					break;
 				}
 				}
-				setState(45); 
+				setState(47); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << POSITIVE_INT) | (1L << CHAR))) != 0) );
@@ -330,30 +330,30 @@ public class AlgebraParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(47);
-			match(T__0);
-			setState(48);
-			expressionWithoutNestedBrackets();
 			setState(49);
+			match(T__0);
+			setState(50);
+			expressionWithoutNestedBrackets();
+			setState(51);
 			match(T__1);
-			setState(55);
+			setState(57);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==POWER) {
 				{
-				setState(50);
-				match(POWER);
 				setState(52);
+				match(POWER);
+				setState(54);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==SUB) {
 					{
-					setState(51);
+					setState(53);
 					match(SUB);
 					}
 				}
 
-				setState(54);
+				setState(56);
 				match(POSITIVE_INT);
 				}
 			}
@@ -372,47 +372,114 @@ public class AlgebraParser extends Parser {
 	}
 
 	public static class ExpressionWithoutNestedBracketsContext extends ParserRuleContext {
-		public List<SumoftermsContext> sumofterms() {
-			return getRuleContexts(SumoftermsContext.class);
-		}
-		public SumoftermsContext sumofterms(int i) {
-			return getRuleContext(SumoftermsContext.class,i);
-		}
-		public List<SimpleFullyFactorisedExpressionContext> simpleFullyFactorisedExpression() {
-			return getRuleContexts(SimpleFullyFactorisedExpressionContext.class);
-		}
-		public SimpleFullyFactorisedExpressionContext simpleFullyFactorisedExpression(int i) {
-			return getRuleContext(SimpleFullyFactorisedExpressionContext.class,i);
-		}
-		public List<CompositetermContext> compositeterm() {
-			return getRuleContexts(CompositetermContext.class);
-		}
-		public CompositetermContext compositeterm(int i) {
-			return getRuleContext(CompositetermContext.class,i);
-		}
-		public List<TerminalNode> SUB() { return getTokens(AlgebraParser.SUB); }
-		public TerminalNode SUB(int i) {
-			return getToken(AlgebraParser.SUB, i);
-		}
-		public List<TerminalNode> ADD() { return getTokens(AlgebraParser.ADD); }
-		public TerminalNode ADD(int i) {
-			return getToken(AlgebraParser.ADD, i);
-		}
 		public ExpressionWithoutNestedBracketsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_expressionWithoutNestedBrackets; }
+	 
+		public ExpressionWithoutNestedBracketsContext() { }
+		public void copyFrom(ExpressionWithoutNestedBracketsContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class ExpressionWONestedStartingWithNegativeSFFEContext extends ExpressionWithoutNestedBracketsContext {
+		public TerminalNode SUB() { return getToken(AlgebraParser.SUB, 0); }
+		public SimpleFullyFactorisedExpressionContext simpleFullyFactorisedExpression() {
+			return getRuleContext(SimpleFullyFactorisedExpressionContext.class,0);
+		}
+		public List<TermInExprWithoutNestedBracketsContext> termInExprWithoutNestedBrackets() {
+			return getRuleContexts(TermInExprWithoutNestedBracketsContext.class);
+		}
+		public TermInExprWithoutNestedBracketsContext termInExprWithoutNestedBrackets(int i) {
+			return getRuleContext(TermInExprWithoutNestedBracketsContext.class,i);
+		}
+		public ExpressionWONestedStartingWithNegativeSFFEContext(ExpressionWithoutNestedBracketsContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).enterExpressionWithoutNestedBrackets(this);
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).enterExpressionWONestedStartingWithNegativeSFFE(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).exitExpressionWithoutNestedBrackets(this);
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).exitExpressionWONestedStartingWithNegativeSFFE(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AlgebraVisitor ) return ((AlgebraVisitor<? extends T>)visitor).visitExpressionWithoutNestedBrackets(this);
+			if ( visitor instanceof AlgebraVisitor ) return ((AlgebraVisitor<? extends T>)visitor).visitExpressionWONestedStartingWithNegativeSFFE(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ExpressionWONestedStartingWithSFFEContext extends ExpressionWithoutNestedBracketsContext {
+		public SimpleFullyFactorisedExpressionContext simpleFullyFactorisedExpression() {
+			return getRuleContext(SimpleFullyFactorisedExpressionContext.class,0);
+		}
+		public List<TermInExprWithoutNestedBracketsContext> termInExprWithoutNestedBrackets() {
+			return getRuleContexts(TermInExprWithoutNestedBracketsContext.class);
+		}
+		public TermInExprWithoutNestedBracketsContext termInExprWithoutNestedBrackets(int i) {
+			return getRuleContext(TermInExprWithoutNestedBracketsContext.class,i);
+		}
+		public ExpressionWONestedStartingWithSFFEContext(ExpressionWithoutNestedBracketsContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).enterExpressionWONestedStartingWithSFFE(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).exitExpressionWONestedStartingWithSFFE(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AlgebraVisitor ) return ((AlgebraVisitor<? extends T>)visitor).visitExpressionWONestedStartingWithSFFE(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ExpressionWONestedStartingWithCTContext extends ExpressionWithoutNestedBracketsContext {
+		public CompositetermContext compositeterm() {
+			return getRuleContext(CompositetermContext.class,0);
+		}
+		public List<TermInExprWithoutNestedBracketsContext> termInExprWithoutNestedBrackets() {
+			return getRuleContexts(TermInExprWithoutNestedBracketsContext.class);
+		}
+		public TermInExprWithoutNestedBracketsContext termInExprWithoutNestedBrackets(int i) {
+			return getRuleContext(TermInExprWithoutNestedBracketsContext.class,i);
+		}
+		public ExpressionWONestedStartingWithCTContext(ExpressionWithoutNestedBracketsContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).enterExpressionWONestedStartingWithCT(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).exitExpressionWONestedStartingWithCT(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AlgebraVisitor ) return ((AlgebraVisitor<? extends T>)visitor).visitExpressionWONestedStartingWithCT(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ExpressionWONestedStartingWithSOTContext extends ExpressionWithoutNestedBracketsContext {
+		public SumoftermsContext sumofterms() {
+			return getRuleContext(SumoftermsContext.class,0);
+		}
+		public List<TermInExprWithoutNestedBracketsContext> termInExprWithoutNestedBrackets() {
+			return getRuleContexts(TermInExprWithoutNestedBracketsContext.class);
+		}
+		public TermInExprWithoutNestedBracketsContext termInExprWithoutNestedBrackets(int i) {
+			return getRuleContext(TermInExprWithoutNestedBracketsContext.class,i);
+		}
+		public ExpressionWONestedStartingWithSOTContext(ExpressionWithoutNestedBracketsContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).enterExpressionWONestedStartingWithSOT(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).exitExpressionWONestedStartingWithSOT(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AlgebraVisitor ) return ((AlgebraVisitor<? extends T>)visitor).visitExpressionWONestedStartingWithSOT(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -422,84 +489,235 @@ public class AlgebraParser extends Parser {
 		enterRule(_localctx, 6, RULE_expressionWithoutNestedBrackets);
 		int _la;
 		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(58);
+			setState(88);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,10,_ctx) ) {
 			case 1:
+				_localctx = new ExpressionWONestedStartingWithNegativeSFFEContext(_localctx);
+				enterOuterAlt(_localctx, 1);
 				{
-				setState(57);
+				setState(59);
 				match(SUB);
-				}
-				break;
-			}
-			setState(63);
-			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,7,_ctx) ) {
-			case 1:
-				{
 				setState(60);
-				sumofterms();
+				simpleFullyFactorisedExpression();
+				setState(64);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				while (_la==ADD || _la==SUB) {
+					{
+					{
+					setState(61);
+					termInExprWithoutNestedBrackets();
+					}
+					}
+					setState(66);
+					_errHandler.sync(this);
+					_la = _input.LA(1);
+				}
 				}
 				break;
 			case 2:
+				_localctx = new ExpressionWONestedStartingWithSOTContext(_localctx);
+				enterOuterAlt(_localctx, 2);
 				{
-				setState(61);
-				simpleFullyFactorisedExpression();
+				setState(67);
+				sumofterms();
+				setState(71);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				while (_la==ADD || _la==SUB) {
+					{
+					{
+					setState(68);
+					termInExprWithoutNestedBrackets();
+					}
+					}
+					setState(73);
+					_errHandler.sync(this);
+					_la = _input.LA(1);
+				}
 				}
 				break;
 			case 3:
+				_localctx = new ExpressionWONestedStartingWithSFFEContext(_localctx);
+				enterOuterAlt(_localctx, 3);
 				{
-				setState(62);
+				setState(74);
+				simpleFullyFactorisedExpression();
+				setState(78);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				while (_la==ADD || _la==SUB) {
+					{
+					{
+					setState(75);
+					termInExprWithoutNestedBrackets();
+					}
+					}
+					setState(80);
+					_errHandler.sync(this);
+					_la = _input.LA(1);
+				}
+				}
+				break;
+			case 4:
+				_localctx = new ExpressionWONestedStartingWithCTContext(_localctx);
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(81);
 				compositeterm();
+				setState(85);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				while (_la==ADD || _la==SUB) {
+					{
+					{
+					setState(82);
+					termInExprWithoutNestedBrackets();
+					}
+					}
+					setState(87);
+					_errHandler.sync(this);
+					_la = _input.LA(1);
+				}
 				}
 				break;
 			}
-			setState(73);
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class TermInExprWithoutNestedBracketsContext extends ParserRuleContext {
+		public TermInExprWithoutNestedBracketsContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_termInExprWithoutNestedBrackets; }
+	 
+		public TermInExprWithoutNestedBracketsContext() { }
+		public void copyFrom(TermInExprWithoutNestedBracketsContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class SffeInExprWithoutNestedBracketsContext extends TermInExprWithoutNestedBracketsContext {
+		public Token op;
+		public SimpleFullyFactorisedExpressionContext simpleFullyFactorisedExpression() {
+			return getRuleContext(SimpleFullyFactorisedExpressionContext.class,0);
+		}
+		public TerminalNode SUB() { return getToken(AlgebraParser.SUB, 0); }
+		public TerminalNode ADD() { return getToken(AlgebraParser.ADD, 0); }
+		public SffeInExprWithoutNestedBracketsContext(TermInExprWithoutNestedBracketsContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).enterSffeInExprWithoutNestedBrackets(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).exitSffeInExprWithoutNestedBrackets(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AlgebraVisitor ) return ((AlgebraVisitor<? extends T>)visitor).visitSffeInExprWithoutNestedBrackets(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class CtInExprWithoutNestedBracketsContext extends TermInExprWithoutNestedBracketsContext {
+		public TerminalNode ADD() { return getToken(AlgebraParser.ADD, 0); }
+		public CompositetermContext compositeterm() {
+			return getRuleContext(CompositetermContext.class,0);
+		}
+		public CtInExprWithoutNestedBracketsContext(TermInExprWithoutNestedBracketsContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).enterCtInExprWithoutNestedBrackets(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).exitCtInExprWithoutNestedBrackets(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AlgebraVisitor ) return ((AlgebraVisitor<? extends T>)visitor).visitCtInExprWithoutNestedBrackets(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class SotInExprWithoutNestedBracketsContext extends TermInExprWithoutNestedBracketsContext {
+		public TerminalNode ADD() { return getToken(AlgebraParser.ADD, 0); }
+		public SumoftermsContext sumofterms() {
+			return getRuleContext(SumoftermsContext.class,0);
+		}
+		public SotInExprWithoutNestedBracketsContext(TermInExprWithoutNestedBracketsContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).enterSotInExprWithoutNestedBrackets(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).exitSotInExprWithoutNestedBrackets(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AlgebraVisitor ) return ((AlgebraVisitor<? extends T>)visitor).visitSotInExprWithoutNestedBrackets(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final TermInExprWithoutNestedBracketsContext termInExprWithoutNestedBrackets() throws RecognitionException {
+		TermInExprWithoutNestedBracketsContext _localctx = new TermInExprWithoutNestedBracketsContext(_ctx, getState());
+		enterRule(_localctx, 8, RULE_termInExprWithoutNestedBrackets);
+		int _la;
+		try {
+			setState(96);
 			_errHandler.sync(this);
-			_la = _input.LA(1);
-			while (_la==ADD || _la==SUB) {
+			switch ( getInterpreter().adaptivePredict(_input,11,_ctx) ) {
+			case 1:
+				_localctx = new SffeInExprWithoutNestedBracketsContext(_localctx);
+				enterOuterAlt(_localctx, 1);
 				{
 				{
-				setState(65);
+				setState(90);
+				((SffeInExprWithoutNestedBracketsContext)_localctx).op = _input.LT(1);
 				_la = _input.LA(1);
 				if ( !(_la==ADD || _la==SUB) ) {
-				_errHandler.recoverInline(this);
+					((SffeInExprWithoutNestedBracketsContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 				}
 				else {
 					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(69);
-				_errHandler.sync(this);
-				switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
-				case 1:
-					{
-					setState(66);
-					sumofterms();
-					}
-					break;
-				case 2:
-					{
-					setState(67);
-					simpleFullyFactorisedExpression();
-					}
-					break;
-				case 3:
-					{
-					setState(68);
-					compositeterm();
-					}
-					break;
 				}
+				setState(91);
+				simpleFullyFactorisedExpression();
 				}
+				break;
+			case 2:
+				_localctx = new SotInExprWithoutNestedBracketsContext(_localctx);
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(92);
+				match(ADD);
+				setState(93);
+				sumofterms();
 				}
-				setState(75);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-			}
+				break;
+			case 3:
+				_localctx = new CtInExprWithoutNestedBracketsContext(_localctx);
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(94);
+				match(ADD);
+				setState(95);
+				compositeterm();
+				}
+				break;
 			}
 		}
 		catch (RecognitionException re) {
@@ -544,45 +762,45 @@ public class AlgebraParser extends Parser {
 
 	public final SimpleFullyFactorisedExpressionContext simpleFullyFactorisedExpression() throws RecognitionException {
 		SimpleFullyFactorisedExpressionContext _localctx = new SimpleFullyFactorisedExpressionContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_simpleFullyFactorisedExpression);
+		enterRule(_localctx, 10, RULE_simpleFullyFactorisedExpression);
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(78);
+			setState(100);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T__0:
 				{
-				setState(76);
+				setState(98);
 				sumInBracketsPossiblyWithPower();
 				}
 				break;
 			case POSITIVE_INT:
 			case CHAR:
 				{
-				setState(77);
+				setState(99);
 				compositeterm();
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
 			}
-			setState(83);
+			setState(105);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,11,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,13,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(80);
+					setState(102);
 					sumInBracketsPossiblyWithPower();
 					}
 					} 
 				}
-				setState(85);
+				setState(107);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,11,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,13,_ctx);
 			}
 			}
 		}
@@ -651,24 +869,24 @@ public class AlgebraParser extends Parser {
 
 	public final SumInBracketsPossiblyWithPowerContext sumInBracketsPossiblyWithPower() throws RecognitionException {
 		SumInBracketsPossiblyWithPowerContext _localctx = new SumInBracketsPossiblyWithPowerContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_sumInBracketsPossiblyWithPower);
+		enterRule(_localctx, 12, RULE_sumInBracketsPossiblyWithPower);
 		try {
-			setState(96);
+			setState(118);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,12,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,14,_ctx) ) {
 			case 1:
 				_localctx = new SumInBracketsWithPowerContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(86);
+				setState(108);
 				match(T__0);
-				setState(87);
+				setState(109);
 				sumofterms();
-				setState(88);
+				setState(110);
 				match(T__1);
-				setState(89);
+				setState(111);
 				match(POWER);
-				setState(90);
+				setState(112);
 				match(POSITIVE_INT);
 				}
 				break;
@@ -676,11 +894,11 @@ public class AlgebraParser extends Parser {
 				_localctx = new SumInBracketsWithoutPowerContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(92);
+				setState(114);
 				match(T__0);
-				setState(93);
+				setState(115);
 				sumofterms();
-				setState(94);
+				setState(116);
 				match(T__1);
 				}
 				break;
@@ -764,23 +982,23 @@ public class AlgebraParser extends Parser {
 
 	public final SumoftermsContext sumofterms() throws RecognitionException {
 		SumoftermsContext _localctx = new SumoftermsContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_sumofterms);
+		enterRule(_localctx, 14, RULE_sumofterms);
 		try {
 			int _alt;
-			setState(111);
+			setState(133);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case SUB:
 				_localctx = new SumOfTermsFirstTermNegativeContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(98);
+				setState(120);
 				match(SUB);
 				{
-				setState(99);
+				setState(121);
 				((SumOfTermsFirstTermNegativeContext)_localctx).startTerm = compositeterm();
 				}
-				setState(101); 
+				setState(123); 
 				_errHandler.sync(this);
 				_alt = 1;
 				do {
@@ -788,7 +1006,7 @@ public class AlgebraParser extends Parser {
 					case 1:
 						{
 						{
-						setState(100);
+						setState(122);
 						termInSum();
 						}
 						}
@@ -796,9 +1014,9 @@ public class AlgebraParser extends Parser {
 					default:
 						throw new NoViableAltException(this);
 					}
-					setState(103); 
+					setState(125); 
 					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,13,_ctx);
+					_alt = getInterpreter().adaptivePredict(_input,15,_ctx);
 				} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
 				}
 				break;
@@ -808,10 +1026,10 @@ public class AlgebraParser extends Parser {
 				enterOuterAlt(_localctx, 2);
 				{
 				{
-				setState(105);
+				setState(127);
 				((SumOfTermsFirstTermPositiveContext)_localctx).startTerm = compositeterm();
 				}
-				setState(107); 
+				setState(129); 
 				_errHandler.sync(this);
 				_alt = 1;
 				do {
@@ -819,7 +1037,7 @@ public class AlgebraParser extends Parser {
 					case 1:
 						{
 						{
-						setState(106);
+						setState(128);
 						termInSum();
 						}
 						}
@@ -827,9 +1045,9 @@ public class AlgebraParser extends Parser {
 					default:
 						throw new NoViableAltException(this);
 					}
-					setState(109); 
+					setState(131); 
 					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,14,_ctx);
+					_alt = getInterpreter().adaptivePredict(_input,16,_ctx);
 				} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
 				}
 				break;
@@ -876,13 +1094,13 @@ public class AlgebraParser extends Parser {
 
 	public final TermInSumContext termInSum() throws RecognitionException {
 		TermInSumContext _localctx = new TermInSumContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_termInSum);
+		enterRule(_localctx, 16, RULE_termInSum);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
 			{
-			setState(113);
+			setState(135);
 			((TermInSumContext)_localctx).op = _input.LT(1);
 			_la = _input.LA(1);
 			if ( !(_la==ADD || _la==SUB) ) {
@@ -894,7 +1112,7 @@ public class AlgebraParser extends Parser {
 				consume();
 			}
 			}
-			setState(114);
+			setState(136);
 			compositeterm();
 			}
 		}
@@ -997,46 +1215,46 @@ public class AlgebraParser extends Parser {
 
 	public final CompositetermContext compositeterm() throws RecognitionException {
 		CompositetermContext _localctx = new CompositetermContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_compositeterm);
+		enterRule(_localctx, 18, RULE_compositeterm);
 		int _la;
 		try {
 			int _alt;
-			setState(138);
+			setState(160);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,20,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,22,_ctx) ) {
 			case 1:
 				_localctx = new WithCoefficientContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(116);
+				setState(138);
 				coefficient();
-				setState(117);
+				setState(139);
 				simpleterm();
-				setState(124);
+				setState(146);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,17,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,19,_ctx);
 				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 					if ( _alt==1 ) {
 						{
 						{
-						setState(119);
+						setState(141);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
 						if (_la==MUL) {
 							{
-							setState(118);
+							setState(140);
 							match(MUL);
 							}
 						}
 
-						setState(121);
+						setState(143);
 						simpleterm();
 						}
 						} 
 					}
-					setState(126);
+					setState(148);
 					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,17,_ctx);
+					_alt = getInterpreter().adaptivePredict(_input,19,_ctx);
 				}
 				}
 				break;
@@ -1044,7 +1262,7 @@ public class AlgebraParser extends Parser {
 				_localctx = new SimpleNumberContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(127);
+				setState(149);
 				coefficient();
 				}
 				break;
@@ -1052,33 +1270,33 @@ public class AlgebraParser extends Parser {
 				_localctx = new WithoutCoefficientContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(128);
+				setState(150);
 				simpleterm();
-				setState(135);
+				setState(157);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,19,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,21,_ctx);
 				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 					if ( _alt==1 ) {
 						{
 						{
-						setState(130);
+						setState(152);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
 						if (_la==MUL) {
 							{
-							setState(129);
+							setState(151);
 							match(MUL);
 							}
 						}
 
-						setState(132);
+						setState(154);
 						simpleterm();
 						}
 						} 
 					}
-					setState(137);
+					setState(159);
 					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,19,_ctx);
+					_alt = getInterpreter().adaptivePredict(_input,21,_ctx);
 				}
 				}
 				break;
@@ -1118,11 +1336,11 @@ public class AlgebraParser extends Parser {
 
 	public final CoefficientContext coefficient() throws RecognitionException {
 		CoefficientContext _localctx = new CoefficientContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_coefficient);
+		enterRule(_localctx, 20, RULE_coefficient);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(140);
+			setState(162);
 			match(POSITIVE_INT);
 			}
 		}
@@ -1207,16 +1425,16 @@ public class AlgebraParser extends Parser {
 
 	public final SimpletermContext simpleterm() throws RecognitionException {
 		SimpletermContext _localctx = new SimpletermContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_simpleterm);
+		enterRule(_localctx, 22, RULE_simpleterm);
 		try {
-			setState(150);
+			setState(172);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,21,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,23,_ctx) ) {
 			case 1:
 				_localctx = new WithoutExponentContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(142);
+				setState(164);
 				match(CHAR);
 				}
 				break;
@@ -1224,11 +1442,11 @@ public class AlgebraParser extends Parser {
 				_localctx = new WithPositiveExponentContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(143);
+				setState(165);
 				match(CHAR);
-				setState(144);
+				setState(166);
 				match(POWER);
-				setState(145);
+				setState(167);
 				match(POSITIVE_INT);
 				}
 				break;
@@ -1236,13 +1454,13 @@ public class AlgebraParser extends Parser {
 				_localctx = new WithNegativeExponentContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(146);
+				setState(168);
 				match(CHAR);
-				setState(147);
+				setState(169);
 				match(POWER);
-				setState(148);
+				setState(170);
 				match(SUB);
-				setState(149);
+				setState(171);
 				match(POSITIVE_INT);
 				}
 				break;
@@ -1260,50 +1478,59 @@ public class AlgebraParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\13\u009b\4\2\t\2"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\13\u00b1\4\2\t\2"+
 		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
-		"\t\13\4\f\t\f\3\2\5\2\32\n\2\3\2\3\2\3\2\7\2\37\n\2\f\2\16\2\"\13\2\3"+
-		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\6\3.\n\3\r\3\16\3/\3\4\3\4\3\4"+
-		"\3\4\3\4\5\4\67\n\4\3\4\5\4:\n\4\3\5\5\5=\n\5\3\5\3\5\3\5\5\5B\n\5\3\5"+
-		"\3\5\3\5\3\5\5\5H\n\5\7\5J\n\5\f\5\16\5M\13\5\3\6\3\6\5\6Q\n\6\3\6\7\6"+
-		"T\n\6\f\6\16\6W\13\6\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\5\7c\n\7"+
-		"\3\b\3\b\3\b\6\bh\n\b\r\b\16\bi\3\b\3\b\6\bn\n\b\r\b\16\bo\5\br\n\b\3"+
-		"\t\3\t\3\t\3\n\3\n\3\n\5\nz\n\n\3\n\7\n}\n\n\f\n\16\n\u0080\13\n\3\n\3"+
-		"\n\3\n\5\n\u0085\n\n\3\n\7\n\u0088\n\n\f\n\16\n\u008b\13\n\5\n\u008d\n"+
-		"\n\3\13\3\13\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\5\f\u0099\n\f\3\f\2\2\r\2"+
-		"\4\6\b\n\f\16\20\22\24\26\2\3\4\2\6\6\b\b\2\u00ab\2\31\3\2\2\2\4-\3\2"+
-		"\2\2\6\61\3\2\2\2\b<\3\2\2\2\nP\3\2\2\2\fb\3\2\2\2\16q\3\2\2\2\20s\3\2"+
-		"\2\2\22\u008c\3\2\2\2\24\u008e\3\2\2\2\26\u0098\3\2\2\2\30\32\7\b\2\2"+
-		"\31\30\3\2\2\2\31\32\3\2\2\2\32\33\3\2\2\2\33 \5\4\3\2\34\35\t\2\2\2\35"+
-		"\37\5\4\3\2\36\34\3\2\2\2\37\"\3\2\2\2 \36\3\2\2\2 !\3\2\2\2!\3\3\2\2"+
-		"\2\" \3\2\2\2#.\5\n\6\2$%\7\3\2\2%&\5\4\3\2&\'\7\4\2\2\'.\3\2\2\2()\7"+
-		"\3\2\2)*\5\2\2\2*+\7\4\2\2+.\3\2\2\2,.\5\6\4\2-#\3\2\2\2-$\3\2\2\2-(\3"+
-		"\2\2\2-,\3\2\2\2./\3\2\2\2/-\3\2\2\2/\60\3\2\2\2\60\5\3\2\2\2\61\62\7"+
-		"\3\2\2\62\63\5\b\5\2\639\7\4\2\2\64\66\7\7\2\2\65\67\7\b\2\2\66\65\3\2"+
-		"\2\2\66\67\3\2\2\2\678\3\2\2\28:\7\t\2\29\64\3\2\2\29:\3\2\2\2:\7\3\2"+
-		"\2\2;=\7\b\2\2<;\3\2\2\2<=\3\2\2\2=A\3\2\2\2>B\5\16\b\2?B\5\n\6\2@B\5"+
-		"\22\n\2A>\3\2\2\2A?\3\2\2\2A@\3\2\2\2BK\3\2\2\2CG\t\2\2\2DH\5\16\b\2E"+
-		"H\5\n\6\2FH\5\22\n\2GD\3\2\2\2GE\3\2\2\2GF\3\2\2\2HJ\3\2\2\2IC\3\2\2\2"+
-		"JM\3\2\2\2KI\3\2\2\2KL\3\2\2\2L\t\3\2\2\2MK\3\2\2\2NQ\5\f\7\2OQ\5\22\n"+
-		"\2PN\3\2\2\2PO\3\2\2\2QU\3\2\2\2RT\5\f\7\2SR\3\2\2\2TW\3\2\2\2US\3\2\2"+
-		"\2UV\3\2\2\2V\13\3\2\2\2WU\3\2\2\2XY\7\3\2\2YZ\5\16\b\2Z[\7\4\2\2[\\\7"+
-		"\7\2\2\\]\7\t\2\2]c\3\2\2\2^_\7\3\2\2_`\5\16\b\2`a\7\4\2\2ac\3\2\2\2b"+
-		"X\3\2\2\2b^\3\2\2\2c\r\3\2\2\2de\7\b\2\2eg\5\22\n\2fh\5\20\t\2gf\3\2\2"+
-		"\2hi\3\2\2\2ig\3\2\2\2ij\3\2\2\2jr\3\2\2\2km\5\22\n\2ln\5\20\t\2ml\3\2"+
-		"\2\2no\3\2\2\2om\3\2\2\2op\3\2\2\2pr\3\2\2\2qd\3\2\2\2qk\3\2\2\2r\17\3"+
-		"\2\2\2st\t\2\2\2tu\5\22\n\2u\21\3\2\2\2vw\5\24\13\2w~\5\26\f\2xz\7\5\2"+
-		"\2yx\3\2\2\2yz\3\2\2\2z{\3\2\2\2{}\5\26\f\2|y\3\2\2\2}\u0080\3\2\2\2~"+
-		"|\3\2\2\2~\177\3\2\2\2\177\u008d\3\2\2\2\u0080~\3\2\2\2\u0081\u008d\5"+
-		"\24\13\2\u0082\u0089\5\26\f\2\u0083\u0085\7\5\2\2\u0084\u0083\3\2\2\2"+
-		"\u0084\u0085\3\2\2\2\u0085\u0086\3\2\2\2\u0086\u0088\5\26\f\2\u0087\u0084"+
-		"\3\2\2\2\u0088\u008b\3\2\2\2\u0089\u0087\3\2\2\2\u0089\u008a\3\2\2\2\u008a"+
-		"\u008d\3\2\2\2\u008b\u0089\3\2\2\2\u008cv\3\2\2\2\u008c\u0081\3\2\2\2"+
-		"\u008c\u0082\3\2\2\2\u008d\23\3\2\2\2\u008e\u008f\7\t\2\2\u008f\25\3\2"+
-		"\2\2\u0090\u0099\7\n\2\2\u0091\u0092\7\n\2\2\u0092\u0093\7\7\2\2\u0093"+
-		"\u0099\7\t\2\2\u0094\u0095\7\n\2\2\u0095\u0096\7\7\2\2\u0096\u0097\7\b"+
-		"\2\2\u0097\u0099\7\t\2\2\u0098\u0090\3\2\2\2\u0098\u0091\3\2\2\2\u0098"+
-		"\u0094\3\2\2\2\u0099\27\3\2\2\2\30\31 -/\669<AGKPUbioqy~\u0084\u0089\u008c"+
-		"\u0098";
+		"\t\13\4\f\t\f\4\r\t\r\3\2\5\2\34\n\2\3\2\3\2\3\2\7\2!\n\2\f\2\16\2$\13"+
+		"\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\6\3\60\n\3\r\3\16\3\61\3\4"+
+		"\3\4\3\4\3\4\3\4\5\49\n\4\3\4\5\4<\n\4\3\5\3\5\3\5\7\5A\n\5\f\5\16\5D"+
+		"\13\5\3\5\3\5\7\5H\n\5\f\5\16\5K\13\5\3\5\3\5\7\5O\n\5\f\5\16\5R\13\5"+
+		"\3\5\3\5\7\5V\n\5\f\5\16\5Y\13\5\5\5[\n\5\3\6\3\6\3\6\3\6\3\6\3\6\5\6"+
+		"c\n\6\3\7\3\7\5\7g\n\7\3\7\7\7j\n\7\f\7\16\7m\13\7\3\b\3\b\3\b\3\b\3\b"+
+		"\3\b\3\b\3\b\3\b\3\b\5\by\n\b\3\t\3\t\3\t\6\t~\n\t\r\t\16\t\177\3\t\3"+
+		"\t\6\t\u0084\n\t\r\t\16\t\u0085\5\t\u0088\n\t\3\n\3\n\3\n\3\13\3\13\3"+
+		"\13\5\13\u0090\n\13\3\13\7\13\u0093\n\13\f\13\16\13\u0096\13\13\3\13\3"+
+		"\13\3\13\5\13\u009b\n\13\3\13\7\13\u009e\n\13\f\13\16\13\u00a1\13\13\5"+
+		"\13\u00a3\n\13\3\f\3\f\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\5\r\u00af\n\r\3"+
+		"\r\2\2\16\2\4\6\b\n\f\16\20\22\24\26\30\2\3\4\2\6\6\b\b\2\u00c3\2\33\3"+
+		"\2\2\2\4/\3\2\2\2\6\63\3\2\2\2\bZ\3\2\2\2\nb\3\2\2\2\ff\3\2\2\2\16x\3"+
+		"\2\2\2\20\u0087\3\2\2\2\22\u0089\3\2\2\2\24\u00a2\3\2\2\2\26\u00a4\3\2"+
+		"\2\2\30\u00ae\3\2\2\2\32\34\7\b\2\2\33\32\3\2\2\2\33\34\3\2\2\2\34\35"+
+		"\3\2\2\2\35\"\5\4\3\2\36\37\t\2\2\2\37!\5\4\3\2 \36\3\2\2\2!$\3\2\2\2"+
+		"\" \3\2\2\2\"#\3\2\2\2#\3\3\2\2\2$\"\3\2\2\2%\60\5\f\7\2&\'\7\3\2\2\'"+
+		"(\5\4\3\2()\7\4\2\2)\60\3\2\2\2*+\7\3\2\2+,\5\2\2\2,-\7\4\2\2-\60\3\2"+
+		"\2\2.\60\5\6\4\2/%\3\2\2\2/&\3\2\2\2/*\3\2\2\2/.\3\2\2\2\60\61\3\2\2\2"+
+		"\61/\3\2\2\2\61\62\3\2\2\2\62\5\3\2\2\2\63\64\7\3\2\2\64\65\5\b\5\2\65"+
+		";\7\4\2\2\668\7\7\2\2\679\7\b\2\28\67\3\2\2\289\3\2\2\29:\3\2\2\2:<\7"+
+		"\t\2\2;\66\3\2\2\2;<\3\2\2\2<\7\3\2\2\2=>\7\b\2\2>B\5\f\7\2?A\5\n\6\2"+
+		"@?\3\2\2\2AD\3\2\2\2B@\3\2\2\2BC\3\2\2\2C[\3\2\2\2DB\3\2\2\2EI\5\20\t"+
+		"\2FH\5\n\6\2GF\3\2\2\2HK\3\2\2\2IG\3\2\2\2IJ\3\2\2\2J[\3\2\2\2KI\3\2\2"+
+		"\2LP\5\f\7\2MO\5\n\6\2NM\3\2\2\2OR\3\2\2\2PN\3\2\2\2PQ\3\2\2\2Q[\3\2\2"+
+		"\2RP\3\2\2\2SW\5\24\13\2TV\5\n\6\2UT\3\2\2\2VY\3\2\2\2WU\3\2\2\2WX\3\2"+
+		"\2\2X[\3\2\2\2YW\3\2\2\2Z=\3\2\2\2ZE\3\2\2\2ZL\3\2\2\2ZS\3\2\2\2[\t\3"+
+		"\2\2\2\\]\t\2\2\2]c\5\f\7\2^_\7\6\2\2_c\5\20\t\2`a\7\6\2\2ac\5\24\13\2"+
+		"b\\\3\2\2\2b^\3\2\2\2b`\3\2\2\2c\13\3\2\2\2dg\5\16\b\2eg\5\24\13\2fd\3"+
+		"\2\2\2fe\3\2\2\2gk\3\2\2\2hj\5\16\b\2ih\3\2\2\2jm\3\2\2\2ki\3\2\2\2kl"+
+		"\3\2\2\2l\r\3\2\2\2mk\3\2\2\2no\7\3\2\2op\5\20\t\2pq\7\4\2\2qr\7\7\2\2"+
+		"rs\7\t\2\2sy\3\2\2\2tu\7\3\2\2uv\5\20\t\2vw\7\4\2\2wy\3\2\2\2xn\3\2\2"+
+		"\2xt\3\2\2\2y\17\3\2\2\2z{\7\b\2\2{}\5\24\13\2|~\5\22\n\2}|\3\2\2\2~\177"+
+		"\3\2\2\2\177}\3\2\2\2\177\u0080\3\2\2\2\u0080\u0088\3\2\2\2\u0081\u0083"+
+		"\5\24\13\2\u0082\u0084\5\22\n\2\u0083\u0082\3\2\2\2\u0084\u0085\3\2\2"+
+		"\2\u0085\u0083\3\2\2\2\u0085\u0086\3\2\2\2\u0086\u0088\3\2\2\2\u0087z"+
+		"\3\2\2\2\u0087\u0081\3\2\2\2\u0088\21\3\2\2\2\u0089\u008a\t\2\2\2\u008a"+
+		"\u008b\5\24\13\2\u008b\23\3\2\2\2\u008c\u008d\5\26\f\2\u008d\u0094\5\30"+
+		"\r\2\u008e\u0090\7\5\2\2\u008f\u008e\3\2\2\2\u008f\u0090\3\2\2\2\u0090"+
+		"\u0091\3\2\2\2\u0091\u0093\5\30\r\2\u0092\u008f\3\2\2\2\u0093\u0096\3"+
+		"\2\2\2\u0094\u0092\3\2\2\2\u0094\u0095\3\2\2\2\u0095\u00a3\3\2\2\2\u0096"+
+		"\u0094\3\2\2\2\u0097\u00a3\5\26\f\2\u0098\u009f\5\30\r\2\u0099\u009b\7"+
+		"\5\2\2\u009a\u0099\3\2\2\2\u009a\u009b\3\2\2\2\u009b\u009c\3\2\2\2\u009c"+
+		"\u009e\5\30\r\2\u009d\u009a\3\2\2\2\u009e\u00a1\3\2\2\2\u009f\u009d\3"+
+		"\2\2\2\u009f\u00a0\3\2\2\2\u00a0\u00a3\3\2\2\2\u00a1\u009f\3\2\2\2\u00a2"+
+		"\u008c\3\2\2\2\u00a2\u0097\3\2\2\2\u00a2\u0098\3\2\2\2\u00a3\25\3\2\2"+
+		"\2\u00a4\u00a5\7\t\2\2\u00a5\27\3\2\2\2\u00a6\u00af\7\n\2\2\u00a7\u00a8"+
+		"\7\n\2\2\u00a8\u00a9\7\7\2\2\u00a9\u00af\7\t\2\2\u00aa\u00ab\7\n\2\2\u00ab"+
+		"\u00ac\7\7\2\2\u00ac\u00ad\7\b\2\2\u00ad\u00af\7\t\2\2\u00ae\u00a6\3\2"+
+		"\2\2\u00ae\u00a7\3\2\2\2\u00ae\u00aa\3\2\2\2\u00af\31\3\2\2\2\32\33\""+
+		"/\618;BIPWZbfkx\177\u0085\u0087\u008f\u0094\u009a\u009f\u00a2\u00ae";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

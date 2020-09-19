@@ -28,11 +28,54 @@ public interface AlgebraVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpressionInBracketsWithPotentialPower(AlgebraParser.ExpressionInBracketsWithPotentialPowerContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AlgebraParser#expressionWithoutNestedBrackets}.
+	 * Visit a parse tree produced by the {@code expressionWONestedStartingWithNegativeSFFE}
+	 * labeled alternative in {@link AlgebraParser#expressionWithoutNestedBrackets}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpressionWithoutNestedBrackets(AlgebraParser.ExpressionWithoutNestedBracketsContext ctx);
+	T visitExpressionWONestedStartingWithNegativeSFFE(AlgebraParser.ExpressionWONestedStartingWithNegativeSFFEContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code expressionWONestedStartingWithSOT}
+	 * labeled alternative in {@link AlgebraParser#expressionWithoutNestedBrackets}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpressionWONestedStartingWithSOT(AlgebraParser.ExpressionWONestedStartingWithSOTContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code expressionWONestedStartingWithSFFE}
+	 * labeled alternative in {@link AlgebraParser#expressionWithoutNestedBrackets}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpressionWONestedStartingWithSFFE(AlgebraParser.ExpressionWONestedStartingWithSFFEContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code expressionWONestedStartingWithCT}
+	 * labeled alternative in {@link AlgebraParser#expressionWithoutNestedBrackets}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpressionWONestedStartingWithCT(AlgebraParser.ExpressionWONestedStartingWithCTContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code sffeInExprWithoutNestedBrackets}
+	 * labeled alternative in {@link AlgebraParser#termInExprWithoutNestedBrackets}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSffeInExprWithoutNestedBrackets(AlgebraParser.SffeInExprWithoutNestedBracketsContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code sotInExprWithoutNestedBrackets}
+	 * labeled alternative in {@link AlgebraParser#termInExprWithoutNestedBrackets}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSotInExprWithoutNestedBrackets(AlgebraParser.SotInExprWithoutNestedBracketsContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ctInExprWithoutNestedBrackets}
+	 * labeled alternative in {@link AlgebraParser#termInExprWithoutNestedBrackets}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCtInExprWithoutNestedBrackets(AlgebraParser.CtInExprWithoutNestedBracketsContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AlgebraParser#simpleFullyFactorisedExpression}.
 	 * @param ctx the parse tree

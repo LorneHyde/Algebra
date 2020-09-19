@@ -10,7 +10,7 @@ public class UserInputParser {
         AlgebraLexer lexer = new AlgebraLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         AlgebraParser parser = new AlgebraParser(tokens);
-        ParseTree tree = parser.simpleFullyFactorisedExpression();
+        ParseTree tree = parser.expressionWithoutNestedBrackets();
         MyAlgebraVisitor expander = new MyAlgebraVisitor();
         AlgebraicExpression a = expander.visit(tree);
         System.out.println(a);

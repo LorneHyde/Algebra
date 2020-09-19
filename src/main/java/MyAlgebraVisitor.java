@@ -17,8 +17,63 @@ public class MyAlgebraVisitor extends AlgebraBaseVisitor<AlgebraicExpression> {
     }
 
     @Override
-    public AlgebraicExpression visitExpressionWithoutNestedBrackets(AlgebraParser.ExpressionWithoutNestedBracketsContext ctx) {
-        return super.visitExpressionWithoutNestedBrackets(ctx);
+    public AlgebraicExpression visitExpressionWONestedStartingWithNegativeSFFE(AlgebraParser.ExpressionWONestedStartingWithNegativeSFFEContext ctx) {
+        AlgebraicExpression sumSoFar = visit(ctx.simpleFullyFactorisedExpression()).asNegative();
+        var remainingTerms = ctx.termInExprWithoutNestedBrackets();
+        for (var i: remainingTerms) {
+            sumSoFar = sumSoFar.plus(visit(i));
+        }
+        return sumSoFar;
+    }
+
+    @Override
+    public AlgebraicExpression visitExpressionWONestedStartingWithSOT(AlgebraParser.ExpressionWONestedStartingWithSOTContext ctx) {
+        AlgebraicExpression sumSoFar = visit(ctx.sumofterms());
+        var remainingTerms = ctx.termInExprWithoutNestedBrackets();
+        for (var i: remainingTerms) {
+            sumSoFar = sumSoFar.plus(visit(i));
+        }
+        return sumSoFar;
+    }
+
+    @Override
+    public AlgebraicExpression visitExpressionWONestedStartingWithSFFE(AlgebraParser.ExpressionWONestedStartingWithSFFEContext ctx) {
+        AlgebraicExpression sumSoFar = visit(ctx.simpleFullyFactorisedExpression());
+        var remainingTerms = ctx.termInExprWithoutNestedBrackets();
+        for (var i: remainingTerms) {
+            sumSoFar = sumSoFar.plus(visit(i));
+        }
+        return sumSoFar;
+    }
+
+    @Override
+    public AlgebraicExpression visitExpressionWONestedStartingWithCT(AlgebraParser.ExpressionWONestedStartingWithCTContext ctx) {
+        AlgebraicExpression sumSoFar = visit(ctx.compositeterm());
+        var remainingTerms = ctx.termInExprWithoutNestedBrackets();
+        for (var i: remainingTerms) {
+            sumSoFar = sumSoFar.plus(visit(i));
+        }
+        return sumSoFar;
+    }
+
+    @Override
+    public AlgebraicExpression visitSffeInExprWithoutNestedBrackets(AlgebraParser.SffeInExprWithoutNestedBracketsContext ctx) {
+        if (ctx.op.getType() == AlgebraParser.SUB) {
+            return visit(ctx.simpleFullyFactorisedExpression()).asNegative();
+        }
+        else {
+            return visit(ctx.simpleFullyFactorisedExpression());
+        }
+    }
+
+    @Override
+    public AlgebraicExpression visitSotInExprWithoutNestedBrackets(AlgebraParser.SotInExprWithoutNestedBracketsContext ctx) {
+        return visit(ctx.sumofterms());
+    }
+
+    @Override
+    public AlgebraicExpression visitCtInExprWithoutNestedBrackets(AlgebraParser.CtInExprWithoutNestedBracketsContext ctx) {
+        return visit(ctx.compositeterm());
     }
 
     @Override

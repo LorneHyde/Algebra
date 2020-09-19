@@ -8,9 +8,21 @@ potentiallyComplicatedProduct: (
     | '(' algebraicExpression ')'
     | expressionInBracketsWithPotentialPower 
     )+;
+
 expressionInBracketsWithPotentialPower: '(' expressionWithoutNestedBrackets ')' ('^' '-'? POSITIVE_INT)? ;
-expressionWithoutNestedBrackets: '-'? (sumofterms | simpleFullyFactorisedExpression | compositeterm)
-    ( ('-'|'+') (sumofterms | simpleFullyFactorisedExpression | compositeterm))* ;
+
+expressionWithoutNestedBrackets: '-' simpleFullyFactorisedExpression (termInExprWithoutNestedBrackets)*
+        #expressionWONestedStartingWithNegativeSFFE
+    | sumofterms termInExprWithoutNestedBrackets* #expressionWONestedStartingWithSOT
+    | simpleFullyFactorisedExpression termInExprWithoutNestedBrackets* #expressionWONestedStartingWithSFFE
+    | compositeterm termInExprWithoutNestedBrackets* #expressionWONestedStartingWithCT
+    ;
+
+termInExprWithoutNestedBrackets: (op = ('-' | '+')) simpleFullyFactorisedExpression # sffeInExprWithoutNestedBrackets
+    | '+' sumofterms #sotInExprWithoutNestedBrackets
+    | '+' compositeterm #ctInExprWithoutNestedBrackets
+    ;
+
 simpleFullyFactorisedExpression: (sumInBracketsPossiblyWithPower | compositeterm) sumInBracketsPossiblyWithPower* ;
 
 sumInBracketsPossiblyWithPower: '(' sumofterms ')' '^' POSITIVE_INT #sumInBracketsWithPower
