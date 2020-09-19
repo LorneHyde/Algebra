@@ -35,7 +35,7 @@ public interface AlgebraicExpression {
     }
 
     default AlgebraicExpression plus(AlgebraicExpression r) {
-        if (isSum()) {
+        if (r.isSum()) {
             return plus((SumOfTerms) r);
         } else return plus((CompositeTerm) r);
     }

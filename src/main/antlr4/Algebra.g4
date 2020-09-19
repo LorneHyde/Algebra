@@ -14,9 +14,11 @@ expressionWithoutNestedBrackets: '-'? (sumofterms | simpleFullyFactorisedExpress
 simpleFullyFactorisedExpression: (sumInBracketsPossiblyWithPower | compositeterm) sumInBracketsPossiblyWithPower* ;
 sumInBracketsPossiblyWithPower: '(' sumofterms ')' ('^' '-'? POSITIVE_INT)? ;
 
-sumofterms: '-' compositeterm(op = ('-'|'+') compositeterm)+ #sumOfTermsFirstTermNegative
- | compositeterm(('-'|'+') compositeterm)+ #sumOfTermsFirstTermPositive
+sumofterms: '-' (startTerm = compositeterm) termInSum+ #sumOfTermsFirstTermNegative
+ | (startTerm = compositeterm) termInSum+ #sumOfTermsFirstTermPositive
  ;
+
+termInSum: (op = ('-' | '+')) compositeterm;
 
 compositeterm: coefficient simpleterm ('*'? simpleterm)* #withCoefficient
     | coefficient #simpleNumber

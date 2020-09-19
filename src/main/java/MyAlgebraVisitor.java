@@ -33,12 +33,31 @@ public class MyAlgebraVisitor extends AlgebraBaseVisitor<AlgebraicExpression> {
 
     @Override
     public AlgebraicExpression visitSumOfTermsFirstTermNegative(AlgebraParser.SumOfTermsFirstTermNegativeContext ctx) {
-        return super.visitSumOfTermsFirstTermNegative(ctx);
+        AlgebraicExpression sumSoFar = new SumOfTerms();
+        sumSoFar = sumSoFar.plus(visit(ctx.startTerm).asNegative());
+        for (var x: ctx.termInSum()) {
+            sumSoFar = sumSoFar.plus(visit(x));
+        }
+        return sumSoFar;
     }
 
     @Override
     public AlgebraicExpression visitSumOfTermsFirstTermPositive(AlgebraParser.SumOfTermsFirstTermPositiveContext ctx) {
-        return super.visitSumOfTermsFirstTermPositive(ctx);
+        AlgebraicExpression sumSoFar = new SumOfTerms();
+        sumSoFar = sumSoFar.plus(visit(ctx.startTerm));
+        for (var x: ctx.termInSum()) {
+            sumSoFar = sumSoFar.plus(visit(x));
+        }
+        return sumSoFar;
+    }
+
+    @Override
+    public AlgebraicExpression visitTermInSum(AlgebraParser.TermInSumContext ctx) {
+        var evaluatedTerm = visit(ctx.compositeterm());
+        if (ctx.op.getType() == AlgebraParser.SUB) {
+            evaluatedTerm = evaluatedTerm.asNegative();
+        }
+        return evaluatedTerm;
     }
 
     @Override

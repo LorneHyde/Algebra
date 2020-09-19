@@ -60,6 +60,12 @@ public interface AlgebraVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSumOfTermsFirstTermPositive(AlgebraParser.SumOfTermsFirstTermPositiveContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link AlgebraParser#termInSum}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTermInSum(AlgebraParser.TermInSumContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code withCoefficient}
 	 * labeled alternative in {@link AlgebraParser#compositeterm}.
 	 * @param ctx the parse tree

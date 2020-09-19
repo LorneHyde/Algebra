@@ -111,6 +111,18 @@ public class AlgebraBaseListener implements AlgebraListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterTermInSum(AlgebraParser.TermInSumContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTermInSum(AlgebraParser.TermInSumContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterWithCoefficient(AlgebraParser.WithCoefficientContext ctx) { }
 	/**
 	 * {@inheritDoc}

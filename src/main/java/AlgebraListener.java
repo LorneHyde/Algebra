@@ -91,6 +91,16 @@ public interface AlgebraListener extends ParseTreeListener {
 	 */
 	void exitSumOfTermsFirstTermPositive(AlgebraParser.SumOfTermsFirstTermPositiveContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AlgebraParser#termInSum}.
+	 * @param ctx the parse tree
+	 */
+	void enterTermInSum(AlgebraParser.TermInSumContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AlgebraParser#termInSum}.
+	 * @param ctx the parse tree
+	 */
+	void exitTermInSum(AlgebraParser.TermInSumContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code withCoefficient}
 	 * labeled alternative in {@link AlgebraParser#compositeterm}.
 	 * @param ctx the parse tree
