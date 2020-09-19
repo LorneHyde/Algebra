@@ -23,12 +23,27 @@ public class MyAlgebraVisitor extends AlgebraBaseVisitor<AlgebraicExpression> {
 
     @Override
     public AlgebraicExpression visitSimpleFullyFactorisedExpression(AlgebraParser.SimpleFullyFactorisedExpressionContext ctx) {
-        return super.visitSimpleFullyFactorisedExpression(ctx);
+        AlgebraicExpression expressionSoFar = new CompositeTerm(1);
+        for (var i : ctx.children) {
+            expressionSoFar = expressionSoFar.multiply(visit(i));
+        }
+        return expressionSoFar;
     }
 
     @Override
-    public AlgebraicExpression visitSumInBracketsPossiblyWithPower(AlgebraParser.SumInBracketsPossiblyWithPowerContext ctx) {
-        return super.visitSumInBracketsPossiblyWithPower(ctx);
+    public AlgebraicExpression visitSumInBracketsWithPower(AlgebraParser.SumInBracketsWithPowerContext ctx) {
+        int power = Integer.parseInt(ctx.POSITIVE_INT().getText());
+        var sumInBrackets = visit(ctx.sumofterms());
+        AlgebraicExpression sumRaisedSoFar = new CompositeTerm(1);
+        for (int i = 1; i <= power; i++) {
+            sumRaisedSoFar = sumRaisedSoFar.multiply(sumInBrackets);
+        }
+        return sumRaisedSoFar;
+    }
+
+    @Override
+    public AlgebraicExpression visitSumInBracketsWithoutPower(AlgebraParser.SumInBracketsWithoutPowerContext ctx) {
+        return visit(ctx.sumofterms());
     }
 
     @Override

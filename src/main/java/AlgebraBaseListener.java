@@ -75,13 +75,25 @@ public class AlgebraBaseListener implements AlgebraListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSumInBracketsPossiblyWithPower(AlgebraParser.SumInBracketsPossiblyWithPowerContext ctx) { }
+	@Override public void enterSumInBracketsWithPower(AlgebraParser.SumInBracketsWithPowerContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSumInBracketsPossiblyWithPower(AlgebraParser.SumInBracketsPossiblyWithPowerContext ctx) { }
+	@Override public void exitSumInBracketsWithPower(AlgebraParser.SumInBracketsWithPowerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSumInBracketsWithoutPower(AlgebraParser.SumInBracketsWithoutPowerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSumInBracketsWithoutPower(AlgebraParser.SumInBracketsWithoutPowerContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

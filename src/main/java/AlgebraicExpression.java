@@ -41,7 +41,7 @@ public interface AlgebraicExpression {
     }
 
     default AlgebraicExpression multiply(AlgebraicExpression r) {
-        if (isSum()) {
+        if (r.isSum()) {
             return multiply((SumOfTerms) r);
         } else return multiply((CompositeTerm) r);
     }

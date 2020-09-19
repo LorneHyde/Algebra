@@ -40,11 +40,19 @@ public interface AlgebraVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSimpleFullyFactorisedExpression(AlgebraParser.SimpleFullyFactorisedExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AlgebraParser#sumInBracketsPossiblyWithPower}.
+	 * Visit a parse tree produced by the {@code sumInBracketsWithPower}
+	 * labeled alternative in {@link AlgebraParser#sumInBracketsPossiblyWithPower}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSumInBracketsPossiblyWithPower(AlgebraParser.SumInBracketsPossiblyWithPowerContext ctx);
+	T visitSumInBracketsWithPower(AlgebraParser.SumInBracketsWithPowerContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code sumInBracketsWithoutPower}
+	 * labeled alternative in {@link AlgebraParser#sumInBracketsPossiblyWithPower}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSumInBracketsWithoutPower(AlgebraParser.SumInBracketsWithoutPowerContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code sumOfTermsFirstTermNegative}
 	 * labeled alternative in {@link AlgebraParser#sumofterms}.

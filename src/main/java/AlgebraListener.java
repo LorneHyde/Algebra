@@ -57,15 +57,29 @@ public interface AlgebraListener extends ParseTreeListener {
 	 */
 	void exitSimpleFullyFactorisedExpression(AlgebraParser.SimpleFullyFactorisedExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AlgebraParser#sumInBracketsPossiblyWithPower}.
+	 * Enter a parse tree produced by the {@code sumInBracketsWithPower}
+	 * labeled alternative in {@link AlgebraParser#sumInBracketsPossiblyWithPower}.
 	 * @param ctx the parse tree
 	 */
-	void enterSumInBracketsPossiblyWithPower(AlgebraParser.SumInBracketsPossiblyWithPowerContext ctx);
+	void enterSumInBracketsWithPower(AlgebraParser.SumInBracketsWithPowerContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AlgebraParser#sumInBracketsPossiblyWithPower}.
+	 * Exit a parse tree produced by the {@code sumInBracketsWithPower}
+	 * labeled alternative in {@link AlgebraParser#sumInBracketsPossiblyWithPower}.
 	 * @param ctx the parse tree
 	 */
-	void exitSumInBracketsPossiblyWithPower(AlgebraParser.SumInBracketsPossiblyWithPowerContext ctx);
+	void exitSumInBracketsWithPower(AlgebraParser.SumInBracketsWithPowerContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code sumInBracketsWithoutPower}
+	 * labeled alternative in {@link AlgebraParser#sumInBracketsPossiblyWithPower}.
+	 * @param ctx the parse tree
+	 */
+	void enterSumInBracketsWithoutPower(AlgebraParser.SumInBracketsWithoutPowerContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code sumInBracketsWithoutPower}
+	 * labeled alternative in {@link AlgebraParser#sumInBracketsPossiblyWithPower}.
+	 * @param ctx the parse tree
+	 */
+	void exitSumInBracketsWithoutPower(AlgebraParser.SumInBracketsWithoutPowerContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code sumOfTermsFirstTermNegative}
 	 * labeled alternative in {@link AlgebraParser#sumofterms}.

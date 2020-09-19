@@ -598,27 +598,53 @@ public class AlgebraParser extends Parser {
 	}
 
 	public static class SumInBracketsPossiblyWithPowerContext extends ParserRuleContext {
+		public SumInBracketsPossiblyWithPowerContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_sumInBracketsPossiblyWithPower; }
+	 
+		public SumInBracketsPossiblyWithPowerContext() { }
+		public void copyFrom(SumInBracketsPossiblyWithPowerContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class SumInBracketsWithPowerContext extends SumInBracketsPossiblyWithPowerContext {
 		public SumoftermsContext sumofterms() {
 			return getRuleContext(SumoftermsContext.class,0);
 		}
 		public TerminalNode POWER() { return getToken(AlgebraParser.POWER, 0); }
 		public TerminalNode POSITIVE_INT() { return getToken(AlgebraParser.POSITIVE_INT, 0); }
-		public TerminalNode SUB() { return getToken(AlgebraParser.SUB, 0); }
-		public SumInBracketsPossiblyWithPowerContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_sumInBracketsPossiblyWithPower; }
+		public SumInBracketsWithPowerContext(SumInBracketsPossiblyWithPowerContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).enterSumInBracketsPossiblyWithPower(this);
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).enterSumInBracketsWithPower(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).exitSumInBracketsPossiblyWithPower(this);
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).exitSumInBracketsWithPower(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AlgebraVisitor ) return ((AlgebraVisitor<? extends T>)visitor).visitSumInBracketsPossiblyWithPower(this);
+			if ( visitor instanceof AlgebraVisitor ) return ((AlgebraVisitor<? extends T>)visitor).visitSumInBracketsWithPower(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class SumInBracketsWithoutPowerContext extends SumInBracketsPossiblyWithPowerContext {
+		public SumoftermsContext sumofterms() {
+			return getRuleContext(SumoftermsContext.class,0);
+		}
+		public SumInBracketsWithoutPowerContext(SumInBracketsPossiblyWithPowerContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).enterSumInBracketsWithoutPower(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).exitSumInBracketsWithoutPower(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AlgebraVisitor ) return ((AlgebraVisitor<? extends T>)visitor).visitSumInBracketsWithoutPower(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -626,38 +652,38 @@ public class AlgebraParser extends Parser {
 	public final SumInBracketsPossiblyWithPowerContext sumInBracketsPossiblyWithPower() throws RecognitionException {
 		SumInBracketsPossiblyWithPowerContext _localctx = new SumInBracketsPossiblyWithPowerContext(_ctx, getState());
 		enterRule(_localctx, 10, RULE_sumInBracketsPossiblyWithPower);
-		int _la;
 		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(86);
-			match(T__0);
-			setState(87);
-			sumofterms();
-			setState(88);
-			match(T__1);
-			setState(94);
+			setState(96);
 			_errHandler.sync(this);
-			_la = _input.LA(1);
-			if (_la==POWER) {
+			switch ( getInterpreter().adaptivePredict(_input,12,_ctx) ) {
+			case 1:
+				_localctx = new SumInBracketsWithPowerContext(_localctx);
+				enterOuterAlt(_localctx, 1);
 				{
+				setState(86);
+				match(T__0);
+				setState(87);
+				sumofterms();
+				setState(88);
+				match(T__1);
 				setState(89);
 				match(POWER);
-				setState(91);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-				if (_la==SUB) {
-					{
-					setState(90);
-					match(SUB);
-					}
-				}
-
-				setState(93);
+				setState(90);
 				match(POSITIVE_INT);
 				}
-			}
-
+				break;
+			case 2:
+				_localctx = new SumInBracketsWithoutPowerContext(_localctx);
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(92);
+				match(T__0);
+				setState(93);
+				sumofterms();
+				setState(94);
+				match(T__1);
+				}
+				break;
 			}
 		}
 		catch (RecognitionException re) {
@@ -741,20 +767,20 @@ public class AlgebraParser extends Parser {
 		enterRule(_localctx, 12, RULE_sumofterms);
 		try {
 			int _alt;
-			setState(109);
+			setState(111);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case SUB:
 				_localctx = new SumOfTermsFirstTermNegativeContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(96);
+				setState(98);
 				match(SUB);
 				{
-				setState(97);
+				setState(99);
 				((SumOfTermsFirstTermNegativeContext)_localctx).startTerm = compositeterm();
 				}
-				setState(99); 
+				setState(101); 
 				_errHandler.sync(this);
 				_alt = 1;
 				do {
@@ -762,7 +788,7 @@ public class AlgebraParser extends Parser {
 					case 1:
 						{
 						{
-						setState(98);
+						setState(100);
 						termInSum();
 						}
 						}
@@ -770,9 +796,9 @@ public class AlgebraParser extends Parser {
 					default:
 						throw new NoViableAltException(this);
 					}
-					setState(101); 
+					setState(103); 
 					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,14,_ctx);
+					_alt = getInterpreter().adaptivePredict(_input,13,_ctx);
 				} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
 				}
 				break;
@@ -782,10 +808,10 @@ public class AlgebraParser extends Parser {
 				enterOuterAlt(_localctx, 2);
 				{
 				{
-				setState(103);
+				setState(105);
 				((SumOfTermsFirstTermPositiveContext)_localctx).startTerm = compositeterm();
 				}
-				setState(105); 
+				setState(107); 
 				_errHandler.sync(this);
 				_alt = 1;
 				do {
@@ -793,7 +819,7 @@ public class AlgebraParser extends Parser {
 					case 1:
 						{
 						{
-						setState(104);
+						setState(106);
 						termInSum();
 						}
 						}
@@ -801,9 +827,9 @@ public class AlgebraParser extends Parser {
 					default:
 						throw new NoViableAltException(this);
 					}
-					setState(107); 
+					setState(109); 
 					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,15,_ctx);
+					_alt = getInterpreter().adaptivePredict(_input,14,_ctx);
 				} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
 				}
 				break;
@@ -856,7 +882,7 @@ public class AlgebraParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			{
-			setState(111);
+			setState(113);
 			((TermInSumContext)_localctx).op = _input.LT(1);
 			_la = _input.LA(1);
 			if ( !(_la==ADD || _la==SUB) ) {
@@ -868,7 +894,7 @@ public class AlgebraParser extends Parser {
 				consume();
 			}
 			}
-			setState(112);
+			setState(114);
 			compositeterm();
 			}
 		}
@@ -975,42 +1001,42 @@ public class AlgebraParser extends Parser {
 		int _la;
 		try {
 			int _alt;
-			setState(136);
+			setState(138);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,21,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,20,_ctx) ) {
 			case 1:
 				_localctx = new WithCoefficientContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(114);
+				setState(116);
 				coefficient();
-				setState(115);
+				setState(117);
 				simpleterm();
-				setState(122);
+				setState(124);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,18,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,17,_ctx);
 				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 					if ( _alt==1 ) {
 						{
 						{
-						setState(117);
+						setState(119);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
 						if (_la==MUL) {
 							{
-							setState(116);
+							setState(118);
 							match(MUL);
 							}
 						}
 
-						setState(119);
+						setState(121);
 						simpleterm();
 						}
 						} 
 					}
-					setState(124);
+					setState(126);
 					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,18,_ctx);
+					_alt = getInterpreter().adaptivePredict(_input,17,_ctx);
 				}
 				}
 				break;
@@ -1018,7 +1044,7 @@ public class AlgebraParser extends Parser {
 				_localctx = new SimpleNumberContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(125);
+				setState(127);
 				coefficient();
 				}
 				break;
@@ -1026,33 +1052,33 @@ public class AlgebraParser extends Parser {
 				_localctx = new WithoutCoefficientContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(126);
+				setState(128);
 				simpleterm();
-				setState(133);
+				setState(135);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,20,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,19,_ctx);
 				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 					if ( _alt==1 ) {
 						{
 						{
-						setState(128);
+						setState(130);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
 						if (_la==MUL) {
 							{
-							setState(127);
+							setState(129);
 							match(MUL);
 							}
 						}
 
-						setState(130);
+						setState(132);
 						simpleterm();
 						}
 						} 
 					}
-					setState(135);
+					setState(137);
 					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,20,_ctx);
+					_alt = getInterpreter().adaptivePredict(_input,19,_ctx);
 				}
 				}
 				break;
@@ -1096,7 +1122,7 @@ public class AlgebraParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(138);
+			setState(140);
 			match(POSITIVE_INT);
 			}
 		}
@@ -1183,14 +1209,14 @@ public class AlgebraParser extends Parser {
 		SimpletermContext _localctx = new SimpletermContext(_ctx, getState());
 		enterRule(_localctx, 20, RULE_simpleterm);
 		try {
-			setState(148);
+			setState(150);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,22,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,21,_ctx) ) {
 			case 1:
 				_localctx = new WithoutExponentContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(140);
+				setState(142);
 				match(CHAR);
 				}
 				break;
@@ -1198,11 +1224,11 @@ public class AlgebraParser extends Parser {
 				_localctx = new WithPositiveExponentContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(141);
-				match(CHAR);
-				setState(142);
-				match(POWER);
 				setState(143);
+				match(CHAR);
+				setState(144);
+				match(POWER);
+				setState(145);
 				match(POSITIVE_INT);
 				}
 				break;
@@ -1210,13 +1236,13 @@ public class AlgebraParser extends Parser {
 				_localctx = new WithNegativeExponentContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(144);
-				match(CHAR);
-				setState(145);
-				match(POWER);
 				setState(146);
-				match(SUB);
+				match(CHAR);
 				setState(147);
+				match(POWER);
+				setState(148);
+				match(SUB);
+				setState(149);
 				match(POSITIVE_INT);
 				}
 				break;
@@ -1234,49 +1260,50 @@ public class AlgebraParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\13\u0099\4\2\t\2"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\13\u009b\4\2\t\2"+
 		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
 		"\t\13\4\f\t\f\3\2\5\2\32\n\2\3\2\3\2\3\2\7\2\37\n\2\f\2\16\2\"\13\2\3"+
 		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\6\3.\n\3\r\3\16\3/\3\4\3\4\3\4"+
 		"\3\4\3\4\5\4\67\n\4\3\4\5\4:\n\4\3\5\5\5=\n\5\3\5\3\5\3\5\5\5B\n\5\3\5"+
 		"\3\5\3\5\3\5\5\5H\n\5\7\5J\n\5\f\5\16\5M\13\5\3\6\3\6\5\6Q\n\6\3\6\7\6"+
-		"T\n\6\f\6\16\6W\13\6\3\7\3\7\3\7\3\7\3\7\5\7^\n\7\3\7\5\7a\n\7\3\b\3\b"+
-		"\3\b\6\bf\n\b\r\b\16\bg\3\b\3\b\6\bl\n\b\r\b\16\bm\5\bp\n\b\3\t\3\t\3"+
-		"\t\3\n\3\n\3\n\5\nx\n\n\3\n\7\n{\n\n\f\n\16\n~\13\n\3\n\3\n\3\n\5\n\u0083"+
-		"\n\n\3\n\7\n\u0086\n\n\f\n\16\n\u0089\13\n\5\n\u008b\n\n\3\13\3\13\3\f"+
-		"\3\f\3\f\3\f\3\f\3\f\3\f\3\f\5\f\u0097\n\f\3\f\2\2\r\2\4\6\b\n\f\16\20"+
-		"\22\24\26\2\3\4\2\6\6\b\b\2\u00aa\2\31\3\2\2\2\4-\3\2\2\2\6\61\3\2\2\2"+
-		"\b<\3\2\2\2\nP\3\2\2\2\fX\3\2\2\2\16o\3\2\2\2\20q\3\2\2\2\22\u008a\3\2"+
-		"\2\2\24\u008c\3\2\2\2\26\u0096\3\2\2\2\30\32\7\b\2\2\31\30\3\2\2\2\31"+
-		"\32\3\2\2\2\32\33\3\2\2\2\33 \5\4\3\2\34\35\t\2\2\2\35\37\5\4\3\2\36\34"+
-		"\3\2\2\2\37\"\3\2\2\2 \36\3\2\2\2 !\3\2\2\2!\3\3\2\2\2\" \3\2\2\2#.\5"+
-		"\n\6\2$%\7\3\2\2%&\5\4\3\2&\'\7\4\2\2\'.\3\2\2\2()\7\3\2\2)*\5\2\2\2*"+
-		"+\7\4\2\2+.\3\2\2\2,.\5\6\4\2-#\3\2\2\2-$\3\2\2\2-(\3\2\2\2-,\3\2\2\2"+
-		"./\3\2\2\2/-\3\2\2\2/\60\3\2\2\2\60\5\3\2\2\2\61\62\7\3\2\2\62\63\5\b"+
-		"\5\2\639\7\4\2\2\64\66\7\7\2\2\65\67\7\b\2\2\66\65\3\2\2\2\66\67\3\2\2"+
-		"\2\678\3\2\2\28:\7\t\2\29\64\3\2\2\29:\3\2\2\2:\7\3\2\2\2;=\7\b\2\2<;"+
-		"\3\2\2\2<=\3\2\2\2=A\3\2\2\2>B\5\16\b\2?B\5\n\6\2@B\5\22\n\2A>\3\2\2\2"+
-		"A?\3\2\2\2A@\3\2\2\2BK\3\2\2\2CG\t\2\2\2DH\5\16\b\2EH\5\n\6\2FH\5\22\n"+
-		"\2GD\3\2\2\2GE\3\2\2\2GF\3\2\2\2HJ\3\2\2\2IC\3\2\2\2JM\3\2\2\2KI\3\2\2"+
-		"\2KL\3\2\2\2L\t\3\2\2\2MK\3\2\2\2NQ\5\f\7\2OQ\5\22\n\2PN\3\2\2\2PO\3\2"+
-		"\2\2QU\3\2\2\2RT\5\f\7\2SR\3\2\2\2TW\3\2\2\2US\3\2\2\2UV\3\2\2\2V\13\3"+
-		"\2\2\2WU\3\2\2\2XY\7\3\2\2YZ\5\16\b\2Z`\7\4\2\2[]\7\7\2\2\\^\7\b\2\2]"+
-		"\\\3\2\2\2]^\3\2\2\2^_\3\2\2\2_a\7\t\2\2`[\3\2\2\2`a\3\2\2\2a\r\3\2\2"+
-		"\2bc\7\b\2\2ce\5\22\n\2df\5\20\t\2ed\3\2\2\2fg\3\2\2\2ge\3\2\2\2gh\3\2"+
-		"\2\2hp\3\2\2\2ik\5\22\n\2jl\5\20\t\2kj\3\2\2\2lm\3\2\2\2mk\3\2\2\2mn\3"+
-		"\2\2\2np\3\2\2\2ob\3\2\2\2oi\3\2\2\2p\17\3\2\2\2qr\t\2\2\2rs\5\22\n\2"+
-		"s\21\3\2\2\2tu\5\24\13\2u|\5\26\f\2vx\7\5\2\2wv\3\2\2\2wx\3\2\2\2xy\3"+
-		"\2\2\2y{\5\26\f\2zw\3\2\2\2{~\3\2\2\2|z\3\2\2\2|}\3\2\2\2}\u008b\3\2\2"+
-		"\2~|\3\2\2\2\177\u008b\5\24\13\2\u0080\u0087\5\26\f\2\u0081\u0083\7\5"+
-		"\2\2\u0082\u0081\3\2\2\2\u0082\u0083\3\2\2\2\u0083\u0084\3\2\2\2\u0084"+
-		"\u0086\5\26\f\2\u0085\u0082\3\2\2\2\u0086\u0089\3\2\2\2\u0087\u0085\3"+
-		"\2\2\2\u0087\u0088\3\2\2\2\u0088\u008b\3\2\2\2\u0089\u0087\3\2\2\2\u008a"+
-		"t\3\2\2\2\u008a\177\3\2\2\2\u008a\u0080\3\2\2\2\u008b\23\3\2\2\2\u008c"+
-		"\u008d\7\t\2\2\u008d\25\3\2\2\2\u008e\u0097\7\n\2\2\u008f\u0090\7\n\2"+
-		"\2\u0090\u0091\7\7\2\2\u0091\u0097\7\t\2\2\u0092\u0093\7\n\2\2\u0093\u0094"+
-		"\7\7\2\2\u0094\u0095\7\b\2\2\u0095\u0097\7\t\2\2\u0096\u008e\3\2\2\2\u0096"+
-		"\u008f\3\2\2\2\u0096\u0092\3\2\2\2\u0097\27\3\2\2\2\31\31 -/\669<AGKP"+
-		"U]`gmow|\u0082\u0087\u008a\u0096";
+		"T\n\6\f\6\16\6W\13\6\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\5\7c\n\7"+
+		"\3\b\3\b\3\b\6\bh\n\b\r\b\16\bi\3\b\3\b\6\bn\n\b\r\b\16\bo\5\br\n\b\3"+
+		"\t\3\t\3\t\3\n\3\n\3\n\5\nz\n\n\3\n\7\n}\n\n\f\n\16\n\u0080\13\n\3\n\3"+
+		"\n\3\n\5\n\u0085\n\n\3\n\7\n\u0088\n\n\f\n\16\n\u008b\13\n\5\n\u008d\n"+
+		"\n\3\13\3\13\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\5\f\u0099\n\f\3\f\2\2\r\2"+
+		"\4\6\b\n\f\16\20\22\24\26\2\3\4\2\6\6\b\b\2\u00ab\2\31\3\2\2\2\4-\3\2"+
+		"\2\2\6\61\3\2\2\2\b<\3\2\2\2\nP\3\2\2\2\fb\3\2\2\2\16q\3\2\2\2\20s\3\2"+
+		"\2\2\22\u008c\3\2\2\2\24\u008e\3\2\2\2\26\u0098\3\2\2\2\30\32\7\b\2\2"+
+		"\31\30\3\2\2\2\31\32\3\2\2\2\32\33\3\2\2\2\33 \5\4\3\2\34\35\t\2\2\2\35"+
+		"\37\5\4\3\2\36\34\3\2\2\2\37\"\3\2\2\2 \36\3\2\2\2 !\3\2\2\2!\3\3\2\2"+
+		"\2\" \3\2\2\2#.\5\n\6\2$%\7\3\2\2%&\5\4\3\2&\'\7\4\2\2\'.\3\2\2\2()\7"+
+		"\3\2\2)*\5\2\2\2*+\7\4\2\2+.\3\2\2\2,.\5\6\4\2-#\3\2\2\2-$\3\2\2\2-(\3"+
+		"\2\2\2-,\3\2\2\2./\3\2\2\2/-\3\2\2\2/\60\3\2\2\2\60\5\3\2\2\2\61\62\7"+
+		"\3\2\2\62\63\5\b\5\2\639\7\4\2\2\64\66\7\7\2\2\65\67\7\b\2\2\66\65\3\2"+
+		"\2\2\66\67\3\2\2\2\678\3\2\2\28:\7\t\2\29\64\3\2\2\29:\3\2\2\2:\7\3\2"+
+		"\2\2;=\7\b\2\2<;\3\2\2\2<=\3\2\2\2=A\3\2\2\2>B\5\16\b\2?B\5\n\6\2@B\5"+
+		"\22\n\2A>\3\2\2\2A?\3\2\2\2A@\3\2\2\2BK\3\2\2\2CG\t\2\2\2DH\5\16\b\2E"+
+		"H\5\n\6\2FH\5\22\n\2GD\3\2\2\2GE\3\2\2\2GF\3\2\2\2HJ\3\2\2\2IC\3\2\2\2"+
+		"JM\3\2\2\2KI\3\2\2\2KL\3\2\2\2L\t\3\2\2\2MK\3\2\2\2NQ\5\f\7\2OQ\5\22\n"+
+		"\2PN\3\2\2\2PO\3\2\2\2QU\3\2\2\2RT\5\f\7\2SR\3\2\2\2TW\3\2\2\2US\3\2\2"+
+		"\2UV\3\2\2\2V\13\3\2\2\2WU\3\2\2\2XY\7\3\2\2YZ\5\16\b\2Z[\7\4\2\2[\\\7"+
+		"\7\2\2\\]\7\t\2\2]c\3\2\2\2^_\7\3\2\2_`\5\16\b\2`a\7\4\2\2ac\3\2\2\2b"+
+		"X\3\2\2\2b^\3\2\2\2c\r\3\2\2\2de\7\b\2\2eg\5\22\n\2fh\5\20\t\2gf\3\2\2"+
+		"\2hi\3\2\2\2ig\3\2\2\2ij\3\2\2\2jr\3\2\2\2km\5\22\n\2ln\5\20\t\2ml\3\2"+
+		"\2\2no\3\2\2\2om\3\2\2\2op\3\2\2\2pr\3\2\2\2qd\3\2\2\2qk\3\2\2\2r\17\3"+
+		"\2\2\2st\t\2\2\2tu\5\22\n\2u\21\3\2\2\2vw\5\24\13\2w~\5\26\f\2xz\7\5\2"+
+		"\2yx\3\2\2\2yz\3\2\2\2z{\3\2\2\2{}\5\26\f\2|y\3\2\2\2}\u0080\3\2\2\2~"+
+		"|\3\2\2\2~\177\3\2\2\2\177\u008d\3\2\2\2\u0080~\3\2\2\2\u0081\u008d\5"+
+		"\24\13\2\u0082\u0089\5\26\f\2\u0083\u0085\7\5\2\2\u0084\u0083\3\2\2\2"+
+		"\u0084\u0085\3\2\2\2\u0085\u0086\3\2\2\2\u0086\u0088\5\26\f\2\u0087\u0084"+
+		"\3\2\2\2\u0088\u008b\3\2\2\2\u0089\u0087\3\2\2\2\u0089\u008a\3\2\2\2\u008a"+
+		"\u008d\3\2\2\2\u008b\u0089\3\2\2\2\u008cv\3\2\2\2\u008c\u0081\3\2\2\2"+
+		"\u008c\u0082\3\2\2\2\u008d\23\3\2\2\2\u008e\u008f\7\t\2\2\u008f\25\3\2"+
+		"\2\2\u0090\u0099\7\n\2\2\u0091\u0092\7\n\2\2\u0092\u0093\7\7\2\2\u0093"+
+		"\u0099\7\t\2\2\u0094\u0095\7\n\2\2\u0095\u0096\7\7\2\2\u0096\u0097\7\b"+
+		"\2\2\u0097\u0099\7\t\2\2\u0098\u0090\3\2\2\2\u0098\u0091\3\2\2\2\u0098"+
+		"\u0094\3\2\2\2\u0099\27\3\2\2\2\30\31 -/\669<AGKPUbioqy~\u0084\u0089\u008c"+
+		"\u0098";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

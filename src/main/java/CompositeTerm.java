@@ -241,7 +241,7 @@ public class CompositeTerm implements AlgebraicExpression {
             var t2 = findTermWithSameSymbol(unusedTerms, t1);
             if (!isNumber() && t2 == null) {
                 newTermSet.add(t1);
-            } else {
+            } else if (t2 != null){
                 newTermSet.add(t1.multiplyWithSameSymbol(t2));
                 unusedTerms.remove(t2);
             }

@@ -12,7 +12,10 @@ expressionInBracketsWithPotentialPower: '(' expressionWithoutNestedBrackets ')' 
 expressionWithoutNestedBrackets: '-'? (sumofterms | simpleFullyFactorisedExpression | compositeterm)
     ( ('-'|'+') (sumofterms | simpleFullyFactorisedExpression | compositeterm))* ;
 simpleFullyFactorisedExpression: (sumInBracketsPossiblyWithPower | compositeterm) sumInBracketsPossiblyWithPower* ;
-sumInBracketsPossiblyWithPower: '(' sumofterms ')' ('^' '-'? POSITIVE_INT)? ;
+
+sumInBracketsPossiblyWithPower: '(' sumofterms ')' '^' POSITIVE_INT #sumInBracketsWithPower
+ | '(' sumofterms ')' #sumInBracketsWithoutPower
+ ;
 
 sumofterms: '-' (startTerm = compositeterm) termInSum+ #sumOfTermsFirstTermNegative
  | (startTerm = compositeterm) termInSum+ #sumOfTermsFirstTermPositive
