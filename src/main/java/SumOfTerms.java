@@ -67,7 +67,7 @@ public class SumOfTerms implements AlgebraicExpression {
 
     @Override
     public SumOfTerms asNegative() {
-        var newSumSet = getSumSet();
+        var newSumSet = new HashSet<CompositeTerm>();
         for (CompositeTerm i : getSumSet()) {
             newSumSet.add(i.asNegative());
         }
