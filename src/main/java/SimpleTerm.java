@@ -71,6 +71,9 @@ public class SimpleTerm {
 
     @Override
     public String toString() {
+        if(exponent == 1) {
+            return String.valueOf(symbol);
+        }
         return symbol + "^" + exponent;
     }
 }

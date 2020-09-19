@@ -139,7 +139,13 @@ public class CompositeTerm implements AlgebraicExpression {
      * as a Term.
      */
     public AlgebraicExpression plus(CompositeTerm otherTerm) {
-        if (isComparable(otherTerm)) {
+        if (otherTerm.coefficient == 0) {
+            return this;
+        }
+        else if (coefficient == 0) {
+            return otherTerm;
+        }
+        else if (isComparable(otherTerm)) {
             return plusComparable(otherTerm);
         } else if (isNumber() && otherTerm.isNumber()) {
             return new CompositeTerm(coefficient + otherTerm.coefficient);
@@ -149,28 +155,38 @@ public class CompositeTerm implements AlgebraicExpression {
     }
 
     private SumOfTerms plusIncomparableSum(SumOfTerms s) {
-        var newSet = s.getSumSet();
-        newSet.add(this);
-        return new SumOfTerms(newSet);
+        if (coefficient == 0) {
+            return s;
+        }
+        else {
+            var newSet = s.getSumSet();
+            newSet.add(this);
+            return new SumOfTerms(newSet);
+        }
     }
 
     /**
      * Creates a new SumOfTerms object obtained by adding this term to the given SumOfTerms parameter.
      */
     public SumOfTerms plus(SumOfTerms otherTerm) {
-        if (isNumber()) {
+        if (coefficient == 0) {
+            return otherTerm;
+        }
+        else if (isNumber()) {
             return numberPlus(otherTerm);
         } else {
             var sumSoFar = new SumOfTerms();
             boolean hasThisTermBeenAdded = false;
             for (CompositeTerm x : otherTerm.getSumSet()) {
-                if (!hasThisTermBeenAdded && isComparable(x)) { //Add this to its comparable term
-                    var mergedTerm = plusComparable(x);
-                    sumSoFar = mergedTerm.plusIncomparableSum(sumSoFar);
-                    hasThisTermBeenAdded = true; // If 'otherTerm' has already been added, we need not add it again
-                } else {
-                    // Keep x unchanged in the new sum
-                    sumSoFar = x.plusIncomparableSum(sumSoFar);
+                if (x.coefficient != 0) {
+                    if (!hasThisTermBeenAdded && isComparable(x)) { //Add this to its comparable term
+                        var mergedTerm = plusComparable(x);
+                        sumSoFar = mergedTerm.plusIncomparableSum(sumSoFar);
+                        hasThisTermBeenAdded = true; // If 'otherTerm' has already been added, we need not add it again
+                    } else {
+                        // Keep x unchanged in the new sum
+                        sumSoFar = x.plusIncomparableSum(sumSoFar);
+                    }
                 }
             }
             if (!hasThisTermBeenAdded) {
@@ -185,13 +201,15 @@ public class CompositeTerm implements AlgebraicExpression {
             var sumSoFar = new SumOfTerms();
             boolean hasThisTermBeenAdded = false;
             for (CompositeTerm x : otherTerm.getSumSet()) {
-                if (!hasThisTermBeenAdded && x.isNumber()) { //Add this to its comparable term
-                    var mergedTerm = new CompositeTerm(coefficient + x.coefficient);
-                    sumSoFar = mergedTerm.plusIncomparableSum(sumSoFar);
-                    hasThisTermBeenAdded = true; // If 'otherTerm' has already been added, we need not add it again
-                } else {
-                    // Keep x unchanged in the new sum
-                    sumSoFar = x.plusIncomparableSum(sumSoFar);
+                if (x.coefficient != 0) {
+                    if (!hasThisTermBeenAdded && x.isNumber()) { //Add this to its comparable term
+                        var mergedTerm = new CompositeTerm(coefficient + x.coefficient);
+                        sumSoFar = mergedTerm.plusIncomparableSum(sumSoFar);
+                        hasThisTermBeenAdded = true; // If 'otherTerm' has already been added, we need not add it again
+                    } else {
+                        // Keep x unchanged in the new sum
+                        sumSoFar = x.plusIncomparableSum(sumSoFar);
+                    }
                 }
             }
             if (!hasThisTermBeenAdded) {
@@ -324,7 +342,10 @@ public class CompositeTerm implements AlgebraicExpression {
         if (isNumber()) {
             return stringSoFar;
         } else {
-            stringSoFar += getSet().toString();
+            var setString = getSet().toString();
+            var setStringWithoutBrackets = setString.substring(1, setString.length() - 1);
+            var setStringWIthoutCommas = setStringWithoutBrackets.replaceAll(", ", "*");
+            stringSoFar += setStringWIthoutCommas;
             return stringSoFar;
         }
 

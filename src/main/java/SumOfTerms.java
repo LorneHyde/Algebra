@@ -86,16 +86,23 @@ public class SumOfTerms implements AlgebraicExpression {
         var sumSoFar = new HashSet<CompositeTerm>();
         var unpairedTerms = otherTerm.getSumSet();
         for (CompositeTerm x : getSumSet()) {
-            var comparableTerm = otherTerm.findComparable(x);
-            if (comparableTerm == null) {
-                sumSoFar.add(x);
+            if (x.getCoefficient() != 0) {
+                var comparableTerm = otherTerm.findComparable(x);
+                if (comparableTerm == null) {
+                    sumSoFar.add(x);
+                }
+                else {
+                    sumSoFar.add(x.plusComparable(comparableTerm));
+                    unpairedTerms.remove(comparableTerm);
+                }
             }
-            else {
-                sumSoFar.add(x.plusComparable(comparableTerm));
-                unpairedTerms.remove(comparableTerm);
+
+        }
+        for (CompositeTerm i: unpairedTerms) {
+            if (i.getCoefficient() != 0) {
+                sumSoFar.add(i);
             }
         }
-        sumSoFar.addAll(unpairedTerms);
         return new SumOfTerms(sumSoFar);
     }
 
