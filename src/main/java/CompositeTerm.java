@@ -1,4 +1,5 @@
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Objects;
 
 public class CompositeTerm implements AlgebraicExpression {
@@ -338,16 +339,28 @@ public class CompositeTerm implements AlgebraicExpression {
 
     @Override
     public String toString() {
-        String stringSoFar = String.valueOf(coefficient);
+        String coefficientString = String.valueOf(coefficient);
         if (isNumber()) {
-            return stringSoFar;
-        } else {
-            var setString = getSet().toString();
-            var setStringWithoutBrackets = setString.substring(1, setString.length() - 1);
-            var setStringWIthoutCommas = setStringWithoutBrackets.replaceAll(", ", "*");
-            stringSoFar += setStringWIthoutCommas;
-            return stringSoFar;
+            return coefficientString;
+        } else if (coefficient == 1){
+            return termSetString();
         }
+        else {
+            return coefficientString + termSetString();
+        }
+    }
 
+    private String termSetString() {
+        Iterator<SimpleTerm> it = termSet.iterator();
+        if (! it.hasNext())
+            return "";
+        StringBuilder sb = new StringBuilder();
+        for (;;) {
+            SimpleTerm e = it.next();
+            sb.append(e);
+            if (! it.hasNext())
+                return sb.toString();
+            sb.append('*');
+        }
     }
 }
