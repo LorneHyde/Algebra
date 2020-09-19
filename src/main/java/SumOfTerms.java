@@ -1,3 +1,4 @@
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.HashSet;
 
@@ -129,7 +130,23 @@ public class SumOfTerms implements AlgebraicExpression {
 
     @Override
     public String toString() {
-        return theSum.toString();
+        Iterator<CompositeTerm> it = theSum.iterator();
+        if (! it.hasNext())
+            return "";
+        StringBuilder sb = new StringBuilder();
+        sb.append(it.next());
+        for (;;) {
+            CompositeTerm t = it.next();
+            if(t.getCoefficient() < 0) {
+                var termWithoutMinusSign = t.toString().substring(1);
+                sb.append(" - " + termWithoutMinusSign);
+            }
+            else {
+                sb.append(" + " + t);
+            }
+            if (! it.hasNext())
+                return sb.toString();
+        }
     }
 
     public SumOfTerms plus(CompositeTerm otherTerm) {
