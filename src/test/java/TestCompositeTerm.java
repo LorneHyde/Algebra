@@ -152,27 +152,6 @@ public class TestCompositeTerm {
     }
 
     @Test
-    public void testEqualsReturnsFalseWhenGivenSingleVariableTermsWithDifferentSymbols() {
-        var x = new CompositeTerm('x');
-        var y = new CompositeTerm('y');
-        assertNotEquals(x, y);
-    }
-
-    @Test
-    public void testEqualsReturnsFalseWhenGivenSingleVariableTermsWithDifferentExponents() {
-        var x = new CompositeTerm('x');
-        var x_squared = new CompositeTerm('x', 1, 2);
-        assertNotEquals(x, x_squared);
-    }
-
-    @Test
-    public void testEqualsReturnsFalseWhenGivenSingleVariableTermsWithDifferentQuantities() {
-        var x = new CompositeTerm('x');
-        var two_x = new CompositeTerm('x', 2, 1);
-        assertNotEquals(x, two_x);
-    }
-
-    @Test
     public void testPlusOnNumberWithComparableSumOfTerms() {
         var two = new CompositeTerm(2);
         var sumSet = new HashSet<CompositeTerm>();
@@ -210,4 +189,44 @@ public class TestCompositeTerm {
         assertEquals(new SumOfTerms(expected_answer_set), answer);
         assertEquals(new SumOfTerms(expected_answer_set), also_answer);
     }
+
+    @Test
+    public void testPlusOnTwoZeroTerms() {
+        var zero = new CompositeTerm(0);
+        var zeroPlusZero = zero.plus(zero);
+        assertEquals(zero, zeroPlusZero);
+    }
+
+    @Test
+    public void testPlusOnZeroTermWithNonZeroTerm(){
+        var zero = new CompositeTerm(0);
+        var x = new CompositeTerm('x');
+        var zeroPlusX = zero.plus(x);
+        var xPlusZero = x.plus(zero);
+        assertEquals(x, zeroPlusX);
+        assertEquals(x, xPlusZero);
+    }
+
+    @Test
+    public void testEqualsReturnsFalseWhenGivenSingleVariableTermsWithDifferentSymbols() {
+        var x = new CompositeTerm('x');
+        var y = new CompositeTerm('y');
+        assertNotEquals(x, y);
+    }
+
+    @Test
+    public void testEqualsReturnsFalseWhenGivenSingleVariableTermsWithDifferentExponents() {
+        var x = new CompositeTerm('x');
+        var x_squared = new CompositeTerm('x', 1, 2);
+        assertNotEquals(x, x_squared);
+    }
+
+    @Test
+    public void testEqualsReturnsFalseWhenGivenSingleVariableTermsWithDifferentQuantities() {
+        var x = new CompositeTerm('x');
+        var two_x = new CompositeTerm('x', 2, 1);
+        assertNotEquals(x, two_x);
+    }
+
+
 }
