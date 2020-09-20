@@ -25,6 +25,7 @@ public class UserInputParser {
             hasErrors = false;
             errorMessage = "";
             System.out.println("Please enter in an algebraic expression, and I will expand the brackets for you.");
+            System.out.println("To find out more about the type of input I expect, type \"rules\".");
             System.out.println("If you would like to quit, type \"quit\".");
             Scanner scanner = new Scanner(System.in);
             inputString = scanner.nextLine();
