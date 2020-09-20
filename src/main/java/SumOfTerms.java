@@ -8,11 +8,6 @@ public class SumOfTerms implements AlgebraicExpression {
     /** @param theSum is a set of all terms in the sum.*/
     public SumOfTerms(HashSet<CompositeTerm> theSum) {
         this.theSum = theSum;
-        for (var i: theSum) {
-            if (i.getCoefficient() == 0) {
-                throw new RuntimeException("AAHH!");
-            }
-        }
     }
 
     /** Creates an empty sum of terms. */
@@ -50,16 +45,6 @@ public class SumOfTerms implements AlgebraicExpression {
         var newTermSet = new HashSet<CompositeTerm>();
         for (CompositeTerm i : getSumSet()) {
             newTermSet.add(i.multiply(t));
-        }
-        return new SumOfTerms(newTermSet);
-    }
-
-    public SumOfTerms multiplyWithoutSimplifying(SumOfTerms sum2) {
-        var newTermSet = new HashSet<CompositeTerm>();
-        for (CompositeTerm i : getSumSet()) {
-            for (CompositeTerm j : sum2.getSumSet()) {
-                newTermSet.add(i.multiply(j));
-            }
         }
         return new SumOfTerms(newTermSet);
     }
