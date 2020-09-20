@@ -63,5 +63,23 @@ public class TestSumOfTerms {
         var actualResult = x_plus_y.multiply(x_plus_y);
         assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    public void testAsNegative() {
+        var three_x = new CompositeTerm('x', 3, 1);
+        var two = new CompositeTerm(2);
+        var minus_three_x = new CompositeTerm('x', -3, 1);
+        var minus_two = new CompositeTerm(-2);
+        var sumSet = new HashSet<CompositeTerm>();
+        sumSet.add(three_x);
+        sumSet.add(two);
+        var input = new SumOfTerms(sumSet);
+        var negativeSumSet = new HashSet<CompositeTerm>();
+        negativeSumSet.add(minus_three_x);
+        negativeSumSet.add(minus_two);
+        var expectedResult = new SumOfTerms(negativeSumSet);
+        var actualResult = input.asNegative();
+        assertEquals(expectedResult, actualResult);
+    }
 }
 
