@@ -29,6 +29,13 @@ public class TestUserInputParser {
     }
 
     @Test
+    public void testExpandBracketsWhenGivenSumRaisedToZeroPower() {
+        var expectedResult = new SumOfTerms(new CompositeTerm(1));
+        var actualResult = UserInputParser.expandBrackets("(x+1)^0");
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     public void testExpandBracketsWhenGivenCompositeTermTimesSumOfTerms() {
         var expectedResult = UserInputParser.expandBrackets("x^2 - 3x");
         var actualResult = UserInputParser.expandBrackets("x(x-3)");
@@ -67,6 +74,13 @@ public class TestUserInputParser {
     public void testExpandBracketsWhenGivenComplicatedNestedExpression(){
         var expectedResult = UserInputParser.expandBrackets("x^3 + x^2 + x + 1");
         var actualResult = UserInputParser.expandBrackets("x(x(x+1)+1)+1");
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void testExpandBracketsWhenGivenSeveralZeroTermsWithDifferentSymbols(){
+        var expectedResult = new SumOfTerms();
+        var actualResult = UserInputParser.expandBrackets("0x - 0y + 0xyz + 0");
         assertEquals(expectedResult, actualResult);
     }
 }
