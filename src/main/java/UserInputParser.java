@@ -15,7 +15,7 @@ public class UserInputParser {
                 System.exit(0);
             }
             else {
-                ANTLRInputStream input = new ANTLRInputStream(answer); //TODO: Replace this with something not deprecated.
+                var input = CharStreams.fromString(answer);
                 AlgebraLexer lexer = new AlgebraLexer(input);
                 CommonTokenStream tokens = new CommonTokenStream(lexer);
                 AlgebraParser parser = new AlgebraParser(tokens);
