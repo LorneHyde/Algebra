@@ -21,7 +21,7 @@ public interface AlgebraicExpression {
     HashSet<CompositeTerm> getSumSet();
 
     default boolean isSum() {
-        return getSumSet().size() > 1;
+        return getSumSet().size() != 1;
     }
 
     default CompositeTerm giveATerm() {

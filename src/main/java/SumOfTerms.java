@@ -8,6 +8,11 @@ public class SumOfTerms implements AlgebraicExpression {
     /** @param theSum is a set of all terms in the sum.*/
     public SumOfTerms(HashSet<CompositeTerm> theSum) {
         this.theSum = theSum;
+        for (var i: theSum) {
+            if (i.getCoefficient() == 0) {
+                throw new RuntimeException("AAHH!");
+            }
+        }
     }
 
     /** Creates an empty sum of terms. */
@@ -93,11 +98,13 @@ public class SumOfTerms implements AlgebraicExpression {
                     sumSoFar.add(x);
                 }
                 else {
-                    sumSoFar.add(x.plusComparable(comparableTerm));
+                    var termToAdd = x.plusComparable(comparableTerm);
+                    if (termToAdd.getCoefficient() != 0) {
+                        sumSoFar.add(termToAdd);
+                    }
                     unpairedTerms.remove(comparableTerm);
                 }
             }
-
         }
         for (CompositeTerm i: unpairedTerms) {
             if (i.getCoefficient() != 0) {
@@ -132,10 +139,12 @@ public class SumOfTerms implements AlgebraicExpression {
     public String toString() {
         Iterator<CompositeTerm> it = theSum.iterator();
         if (! it.hasNext())
-            return "";
+            return "0";
         StringBuilder sb = new StringBuilder();
         sb.append(it.next());
         for (;;) {
+            if (! it.hasNext())
+                return sb.toString();
             CompositeTerm t = it.next();
             if(t.getCoefficient() < 0) {
                 var termWithoutMinusSign = t.toString().substring(1);
@@ -144,8 +153,6 @@ public class SumOfTerms implements AlgebraicExpression {
             else {
                 sb.append(" + " + t);
             }
-            if (! it.hasNext())
-                return sb.toString();
         }
     }
 
