@@ -30,7 +30,14 @@ public class AlgebraBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitExpressionInBracketsWithPotentialPower(AlgebraParser.ExpressionInBracketsWithPotentialPowerContext ctx) { return visitChildren(ctx); }
+	@Override public T visitExpressionInBracketsWONested(AlgebraParser.ExpressionInBracketsWONestedContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitExpressionInBracketsPositivePowerWONested(AlgebraParser.ExpressionInBracketsPositivePowerWONestedContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

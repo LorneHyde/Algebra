@@ -9,7 +9,9 @@ potentiallyComplicatedProduct: (
     | expressionInBracketsWithPotentialPower 
     )+;
 
-expressionInBracketsWithPotentialPower: '(' expressionWithoutNestedBrackets ')' ('^' '-'? POSITIVE_INT)? ;
+expressionInBracketsWithPotentialPower: '(' expressionWithoutNestedBrackets ')' #expressionInBracketsWONested
+    | '(' expressionWithoutNestedBrackets ')' ('^' POSITIVE_INT) #expressionInBracketsPositivePowerWONested
+    ;
 
 expressionWithoutNestedBrackets: '-' simpleFullyFactorisedExpression (termInExprWithoutNestedBrackets)*
         #expressionWONestedStartingWithNegativeSFFE
@@ -47,10 +49,8 @@ simpleterm: CHAR #withoutExponent
     | CHAR '^' '-' POSITIVE_INT #withNegativeExponent
     ;
 
-MUL :   '*' ;
-ADD :   '+' ;
-POWER: '^';
 SUB: '-' ;
-POSITIVE_INT: [0-9]+;
-CHAR: [a-z];
-WS: (' ' | [\t\r\n])+ -> skip;
+PLUS: '+' ;
+POSITIVE_INT: [0-9]+ ;
+CHAR: [a-z] ;
+WS: (' ' | [\t\r\n])+ -> skip ;

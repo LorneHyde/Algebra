@@ -22,11 +22,19 @@ public interface AlgebraVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPotentiallyComplicatedProduct(AlgebraParser.PotentiallyComplicatedProductContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AlgebraParser#expressionInBracketsWithPotentialPower}.
+	 * Visit a parse tree produced by the {@code expressionInBracketsWONested}
+	 * labeled alternative in {@link AlgebraParser#expressionInBracketsWithPotentialPower}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpressionInBracketsWithPotentialPower(AlgebraParser.ExpressionInBracketsWithPotentialPowerContext ctx);
+	T visitExpressionInBracketsWONested(AlgebraParser.ExpressionInBracketsWONestedContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code expressionInBracketsPositivePowerWONested}
+	 * labeled alternative in {@link AlgebraParser#expressionInBracketsWithPotentialPower}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpressionInBracketsPositivePowerWONested(AlgebraParser.ExpressionInBracketsPositivePowerWONestedContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code expressionWONestedStartingWithNegativeSFFE}
 	 * labeled alternative in {@link AlgebraParser#expressionWithoutNestedBrackets}.

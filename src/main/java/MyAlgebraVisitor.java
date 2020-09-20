@@ -12,9 +12,21 @@ public class MyAlgebraVisitor extends AlgebraBaseVisitor<AlgebraicExpression> {
     }
 
     @Override
-    public AlgebraicExpression visitExpressionInBracketsWithPotentialPower(AlgebraParser.ExpressionInBracketsWithPotentialPowerContext ctx) {
-        return super.visitExpressionInBracketsWithPotentialPower(ctx);
+    public AlgebraicExpression visitExpressionInBracketsWONested(AlgebraParser.ExpressionInBracketsWONestedContext ctx) {
+        return visit(ctx.expressionWithoutNestedBrackets());
     }
+
+    @Override
+    public AlgebraicExpression visitExpressionInBracketsPositivePowerWONested(AlgebraParser.ExpressionInBracketsPositivePowerWONestedContext ctx) {
+        int power = Integer.parseInt(ctx.POSITIVE_INT().getText());
+        var sumInBrackets = visit(ctx.expressionWithoutNestedBrackets());
+        AlgebraicExpression sumRaisedSoFar = new CompositeTerm(1);
+        for (int i = 1; i <= power; i++) {
+            sumRaisedSoFar = sumRaisedSoFar.multiply(sumInBrackets);
+        }
+        return sumRaisedSoFar;
+    }
+
 
     @Override
     public AlgebraicExpression visitExpressionWONestedStartingWithNegativeSFFE(AlgebraParser.ExpressionWONestedStartingWithNegativeSFFEContext ctx) {

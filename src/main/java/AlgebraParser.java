@@ -16,7 +16,7 @@ public class AlgebraParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, MUL=3, ADD=4, POWER=5, SUB=6, POSITIVE_INT=7, CHAR=8, 
+		T__0=1, T__1=2, T__2=3, T__3=4, SUB=5, PLUS=6, POSITIVE_INT=7, CHAR=8, 
 		WS=9;
 	public static final int
 		RULE_algebraicExpression = 0, RULE_potentiallyComplicatedProduct = 1, 
@@ -36,13 +36,13 @@ public class AlgebraParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'('", "')'", "'*'", "'+'", "'^'", "'-'"
+			null, "'('", "')'", "'^'", "'*'", "'-'", "'+'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, "MUL", "ADD", "POWER", "SUB", "POSITIVE_INT", "CHAR", 
+			null, null, null, null, null, "SUB", "PLUS", "POSITIVE_INT", "CHAR", 
 			"WS"
 		};
 	}
@@ -108,9 +108,9 @@ public class AlgebraParser extends Parser {
 		public TerminalNode SUB(int i) {
 			return getToken(AlgebraParser.SUB, i);
 		}
-		public List<TerminalNode> ADD() { return getTokens(AlgebraParser.ADD); }
-		public TerminalNode ADD(int i) {
-			return getToken(AlgebraParser.ADD, i);
+		public List<TerminalNode> PLUS() { return getTokens(AlgebraParser.PLUS); }
+		public TerminalNode PLUS(int i) {
+			return getToken(AlgebraParser.PLUS, i);
 		}
 		public AlgebraicExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -153,12 +153,12 @@ public class AlgebraParser extends Parser {
 			setState(32);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==ADD || _la==SUB) {
+			while (_la==SUB || _la==PLUS) {
 				{
 				{
 				setState(28);
 				_la = _input.LA(1);
-				if ( !(_la==ADD || _la==SUB) ) {
+				if ( !(_la==SUB || _la==PLUS) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -298,27 +298,52 @@ public class AlgebraParser extends Parser {
 	}
 
 	public static class ExpressionInBracketsWithPotentialPowerContext extends ParserRuleContext {
-		public ExpressionWithoutNestedBracketsContext expressionWithoutNestedBrackets() {
-			return getRuleContext(ExpressionWithoutNestedBracketsContext.class,0);
-		}
-		public TerminalNode POWER() { return getToken(AlgebraParser.POWER, 0); }
-		public TerminalNode POSITIVE_INT() { return getToken(AlgebraParser.POSITIVE_INT, 0); }
-		public TerminalNode SUB() { return getToken(AlgebraParser.SUB, 0); }
 		public ExpressionInBracketsWithPotentialPowerContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_expressionInBracketsWithPotentialPower; }
+	 
+		public ExpressionInBracketsWithPotentialPowerContext() { }
+		public void copyFrom(ExpressionInBracketsWithPotentialPowerContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class ExpressionInBracketsWONestedContext extends ExpressionInBracketsWithPotentialPowerContext {
+		public ExpressionWithoutNestedBracketsContext expressionWithoutNestedBrackets() {
+			return getRuleContext(ExpressionWithoutNestedBracketsContext.class,0);
+		}
+		public ExpressionInBracketsWONestedContext(ExpressionInBracketsWithPotentialPowerContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).enterExpressionInBracketsWithPotentialPower(this);
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).enterExpressionInBracketsWONested(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).exitExpressionInBracketsWithPotentialPower(this);
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).exitExpressionInBracketsWONested(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AlgebraVisitor ) return ((AlgebraVisitor<? extends T>)visitor).visitExpressionInBracketsWithPotentialPower(this);
+			if ( visitor instanceof AlgebraVisitor ) return ((AlgebraVisitor<? extends T>)visitor).visitExpressionInBracketsWONested(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ExpressionInBracketsPositivePowerWONestedContext extends ExpressionInBracketsWithPotentialPowerContext {
+		public ExpressionWithoutNestedBracketsContext expressionWithoutNestedBrackets() {
+			return getRuleContext(ExpressionWithoutNestedBracketsContext.class,0);
+		}
+		public TerminalNode POSITIVE_INT() { return getToken(AlgebraParser.POSITIVE_INT, 0); }
+		public ExpressionInBracketsPositivePowerWONestedContext(ExpressionInBracketsWithPotentialPowerContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).enterExpressionInBracketsPositivePowerWONested(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).exitExpressionInBracketsPositivePowerWONested(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AlgebraVisitor ) return ((AlgebraVisitor<? extends T>)visitor).visitExpressionInBracketsPositivePowerWONested(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -326,38 +351,40 @@ public class AlgebraParser extends Parser {
 	public final ExpressionInBracketsWithPotentialPowerContext expressionInBracketsWithPotentialPower() throws RecognitionException {
 		ExpressionInBracketsWithPotentialPowerContext _localctx = new ExpressionInBracketsWithPotentialPowerContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_expressionInBracketsWithPotentialPower);
-		int _la;
 		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(49);
-			match(T__0);
-			setState(50);
-			expressionWithoutNestedBrackets();
-			setState(51);
-			match(T__1);
-			setState(57);
+			setState(59);
 			_errHandler.sync(this);
-			_la = _input.LA(1);
-			if (_la==POWER) {
+			switch ( getInterpreter().adaptivePredict(_input,4,_ctx) ) {
+			case 1:
+				_localctx = new ExpressionInBracketsWONestedContext(_localctx);
+				enterOuterAlt(_localctx, 1);
 				{
-				setState(52);
-				match(POWER);
-				setState(54);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-				if (_la==SUB) {
-					{
-					setState(53);
-					match(SUB);
-					}
+				setState(49);
+				match(T__0);
+				setState(50);
+				expressionWithoutNestedBrackets();
+				setState(51);
+				match(T__1);
 				}
-
+				break;
+			case 2:
+				_localctx = new ExpressionInBracketsPositivePowerWONestedContext(_localctx);
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(53);
+				match(T__0);
+				setState(54);
+				expressionWithoutNestedBrackets();
+				setState(55);
+				match(T__1);
+				{
 				setState(56);
+				match(T__2);
+				setState(57);
 				match(POSITIVE_INT);
 				}
-			}
-
+				}
+				break;
 			}
 		}
 		catch (RecognitionException re) {
@@ -489,28 +516,28 @@ public class AlgebraParser extends Parser {
 		enterRule(_localctx, 6, RULE_expressionWithoutNestedBrackets);
 		int _la;
 		try {
-			setState(88);
+			setState(90);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,10,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,9,_ctx) ) {
 			case 1:
 				_localctx = new ExpressionWONestedStartingWithNegativeSFFEContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(59);
+				setState(61);
 				match(SUB);
-				setState(60);
+				setState(62);
 				simpleFullyFactorisedExpression();
-				setState(64);
+				setState(66);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while (_la==ADD || _la==SUB) {
+				while (_la==SUB || _la==PLUS) {
 					{
 					{
-					setState(61);
+					setState(63);
 					termInExprWithoutNestedBrackets();
 					}
 					}
-					setState(66);
+					setState(68);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
@@ -520,19 +547,19 @@ public class AlgebraParser extends Parser {
 				_localctx = new ExpressionWONestedStartingWithSOTContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(67);
+				setState(69);
 				sumofterms();
-				setState(71);
+				setState(73);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while (_la==ADD || _la==SUB) {
+				while (_la==SUB || _la==PLUS) {
 					{
 					{
-					setState(68);
+					setState(70);
 					termInExprWithoutNestedBrackets();
 					}
 					}
-					setState(73);
+					setState(75);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
@@ -542,19 +569,19 @@ public class AlgebraParser extends Parser {
 				_localctx = new ExpressionWONestedStartingWithSFFEContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(74);
+				setState(76);
 				simpleFullyFactorisedExpression();
-				setState(78);
+				setState(80);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while (_la==ADD || _la==SUB) {
+				while (_la==SUB || _la==PLUS) {
 					{
 					{
-					setState(75);
+					setState(77);
 					termInExprWithoutNestedBrackets();
 					}
 					}
-					setState(80);
+					setState(82);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
@@ -564,19 +591,19 @@ public class AlgebraParser extends Parser {
 				_localctx = new ExpressionWONestedStartingWithCTContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(81);
+				setState(83);
 				compositeterm();
-				setState(85);
+				setState(87);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while (_la==ADD || _la==SUB) {
+				while (_la==SUB || _la==PLUS) {
 					{
 					{
-					setState(82);
+					setState(84);
 					termInExprWithoutNestedBrackets();
 					}
 					}
-					setState(87);
+					setState(89);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
@@ -612,7 +639,7 @@ public class AlgebraParser extends Parser {
 			return getRuleContext(SimpleFullyFactorisedExpressionContext.class,0);
 		}
 		public TerminalNode SUB() { return getToken(AlgebraParser.SUB, 0); }
-		public TerminalNode ADD() { return getToken(AlgebraParser.ADD, 0); }
+		public TerminalNode PLUS() { return getToken(AlgebraParser.PLUS, 0); }
 		public SffeInExprWithoutNestedBracketsContext(TermInExprWithoutNestedBracketsContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -629,7 +656,7 @@ public class AlgebraParser extends Parser {
 		}
 	}
 	public static class CtInExprWithoutNestedBracketsContext extends TermInExprWithoutNestedBracketsContext {
-		public TerminalNode ADD() { return getToken(AlgebraParser.ADD, 0); }
+		public TerminalNode PLUS() { return getToken(AlgebraParser.PLUS, 0); }
 		public CompositetermContext compositeterm() {
 			return getRuleContext(CompositetermContext.class,0);
 		}
@@ -649,7 +676,7 @@ public class AlgebraParser extends Parser {
 		}
 	}
 	public static class SotInExprWithoutNestedBracketsContext extends TermInExprWithoutNestedBracketsContext {
-		public TerminalNode ADD() { return getToken(AlgebraParser.ADD, 0); }
+		public TerminalNode PLUS() { return getToken(AlgebraParser.PLUS, 0); }
 		public SumoftermsContext sumofterms() {
 			return getRuleContext(SumoftermsContext.class,0);
 		}
@@ -674,18 +701,18 @@ public class AlgebraParser extends Parser {
 		enterRule(_localctx, 8, RULE_termInExprWithoutNestedBrackets);
 		int _la;
 		try {
-			setState(96);
+			setState(98);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,11,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,10,_ctx) ) {
 			case 1:
 				_localctx = new SffeInExprWithoutNestedBracketsContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				{
-				setState(90);
+				setState(92);
 				((SffeInExprWithoutNestedBracketsContext)_localctx).op = _input.LT(1);
 				_la = _input.LA(1);
-				if ( !(_la==ADD || _la==SUB) ) {
+				if ( !(_la==SUB || _la==PLUS) ) {
 					((SffeInExprWithoutNestedBracketsContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 				}
 				else {
@@ -694,7 +721,7 @@ public class AlgebraParser extends Parser {
 					consume();
 				}
 				}
-				setState(91);
+				setState(93);
 				simpleFullyFactorisedExpression();
 				}
 				break;
@@ -702,9 +729,9 @@ public class AlgebraParser extends Parser {
 				_localctx = new SotInExprWithoutNestedBracketsContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(92);
-				match(ADD);
-				setState(93);
+				setState(94);
+				match(PLUS);
+				setState(95);
 				sumofterms();
 				}
 				break;
@@ -712,9 +739,9 @@ public class AlgebraParser extends Parser {
 				_localctx = new CtInExprWithoutNestedBracketsContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(94);
-				match(ADD);
-				setState(95);
+				setState(96);
+				match(PLUS);
+				setState(97);
 				compositeterm();
 				}
 				break;
@@ -767,40 +794,40 @@ public class AlgebraParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(100);
+			setState(102);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T__0:
 				{
-				setState(98);
+				setState(100);
 				sumInBracketsPossiblyWithPower();
 				}
 				break;
 			case POSITIVE_INT:
 			case CHAR:
 				{
-				setState(99);
+				setState(101);
 				compositeterm();
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
 			}
-			setState(105);
+			setState(107);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,13,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,12,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(102);
+					setState(104);
 					sumInBracketsPossiblyWithPower();
 					}
 					} 
 				}
-				setState(107);
+				setState(109);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,13,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,12,_ctx);
 			}
 			}
 		}
@@ -830,7 +857,6 @@ public class AlgebraParser extends Parser {
 		public SumoftermsContext sumofterms() {
 			return getRuleContext(SumoftermsContext.class,0);
 		}
-		public TerminalNode POWER() { return getToken(AlgebraParser.POWER, 0); }
 		public TerminalNode POSITIVE_INT() { return getToken(AlgebraParser.POSITIVE_INT, 0); }
 		public SumInBracketsWithPowerContext(SumInBracketsPossiblyWithPowerContext ctx) { copyFrom(ctx); }
 		@Override
@@ -871,22 +897,22 @@ public class AlgebraParser extends Parser {
 		SumInBracketsPossiblyWithPowerContext _localctx = new SumInBracketsPossiblyWithPowerContext(_ctx, getState());
 		enterRule(_localctx, 12, RULE_sumInBracketsPossiblyWithPower);
 		try {
-			setState(118);
+			setState(120);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,14,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,13,_ctx) ) {
 			case 1:
 				_localctx = new SumInBracketsWithPowerContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(108);
-				match(T__0);
-				setState(109);
-				sumofterms();
 				setState(110);
-				match(T__1);
+				match(T__0);
 				setState(111);
-				match(POWER);
+				sumofterms();
 				setState(112);
+				match(T__1);
+				setState(113);
+				match(T__2);
+				setState(114);
 				match(POSITIVE_INT);
 				}
 				break;
@@ -894,11 +920,11 @@ public class AlgebraParser extends Parser {
 				_localctx = new SumInBracketsWithoutPowerContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(114);
-				match(T__0);
-				setState(115);
-				sumofterms();
 				setState(116);
+				match(T__0);
+				setState(117);
+				sumofterms();
+				setState(118);
 				match(T__1);
 				}
 				break;
@@ -985,20 +1011,20 @@ public class AlgebraParser extends Parser {
 		enterRule(_localctx, 14, RULE_sumofterms);
 		try {
 			int _alt;
-			setState(133);
+			setState(135);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case SUB:
 				_localctx = new SumOfTermsFirstTermNegativeContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(120);
+				setState(122);
 				match(SUB);
 				{
-				setState(121);
+				setState(123);
 				((SumOfTermsFirstTermNegativeContext)_localctx).startTerm = compositeterm();
 				}
-				setState(123); 
+				setState(125); 
 				_errHandler.sync(this);
 				_alt = 1;
 				do {
@@ -1006,7 +1032,7 @@ public class AlgebraParser extends Parser {
 					case 1:
 						{
 						{
-						setState(122);
+						setState(124);
 						termInSum();
 						}
 						}
@@ -1014,9 +1040,9 @@ public class AlgebraParser extends Parser {
 					default:
 						throw new NoViableAltException(this);
 					}
-					setState(125); 
+					setState(127); 
 					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,15,_ctx);
+					_alt = getInterpreter().adaptivePredict(_input,14,_ctx);
 				} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
 				}
 				break;
@@ -1026,10 +1052,10 @@ public class AlgebraParser extends Parser {
 				enterOuterAlt(_localctx, 2);
 				{
 				{
-				setState(127);
+				setState(129);
 				((SumOfTermsFirstTermPositiveContext)_localctx).startTerm = compositeterm();
 				}
-				setState(129); 
+				setState(131); 
 				_errHandler.sync(this);
 				_alt = 1;
 				do {
@@ -1037,7 +1063,7 @@ public class AlgebraParser extends Parser {
 					case 1:
 						{
 						{
-						setState(128);
+						setState(130);
 						termInSum();
 						}
 						}
@@ -1045,9 +1071,9 @@ public class AlgebraParser extends Parser {
 					default:
 						throw new NoViableAltException(this);
 					}
-					setState(131); 
+					setState(133); 
 					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,16,_ctx);
+					_alt = getInterpreter().adaptivePredict(_input,15,_ctx);
 				} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
 				}
 				break;
@@ -1072,7 +1098,7 @@ public class AlgebraParser extends Parser {
 			return getRuleContext(CompositetermContext.class,0);
 		}
 		public TerminalNode SUB() { return getToken(AlgebraParser.SUB, 0); }
-		public TerminalNode ADD() { return getToken(AlgebraParser.ADD, 0); }
+		public TerminalNode PLUS() { return getToken(AlgebraParser.PLUS, 0); }
 		public TermInSumContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -1100,10 +1126,10 @@ public class AlgebraParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			{
-			setState(135);
+			setState(137);
 			((TermInSumContext)_localctx).op = _input.LT(1);
 			_la = _input.LA(1);
-			if ( !(_la==ADD || _la==SUB) ) {
+			if ( !(_la==SUB || _la==PLUS) ) {
 				((TermInSumContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 			}
 			else {
@@ -1112,7 +1138,7 @@ public class AlgebraParser extends Parser {
 				consume();
 			}
 			}
-			setState(136);
+			setState(138);
 			compositeterm();
 			}
 		}
@@ -1145,10 +1171,6 @@ public class AlgebraParser extends Parser {
 		public SimpletermContext simpleterm(int i) {
 			return getRuleContext(SimpletermContext.class,i);
 		}
-		public List<TerminalNode> MUL() { return getTokens(AlgebraParser.MUL); }
-		public TerminalNode MUL(int i) {
-			return getToken(AlgebraParser.MUL, i);
-		}
 		public WithoutCoefficientContext(CompositetermContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -1173,10 +1195,6 @@ public class AlgebraParser extends Parser {
 		}
 		public SimpletermContext simpleterm(int i) {
 			return getRuleContext(SimpletermContext.class,i);
-		}
-		public List<TerminalNode> MUL() { return getTokens(AlgebraParser.MUL); }
-		public TerminalNode MUL(int i) {
-			return getToken(AlgebraParser.MUL, i);
 		}
 		public WithCoefficientContext(CompositetermContext ctx) { copyFrom(ctx); }
 		@Override
@@ -1219,42 +1237,42 @@ public class AlgebraParser extends Parser {
 		int _la;
 		try {
 			int _alt;
-			setState(160);
+			setState(162);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,22,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,21,_ctx) ) {
 			case 1:
 				_localctx = new WithCoefficientContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(138);
+				setState(140);
 				coefficient();
-				setState(139);
+				setState(141);
 				simpleterm();
-				setState(146);
+				setState(148);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,19,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,18,_ctx);
 				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 					if ( _alt==1 ) {
 						{
 						{
-						setState(141);
+						setState(143);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
-						if (_la==MUL) {
+						if (_la==T__3) {
 							{
-							setState(140);
-							match(MUL);
+							setState(142);
+							match(T__3);
 							}
 						}
 
-						setState(143);
+						setState(145);
 						simpleterm();
 						}
 						} 
 					}
-					setState(148);
+					setState(150);
 					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,19,_ctx);
+					_alt = getInterpreter().adaptivePredict(_input,18,_ctx);
 				}
 				}
 				break;
@@ -1262,7 +1280,7 @@ public class AlgebraParser extends Parser {
 				_localctx = new SimpleNumberContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(149);
+				setState(151);
 				coefficient();
 				}
 				break;
@@ -1270,33 +1288,33 @@ public class AlgebraParser extends Parser {
 				_localctx = new WithoutCoefficientContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(150);
+				setState(152);
 				simpleterm();
-				setState(157);
+				setState(159);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,21,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,20,_ctx);
 				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 					if ( _alt==1 ) {
 						{
 						{
-						setState(152);
+						setState(154);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
-						if (_la==MUL) {
+						if (_la==T__3) {
 							{
-							setState(151);
-							match(MUL);
+							setState(153);
+							match(T__3);
 							}
 						}
 
-						setState(154);
+						setState(156);
 						simpleterm();
 						}
 						} 
 					}
-					setState(159);
+					setState(161);
 					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,21,_ctx);
+					_alt = getInterpreter().adaptivePredict(_input,20,_ctx);
 				}
 				}
 				break;
@@ -1340,7 +1358,7 @@ public class AlgebraParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(162);
+			setState(164);
 			match(POSITIVE_INT);
 			}
 		}
@@ -1368,7 +1386,6 @@ public class AlgebraParser extends Parser {
 	}
 	public static class WithNegativeExponentContext extends SimpletermContext {
 		public TerminalNode CHAR() { return getToken(AlgebraParser.CHAR, 0); }
-		public TerminalNode POWER() { return getToken(AlgebraParser.POWER, 0); }
 		public TerminalNode SUB() { return getToken(AlgebraParser.SUB, 0); }
 		public TerminalNode POSITIVE_INT() { return getToken(AlgebraParser.POSITIVE_INT, 0); }
 		public WithNegativeExponentContext(SimpletermContext ctx) { copyFrom(ctx); }
@@ -1388,7 +1405,6 @@ public class AlgebraParser extends Parser {
 	}
 	public static class WithPositiveExponentContext extends SimpletermContext {
 		public TerminalNode CHAR() { return getToken(AlgebraParser.CHAR, 0); }
-		public TerminalNode POWER() { return getToken(AlgebraParser.POWER, 0); }
 		public TerminalNode POSITIVE_INT() { return getToken(AlgebraParser.POSITIVE_INT, 0); }
 		public WithPositiveExponentContext(SimpletermContext ctx) { copyFrom(ctx); }
 		@Override
@@ -1427,14 +1443,14 @@ public class AlgebraParser extends Parser {
 		SimpletermContext _localctx = new SimpletermContext(_ctx, getState());
 		enterRule(_localctx, 22, RULE_simpleterm);
 		try {
-			setState(172);
+			setState(174);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,23,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,22,_ctx) ) {
 			case 1:
 				_localctx = new WithoutExponentContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(164);
+				setState(166);
 				match(CHAR);
 				}
 				break;
@@ -1442,11 +1458,11 @@ public class AlgebraParser extends Parser {
 				_localctx = new WithPositiveExponentContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(165);
-				match(CHAR);
-				setState(166);
-				match(POWER);
 				setState(167);
+				match(CHAR);
+				setState(168);
+				match(T__2);
+				setState(169);
 				match(POSITIVE_INT);
 				}
 				break;
@@ -1454,13 +1470,13 @@ public class AlgebraParser extends Parser {
 				_localctx = new WithNegativeExponentContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(168);
-				match(CHAR);
-				setState(169);
-				match(POWER);
 				setState(170);
-				match(SUB);
+				match(CHAR);
 				setState(171);
+				match(T__2);
+				setState(172);
+				match(SUB);
+				setState(173);
 				match(POSITIVE_INT);
 				}
 				break;
@@ -1478,59 +1494,60 @@ public class AlgebraParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\13\u00b1\4\2\t\2"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\13\u00b3\4\2\t\2"+
 		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
 		"\t\13\4\f\t\f\4\r\t\r\3\2\5\2\34\n\2\3\2\3\2\3\2\7\2!\n\2\f\2\16\2$\13"+
 		"\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\6\3\60\n\3\r\3\16\3\61\3\4"+
-		"\3\4\3\4\3\4\3\4\5\49\n\4\3\4\5\4<\n\4\3\5\3\5\3\5\7\5A\n\5\f\5\16\5D"+
-		"\13\5\3\5\3\5\7\5H\n\5\f\5\16\5K\13\5\3\5\3\5\7\5O\n\5\f\5\16\5R\13\5"+
-		"\3\5\3\5\7\5V\n\5\f\5\16\5Y\13\5\5\5[\n\5\3\6\3\6\3\6\3\6\3\6\3\6\5\6"+
-		"c\n\6\3\7\3\7\5\7g\n\7\3\7\7\7j\n\7\f\7\16\7m\13\7\3\b\3\b\3\b\3\b\3\b"+
-		"\3\b\3\b\3\b\3\b\3\b\5\by\n\b\3\t\3\t\3\t\6\t~\n\t\r\t\16\t\177\3\t\3"+
-		"\t\6\t\u0084\n\t\r\t\16\t\u0085\5\t\u0088\n\t\3\n\3\n\3\n\3\13\3\13\3"+
-		"\13\5\13\u0090\n\13\3\13\7\13\u0093\n\13\f\13\16\13\u0096\13\13\3\13\3"+
-		"\13\3\13\5\13\u009b\n\13\3\13\7\13\u009e\n\13\f\13\16\13\u00a1\13\13\5"+
-		"\13\u00a3\n\13\3\f\3\f\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\5\r\u00af\n\r\3"+
-		"\r\2\2\16\2\4\6\b\n\f\16\20\22\24\26\30\2\3\4\2\6\6\b\b\2\u00c3\2\33\3"+
-		"\2\2\2\4/\3\2\2\2\6\63\3\2\2\2\bZ\3\2\2\2\nb\3\2\2\2\ff\3\2\2\2\16x\3"+
-		"\2\2\2\20\u0087\3\2\2\2\22\u0089\3\2\2\2\24\u00a2\3\2\2\2\26\u00a4\3\2"+
-		"\2\2\30\u00ae\3\2\2\2\32\34\7\b\2\2\33\32\3\2\2\2\33\34\3\2\2\2\34\35"+
-		"\3\2\2\2\35\"\5\4\3\2\36\37\t\2\2\2\37!\5\4\3\2 \36\3\2\2\2!$\3\2\2\2"+
-		"\" \3\2\2\2\"#\3\2\2\2#\3\3\2\2\2$\"\3\2\2\2%\60\5\f\7\2&\'\7\3\2\2\'"+
-		"(\5\4\3\2()\7\4\2\2)\60\3\2\2\2*+\7\3\2\2+,\5\2\2\2,-\7\4\2\2-\60\3\2"+
-		"\2\2.\60\5\6\4\2/%\3\2\2\2/&\3\2\2\2/*\3\2\2\2/.\3\2\2\2\60\61\3\2\2\2"+
-		"\61/\3\2\2\2\61\62\3\2\2\2\62\5\3\2\2\2\63\64\7\3\2\2\64\65\5\b\5\2\65"+
-		";\7\4\2\2\668\7\7\2\2\679\7\b\2\28\67\3\2\2\289\3\2\2\29:\3\2\2\2:<\7"+
-		"\t\2\2;\66\3\2\2\2;<\3\2\2\2<\7\3\2\2\2=>\7\b\2\2>B\5\f\7\2?A\5\n\6\2"+
-		"@?\3\2\2\2AD\3\2\2\2B@\3\2\2\2BC\3\2\2\2C[\3\2\2\2DB\3\2\2\2EI\5\20\t"+
-		"\2FH\5\n\6\2GF\3\2\2\2HK\3\2\2\2IG\3\2\2\2IJ\3\2\2\2J[\3\2\2\2KI\3\2\2"+
-		"\2LP\5\f\7\2MO\5\n\6\2NM\3\2\2\2OR\3\2\2\2PN\3\2\2\2PQ\3\2\2\2Q[\3\2\2"+
-		"\2RP\3\2\2\2SW\5\24\13\2TV\5\n\6\2UT\3\2\2\2VY\3\2\2\2WU\3\2\2\2WX\3\2"+
-		"\2\2X[\3\2\2\2YW\3\2\2\2Z=\3\2\2\2ZE\3\2\2\2ZL\3\2\2\2ZS\3\2\2\2[\t\3"+
-		"\2\2\2\\]\t\2\2\2]c\5\f\7\2^_\7\6\2\2_c\5\20\t\2`a\7\6\2\2ac\5\24\13\2"+
-		"b\\\3\2\2\2b^\3\2\2\2b`\3\2\2\2c\13\3\2\2\2dg\5\16\b\2eg\5\24\13\2fd\3"+
-		"\2\2\2fe\3\2\2\2gk\3\2\2\2hj\5\16\b\2ih\3\2\2\2jm\3\2\2\2ki\3\2\2\2kl"+
-		"\3\2\2\2l\r\3\2\2\2mk\3\2\2\2no\7\3\2\2op\5\20\t\2pq\7\4\2\2qr\7\7\2\2"+
-		"rs\7\t\2\2sy\3\2\2\2tu\7\3\2\2uv\5\20\t\2vw\7\4\2\2wy\3\2\2\2xn\3\2\2"+
-		"\2xt\3\2\2\2y\17\3\2\2\2z{\7\b\2\2{}\5\24\13\2|~\5\22\n\2}|\3\2\2\2~\177"+
-		"\3\2\2\2\177}\3\2\2\2\177\u0080\3\2\2\2\u0080\u0088\3\2\2\2\u0081\u0083"+
-		"\5\24\13\2\u0082\u0084\5\22\n\2\u0083\u0082\3\2\2\2\u0084\u0085\3\2\2"+
-		"\2\u0085\u0083\3\2\2\2\u0085\u0086\3\2\2\2\u0086\u0088\3\2\2\2\u0087z"+
-		"\3\2\2\2\u0087\u0081\3\2\2\2\u0088\21\3\2\2\2\u0089\u008a\t\2\2\2\u008a"+
-		"\u008b\5\24\13\2\u008b\23\3\2\2\2\u008c\u008d\5\26\f\2\u008d\u0094\5\30"+
-		"\r\2\u008e\u0090\7\5\2\2\u008f\u008e\3\2\2\2\u008f\u0090\3\2\2\2\u0090"+
-		"\u0091\3\2\2\2\u0091\u0093\5\30\r\2\u0092\u008f\3\2\2\2\u0093\u0096\3"+
-		"\2\2\2\u0094\u0092\3\2\2\2\u0094\u0095\3\2\2\2\u0095\u00a3\3\2\2\2\u0096"+
-		"\u0094\3\2\2\2\u0097\u00a3\5\26\f\2\u0098\u009f\5\30\r\2\u0099\u009b\7"+
-		"\5\2\2\u009a\u0099\3\2\2\2\u009a\u009b\3\2\2\2\u009b\u009c\3\2\2\2\u009c"+
-		"\u009e\5\30\r\2\u009d\u009a\3\2\2\2\u009e\u00a1\3\2\2\2\u009f\u009d\3"+
-		"\2\2\2\u009f\u00a0\3\2\2\2\u00a0\u00a3\3\2\2\2\u00a1\u009f\3\2\2\2\u00a2"+
-		"\u008c\3\2\2\2\u00a2\u0097\3\2\2\2\u00a2\u0098\3\2\2\2\u00a3\25\3\2\2"+
-		"\2\u00a4\u00a5\7\t\2\2\u00a5\27\3\2\2\2\u00a6\u00af\7\n\2\2\u00a7\u00a8"+
-		"\7\n\2\2\u00a8\u00a9\7\7\2\2\u00a9\u00af\7\t\2\2\u00aa\u00ab\7\n\2\2\u00ab"+
-		"\u00ac\7\7\2\2\u00ac\u00ad\7\b\2\2\u00ad\u00af\7\t\2\2\u00ae\u00a6\3\2"+
-		"\2\2\u00ae\u00a7\3\2\2\2\u00ae\u00aa\3\2\2\2\u00af\31\3\2\2\2\32\33\""+
-		"/\618;BIPWZbfkx\177\u0085\u0087\u008f\u0094\u009a\u009f\u00a2\u00ae";
+		"\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\5\4>\n\4\3\5\3\5\3\5\7\5C\n\5\f\5"+
+		"\16\5F\13\5\3\5\3\5\7\5J\n\5\f\5\16\5M\13\5\3\5\3\5\7\5Q\n\5\f\5\16\5"+
+		"T\13\5\3\5\3\5\7\5X\n\5\f\5\16\5[\13\5\5\5]\n\5\3\6\3\6\3\6\3\6\3\6\3"+
+		"\6\5\6e\n\6\3\7\3\7\5\7i\n\7\3\7\7\7l\n\7\f\7\16\7o\13\7\3\b\3\b\3\b\3"+
+		"\b\3\b\3\b\3\b\3\b\3\b\3\b\5\b{\n\b\3\t\3\t\3\t\6\t\u0080\n\t\r\t\16\t"+
+		"\u0081\3\t\3\t\6\t\u0086\n\t\r\t\16\t\u0087\5\t\u008a\n\t\3\n\3\n\3\n"+
+		"\3\13\3\13\3\13\5\13\u0092\n\13\3\13\7\13\u0095\n\13\f\13\16\13\u0098"+
+		"\13\13\3\13\3\13\3\13\5\13\u009d\n\13\3\13\7\13\u00a0\n\13\f\13\16\13"+
+		"\u00a3\13\13\5\13\u00a5\n\13\3\f\3\f\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\5"+
+		"\r\u00b1\n\r\3\r\2\2\16\2\4\6\b\n\f\16\20\22\24\26\30\2\3\3\2\7\b\2\u00c4"+
+		"\2\33\3\2\2\2\4/\3\2\2\2\6=\3\2\2\2\b\\\3\2\2\2\nd\3\2\2\2\fh\3\2\2\2"+
+		"\16z\3\2\2\2\20\u0089\3\2\2\2\22\u008b\3\2\2\2\24\u00a4\3\2\2\2\26\u00a6"+
+		"\3\2\2\2\30\u00b0\3\2\2\2\32\34\7\7\2\2\33\32\3\2\2\2\33\34\3\2\2\2\34"+
+		"\35\3\2\2\2\35\"\5\4\3\2\36\37\t\2\2\2\37!\5\4\3\2 \36\3\2\2\2!$\3\2\2"+
+		"\2\" \3\2\2\2\"#\3\2\2\2#\3\3\2\2\2$\"\3\2\2\2%\60\5\f\7\2&\'\7\3\2\2"+
+		"\'(\5\4\3\2()\7\4\2\2)\60\3\2\2\2*+\7\3\2\2+,\5\2\2\2,-\7\4\2\2-\60\3"+
+		"\2\2\2.\60\5\6\4\2/%\3\2\2\2/&\3\2\2\2/*\3\2\2\2/.\3\2\2\2\60\61\3\2\2"+
+		"\2\61/\3\2\2\2\61\62\3\2\2\2\62\5\3\2\2\2\63\64\7\3\2\2\64\65\5\b\5\2"+
+		"\65\66\7\4\2\2\66>\3\2\2\2\678\7\3\2\289\5\b\5\29:\7\4\2\2:;\7\5\2\2;"+
+		"<\7\t\2\2<>\3\2\2\2=\63\3\2\2\2=\67\3\2\2\2>\7\3\2\2\2?@\7\7\2\2@D\5\f"+
+		"\7\2AC\5\n\6\2BA\3\2\2\2CF\3\2\2\2DB\3\2\2\2DE\3\2\2\2E]\3\2\2\2FD\3\2"+
+		"\2\2GK\5\20\t\2HJ\5\n\6\2IH\3\2\2\2JM\3\2\2\2KI\3\2\2\2KL\3\2\2\2L]\3"+
+		"\2\2\2MK\3\2\2\2NR\5\f\7\2OQ\5\n\6\2PO\3\2\2\2QT\3\2\2\2RP\3\2\2\2RS\3"+
+		"\2\2\2S]\3\2\2\2TR\3\2\2\2UY\5\24\13\2VX\5\n\6\2WV\3\2\2\2X[\3\2\2\2Y"+
+		"W\3\2\2\2YZ\3\2\2\2Z]\3\2\2\2[Y\3\2\2\2\\?\3\2\2\2\\G\3\2\2\2\\N\3\2\2"+
+		"\2\\U\3\2\2\2]\t\3\2\2\2^_\t\2\2\2_e\5\f\7\2`a\7\b\2\2ae\5\20\t\2bc\7"+
+		"\b\2\2ce\5\24\13\2d^\3\2\2\2d`\3\2\2\2db\3\2\2\2e\13\3\2\2\2fi\5\16\b"+
+		"\2gi\5\24\13\2hf\3\2\2\2hg\3\2\2\2im\3\2\2\2jl\5\16\b\2kj\3\2\2\2lo\3"+
+		"\2\2\2mk\3\2\2\2mn\3\2\2\2n\r\3\2\2\2om\3\2\2\2pq\7\3\2\2qr\5\20\t\2r"+
+		"s\7\4\2\2st\7\5\2\2tu\7\t\2\2u{\3\2\2\2vw\7\3\2\2wx\5\20\t\2xy\7\4\2\2"+
+		"y{\3\2\2\2zp\3\2\2\2zv\3\2\2\2{\17\3\2\2\2|}\7\7\2\2}\177\5\24\13\2~\u0080"+
+		"\5\22\n\2\177~\3\2\2\2\u0080\u0081\3\2\2\2\u0081\177\3\2\2\2\u0081\u0082"+
+		"\3\2\2\2\u0082\u008a\3\2\2\2\u0083\u0085\5\24\13\2\u0084\u0086\5\22\n"+
+		"\2\u0085\u0084\3\2\2\2\u0086\u0087\3\2\2\2\u0087\u0085\3\2\2\2\u0087\u0088"+
+		"\3\2\2\2\u0088\u008a\3\2\2\2\u0089|\3\2\2\2\u0089\u0083\3\2\2\2\u008a"+
+		"\21\3\2\2\2\u008b\u008c\t\2\2\2\u008c\u008d\5\24\13\2\u008d\23\3\2\2\2"+
+		"\u008e\u008f\5\26\f\2\u008f\u0096\5\30\r\2\u0090\u0092\7\6\2\2\u0091\u0090"+
+		"\3\2\2\2\u0091\u0092\3\2\2\2\u0092\u0093\3\2\2\2\u0093\u0095\5\30\r\2"+
+		"\u0094\u0091\3\2\2\2\u0095\u0098\3\2\2\2\u0096\u0094\3\2\2\2\u0096\u0097"+
+		"\3\2\2\2\u0097\u00a5\3\2\2\2\u0098\u0096\3\2\2\2\u0099\u00a5\5\26\f\2"+
+		"\u009a\u00a1\5\30\r\2\u009b\u009d\7\6\2\2\u009c\u009b\3\2\2\2\u009c\u009d"+
+		"\3\2\2\2\u009d\u009e\3\2\2\2\u009e\u00a0\5\30\r\2\u009f\u009c\3\2\2\2"+
+		"\u00a0\u00a3\3\2\2\2\u00a1\u009f\3\2\2\2\u00a1\u00a2\3\2\2\2\u00a2\u00a5"+
+		"\3\2\2\2\u00a3\u00a1\3\2\2\2\u00a4\u008e\3\2\2\2\u00a4\u0099\3\2\2\2\u00a4"+
+		"\u009a\3\2\2\2\u00a5\25\3\2\2\2\u00a6\u00a7\7\t\2\2\u00a7\27\3\2\2\2\u00a8"+
+		"\u00b1\7\n\2\2\u00a9\u00aa\7\n\2\2\u00aa\u00ab\7\5\2\2\u00ab\u00b1\7\t"+
+		"\2\2\u00ac\u00ad\7\n\2\2\u00ad\u00ae\7\5\2\2\u00ae\u00af\7\7\2\2\u00af"+
+		"\u00b1\7\t\2\2\u00b0\u00a8\3\2\2\2\u00b0\u00a9\3\2\2\2\u00b0\u00ac\3\2"+
+		"\2\2\u00b1\31\3\2\2\2\31\33\"/\61=DKRY\\dhmz\u0081\u0087\u0089\u0091\u0096"+
+		"\u009c\u00a1\u00a4\u00b0";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

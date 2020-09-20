@@ -27,15 +27,29 @@ public interface AlgebraListener extends ParseTreeListener {
 	 */
 	void exitPotentiallyComplicatedProduct(AlgebraParser.PotentiallyComplicatedProductContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AlgebraParser#expressionInBracketsWithPotentialPower}.
+	 * Enter a parse tree produced by the {@code expressionInBracketsWONested}
+	 * labeled alternative in {@link AlgebraParser#expressionInBracketsWithPotentialPower}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpressionInBracketsWithPotentialPower(AlgebraParser.ExpressionInBracketsWithPotentialPowerContext ctx);
+	void enterExpressionInBracketsWONested(AlgebraParser.ExpressionInBracketsWONestedContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AlgebraParser#expressionInBracketsWithPotentialPower}.
+	 * Exit a parse tree produced by the {@code expressionInBracketsWONested}
+	 * labeled alternative in {@link AlgebraParser#expressionInBracketsWithPotentialPower}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpressionInBracketsWithPotentialPower(AlgebraParser.ExpressionInBracketsWithPotentialPowerContext ctx);
+	void exitExpressionInBracketsWONested(AlgebraParser.ExpressionInBracketsWONestedContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code expressionInBracketsPositivePowerWONested}
+	 * labeled alternative in {@link AlgebraParser#expressionInBracketsWithPotentialPower}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpressionInBracketsPositivePowerWONested(AlgebraParser.ExpressionInBracketsPositivePowerWONestedContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code expressionInBracketsPositivePowerWONested}
+	 * labeled alternative in {@link AlgebraParser#expressionInBracketsWithPotentialPower}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpressionInBracketsPositivePowerWONested(AlgebraParser.ExpressionInBracketsPositivePowerWONestedContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code expressionWONestedStartingWithNegativeSFFE}
 	 * labeled alternative in {@link AlgebraParser#expressionWithoutNestedBrackets}.
