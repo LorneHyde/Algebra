@@ -79,14 +79,6 @@ public class SumOfTerms implements AlgebraicExpression {
         return new SumOfTerms(newSumSet);
     }
 
-    public SumOfTerms simplify() { //TODO: Write a test for this
-        var newSum = new SumOfTerms(new HashSet<>());
-        for (CompositeTerm i : getSumSet()) {
-            newSum = newSum.plus(i);
-        }
-        return newSum;
-    }
-
     @Override
     public SumOfTerms plus(SumOfTerms otherTerm) {
         var sumSoFar = new HashSet<CompositeTerm>();
