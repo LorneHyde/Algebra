@@ -208,6 +208,14 @@ public class TestCompositeTerm {
     }
 
     @Test
+    public void testPlusOnZeroTermWhenGivenNonZeroSumOfTerms() {
+        var zero = new CompositeTerm(0);
+        var sum = UserInputParser.expandBrackets("x + 1");
+        assertEquals(sum, zero.plus(sum));
+        assertEquals(sum, sum.plus(zero));
+    }
+
+    @Test
     public void testEqualsReturnsFalseWhenGivenSingleVariableTermsWithDifferentSymbols() {
         var x = new CompositeTerm('x');
         var y = new CompositeTerm('y');
