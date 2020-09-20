@@ -10,17 +10,59 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface AlgebraVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link AlgebraParser#algebraicExpression}.
+	 * Visit a parse tree produced by the {@code algebraicExpressionFirstTermNegative}
+	 * labeled alternative in {@link AlgebraParser#algebraicExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAlgebraicExpression(AlgebraParser.AlgebraicExpressionContext ctx);
+	T visitAlgebraicExpressionFirstTermNegative(AlgebraParser.AlgebraicExpressionFirstTermNegativeContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code algebraicExpressionFirstTermPositive}
+	 * labeled alternative in {@link AlgebraParser#algebraicExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAlgebraicExpressionFirstTermPositive(AlgebraParser.AlgebraicExpressionFirstTermPositiveContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AlgebraParser#potentialyComplicatedProductWithSign}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPotentialyComplicatedProductWithSign(AlgebraParser.PotentialyComplicatedProductWithSignContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AlgebraParser#potentiallyComplicatedProduct}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitPotentiallyComplicatedProduct(AlgebraParser.PotentiallyComplicatedProductContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code potentiallyComplicatedFactorSFFE}
+	 * labeled alternative in {@link AlgebraParser#potentiallyComplicatedFactor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPotentiallyComplicatedFactorSFFE(AlgebraParser.PotentiallyComplicatedFactorSFFEContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code potentiallyComplicatedProductInBrackets}
+	 * labeled alternative in {@link AlgebraParser#potentiallyComplicatedFactor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPotentiallyComplicatedProductInBrackets(AlgebraParser.PotentiallyComplicatedProductInBracketsContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code algebraicExpressionInBrackets}
+	 * labeled alternative in {@link AlgebraParser#potentiallyComplicatedFactor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAlgebraicExpressionInBrackets(AlgebraParser.AlgebraicExpressionInBracketsContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code potentiallyComplicatedFactorEIBWPP}
+	 * labeled alternative in {@link AlgebraParser#potentiallyComplicatedFactor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPotentiallyComplicatedFactorEIBWPP(AlgebraParser.PotentiallyComplicatedFactorEIBWPPContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code expressionInBracketsWONested}
 	 * labeled alternative in {@link AlgebraParser#expressionInBracketsWithPotentialPower}.

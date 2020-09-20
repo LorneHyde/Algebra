@@ -1,14 +1,64 @@
 import java.util.HashSet;
 
 public class MyAlgebraVisitor extends AlgebraBaseVisitor<AlgebraicExpression> {
+
     @Override
-    public AlgebraicExpression visitAlgebraicExpression(AlgebraParser.AlgebraicExpressionContext ctx) {
-        return super.visitAlgebraicExpression(ctx);
+    public AlgebraicExpression visitAlgebraicExpressionFirstTermNegative(AlgebraParser.AlgebraicExpressionFirstTermNegativeContext ctx) {
+        AlgebraicExpression sumSoFar = new SumOfTerms();
+        sumSoFar = sumSoFar.plus(visit(ctx.potentiallyComplicatedProduct()).asNegative());
+        for (var x: ctx.potentialyComplicatedProductWithSign()) {
+            sumSoFar = sumSoFar.plus(visit(x));
+        }
+        return sumSoFar;
+    }
+
+    @Override
+    public AlgebraicExpression visitAlgebraicExpressionFirstTermPositive(AlgebraParser.AlgebraicExpressionFirstTermPositiveContext ctx) {
+        AlgebraicExpression sumSoFar = new SumOfTerms();
+        sumSoFar = sumSoFar.plus(visit(ctx.potentiallyComplicatedProduct()));
+        for (var x: ctx.potentialyComplicatedProductWithSign()) {
+            sumSoFar = sumSoFar.plus(visit(x));
+        }
+        return sumSoFar;
+    }
+
+    @Override
+    public AlgebraicExpression visitPotentialyComplicatedProductWithSign(AlgebraParser.PotentialyComplicatedProductWithSignContext ctx) {
+        if (ctx.op.getType() == AlgebraParser.SUB) {
+            return visit(ctx.potentiallyComplicatedProduct()).asNegative();
+        }
+        else {
+            return visit(ctx.potentiallyComplicatedProduct());
+        }
     }
 
     @Override
     public AlgebraicExpression visitPotentiallyComplicatedProduct(AlgebraParser.PotentiallyComplicatedProductContext ctx) {
-        return super.visitPotentiallyComplicatedProduct(ctx);
+        AlgebraicExpression expressionSoFar = new CompositeTerm(1);
+        for (var i : ctx.children) {
+            expressionSoFar = expressionSoFar.multiply(visit(i));
+        }
+        return expressionSoFar;
+    }
+
+    @Override
+    public AlgebraicExpression visitPotentiallyComplicatedProductInBrackets(AlgebraParser.PotentiallyComplicatedProductInBracketsContext ctx) {
+        return visit(ctx.potentiallyComplicatedProduct());
+    }
+
+    @Override
+    public AlgebraicExpression visitAlgebraicExpressionInBrackets(AlgebraParser.AlgebraicExpressionInBracketsContext ctx) {
+        return visit(ctx.algebraicExpression());
+    }
+
+    @Override
+    public AlgebraicExpression visitPotentiallyComplicatedFactorSFFE(AlgebraParser.PotentiallyComplicatedFactorSFFEContext ctx) {
+        return visit(ctx.simpleFullyFactorisedExpression());
+    }
+
+    @Override
+    public AlgebraicExpression visitPotentiallyComplicatedFactorEIBWPP(AlgebraParser.PotentiallyComplicatedFactorEIBWPPContext ctx) {
+        return visit(ctx.expressionInBracketsWithPotentialPower());
     }
 
     @Override

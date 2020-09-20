@@ -7,15 +7,39 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface AlgebraListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link AlgebraParser#algebraicExpression}.
+	 * Enter a parse tree produced by the {@code algebraicExpressionFirstTermNegative}
+	 * labeled alternative in {@link AlgebraParser#algebraicExpression}.
 	 * @param ctx the parse tree
 	 */
-	void enterAlgebraicExpression(AlgebraParser.AlgebraicExpressionContext ctx);
+	void enterAlgebraicExpressionFirstTermNegative(AlgebraParser.AlgebraicExpressionFirstTermNegativeContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AlgebraParser#algebraicExpression}.
+	 * Exit a parse tree produced by the {@code algebraicExpressionFirstTermNegative}
+	 * labeled alternative in {@link AlgebraParser#algebraicExpression}.
 	 * @param ctx the parse tree
 	 */
-	void exitAlgebraicExpression(AlgebraParser.AlgebraicExpressionContext ctx);
+	void exitAlgebraicExpressionFirstTermNegative(AlgebraParser.AlgebraicExpressionFirstTermNegativeContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code algebraicExpressionFirstTermPositive}
+	 * labeled alternative in {@link AlgebraParser#algebraicExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterAlgebraicExpressionFirstTermPositive(AlgebraParser.AlgebraicExpressionFirstTermPositiveContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code algebraicExpressionFirstTermPositive}
+	 * labeled alternative in {@link AlgebraParser#algebraicExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitAlgebraicExpressionFirstTermPositive(AlgebraParser.AlgebraicExpressionFirstTermPositiveContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AlgebraParser#potentialyComplicatedProductWithSign}.
+	 * @param ctx the parse tree
+	 */
+	void enterPotentialyComplicatedProductWithSign(AlgebraParser.PotentialyComplicatedProductWithSignContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AlgebraParser#potentialyComplicatedProductWithSign}.
+	 * @param ctx the parse tree
+	 */
+	void exitPotentialyComplicatedProductWithSign(AlgebraParser.PotentialyComplicatedProductWithSignContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AlgebraParser#potentiallyComplicatedProduct}.
 	 * @param ctx the parse tree
@@ -26,6 +50,54 @@ public interface AlgebraListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitPotentiallyComplicatedProduct(AlgebraParser.PotentiallyComplicatedProductContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code potentiallyComplicatedFactorSFFE}
+	 * labeled alternative in {@link AlgebraParser#potentiallyComplicatedFactor}.
+	 * @param ctx the parse tree
+	 */
+	void enterPotentiallyComplicatedFactorSFFE(AlgebraParser.PotentiallyComplicatedFactorSFFEContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code potentiallyComplicatedFactorSFFE}
+	 * labeled alternative in {@link AlgebraParser#potentiallyComplicatedFactor}.
+	 * @param ctx the parse tree
+	 */
+	void exitPotentiallyComplicatedFactorSFFE(AlgebraParser.PotentiallyComplicatedFactorSFFEContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code potentiallyComplicatedProductInBrackets}
+	 * labeled alternative in {@link AlgebraParser#potentiallyComplicatedFactor}.
+	 * @param ctx the parse tree
+	 */
+	void enterPotentiallyComplicatedProductInBrackets(AlgebraParser.PotentiallyComplicatedProductInBracketsContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code potentiallyComplicatedProductInBrackets}
+	 * labeled alternative in {@link AlgebraParser#potentiallyComplicatedFactor}.
+	 * @param ctx the parse tree
+	 */
+	void exitPotentiallyComplicatedProductInBrackets(AlgebraParser.PotentiallyComplicatedProductInBracketsContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code algebraicExpressionInBrackets}
+	 * labeled alternative in {@link AlgebraParser#potentiallyComplicatedFactor}.
+	 * @param ctx the parse tree
+	 */
+	void enterAlgebraicExpressionInBrackets(AlgebraParser.AlgebraicExpressionInBracketsContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code algebraicExpressionInBrackets}
+	 * labeled alternative in {@link AlgebraParser#potentiallyComplicatedFactor}.
+	 * @param ctx the parse tree
+	 */
+	void exitAlgebraicExpressionInBrackets(AlgebraParser.AlgebraicExpressionInBracketsContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code potentiallyComplicatedFactorEIBWPP}
+	 * labeled alternative in {@link AlgebraParser#potentiallyComplicatedFactor}.
+	 * @param ctx the parse tree
+	 */
+	void enterPotentiallyComplicatedFactorEIBWPP(AlgebraParser.PotentiallyComplicatedFactorEIBWPPContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code potentiallyComplicatedFactorEIBWPP}
+	 * labeled alternative in {@link AlgebraParser#potentiallyComplicatedFactor}.
+	 * @param ctx the parse tree
+	 */
+	void exitPotentiallyComplicatedFactorEIBWPP(AlgebraParser.PotentiallyComplicatedFactorEIBWPPContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code expressionInBracketsWONested}
 	 * labeled alternative in {@link AlgebraParser#expressionInBracketsWithPotentialPower}.

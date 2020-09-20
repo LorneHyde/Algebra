@@ -1,13 +1,20 @@
 grammar Algebra;
 
-algebraicExpression: '-'? potentiallyComplicatedProduct(('-'|'+') potentiallyComplicatedProduct)*;
+algebraicExpression:
+    '-' potentiallyComplicatedProduct(potentialyComplicatedProductWithSign)* #algebraicExpressionFirstTermNegative
+    | potentiallyComplicatedProduct(potentialyComplicatedProductWithSign)* #algebraicExpressionFirstTermPositive
+    ;
 
-potentiallyComplicatedProduct: (
-    simpleFullyFactorisedExpression
-    |'(' potentiallyComplicatedProduct ')'
-    | '(' algebraicExpression ')'
-    | expressionInBracketsWithPotentialPower 
-    )+;
+potentialyComplicatedProductWithSign: op=('-'|'+') potentiallyComplicatedProduct;
+
+potentiallyComplicatedProduct: (potentiallyComplicatedFactor)+;
+
+potentiallyComplicatedFactor:
+    simpleFullyFactorisedExpression #potentiallyComplicatedFactorSFFE
+    |'(' potentiallyComplicatedProduct ')' #potentiallyComplicatedProductInBrackets
+    | '(' algebraicExpression ')' #algebraicExpressionInBrackets
+    | expressionInBracketsWithPotentialPower #potentiallyComplicatedFactorEIBWPP
+    ;
 
 expressionInBracketsWithPotentialPower: '(' expressionWithoutNestedBrackets ')' #expressionInBracketsWONested
     | '(' expressionWithoutNestedBrackets ')' ('^' POSITIVE_INT) #expressionInBracketsPositivePowerWONested

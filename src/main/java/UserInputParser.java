@@ -6,11 +6,11 @@ import java.io.InputStream;
 public class UserInputParser {
     public static void main(String[] args) throws Exception {
         InputStream is = System.in; //TODO: Stop requiring the user to type in ctrl^D or ctrl^Z
-        ANTLRInputStream input = new ANTLRInputStream(is);
+        ANTLRInputStream input = new ANTLRInputStream(is); //TODO: Replace this with something not deprecated.
         AlgebraLexer lexer = new AlgebraLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         AlgebraParser parser = new AlgebraParser(tokens);
-        ParseTree tree = parser.expressionInBracketsWithPotentialPower();
+        ParseTree tree = parser.algebraicExpression();
         MyAlgebraVisitor expander = new MyAlgebraVisitor();
         AlgebraicExpression a = expander.visit(tree);
         System.out.println(a);

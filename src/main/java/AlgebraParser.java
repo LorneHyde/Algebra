@@ -19,14 +19,16 @@ public class AlgebraParser extends Parser {
 		T__0=1, T__1=2, T__2=3, T__3=4, SUB=5, PLUS=6, POSITIVE_INT=7, CHAR=8, 
 		WS=9;
 	public static final int
-		RULE_algebraicExpression = 0, RULE_potentiallyComplicatedProduct = 1, 
-		RULE_expressionInBracketsWithPotentialPower = 2, RULE_expressionWithoutNestedBrackets = 3, 
-		RULE_termInExprWithoutNestedBrackets = 4, RULE_simpleFullyFactorisedExpression = 5, 
-		RULE_sumInBracketsPossiblyWithPower = 6, RULE_sumofterms = 7, RULE_termInSum = 8, 
-		RULE_compositeterm = 9, RULE_coefficient = 10, RULE_simpleterm = 11;
+		RULE_algebraicExpression = 0, RULE_potentialyComplicatedProductWithSign = 1, 
+		RULE_potentiallyComplicatedProduct = 2, RULE_potentiallyComplicatedFactor = 3, 
+		RULE_expressionInBracketsWithPotentialPower = 4, RULE_expressionWithoutNestedBrackets = 5, 
+		RULE_termInExprWithoutNestedBrackets = 6, RULE_simpleFullyFactorisedExpression = 7, 
+		RULE_sumInBracketsPossiblyWithPower = 8, RULE_sumofterms = 9, RULE_termInSum = 10, 
+		RULE_compositeterm = 11, RULE_coefficient = 12, RULE_simpleterm = 13;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"algebraicExpression", "potentiallyComplicatedProduct", "expressionInBracketsWithPotentialPower", 
+			"algebraicExpression", "potentialyComplicatedProductWithSign", "potentiallyComplicatedProduct", 
+			"potentiallyComplicatedFactor", "expressionInBracketsWithPotentialPower", 
 			"expressionWithoutNestedBrackets", "termInExprWithoutNestedBrackets", 
 			"simpleFullyFactorisedExpression", "sumInBracketsPossiblyWithPower", 
 			"sumofterms", "termInSum", "compositeterm", "coefficient", "simpleterm"
@@ -98,35 +100,64 @@ public class AlgebraParser extends Parser {
 	}
 
 	public static class AlgebraicExpressionContext extends ParserRuleContext {
-		public List<PotentiallyComplicatedProductContext> potentiallyComplicatedProduct() {
-			return getRuleContexts(PotentiallyComplicatedProductContext.class);
-		}
-		public PotentiallyComplicatedProductContext potentiallyComplicatedProduct(int i) {
-			return getRuleContext(PotentiallyComplicatedProductContext.class,i);
-		}
-		public List<TerminalNode> SUB() { return getTokens(AlgebraParser.SUB); }
-		public TerminalNode SUB(int i) {
-			return getToken(AlgebraParser.SUB, i);
-		}
-		public List<TerminalNode> PLUS() { return getTokens(AlgebraParser.PLUS); }
-		public TerminalNode PLUS(int i) {
-			return getToken(AlgebraParser.PLUS, i);
-		}
 		public AlgebraicExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_algebraicExpression; }
+	 
+		public AlgebraicExpressionContext() { }
+		public void copyFrom(AlgebraicExpressionContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class AlgebraicExpressionFirstTermNegativeContext extends AlgebraicExpressionContext {
+		public TerminalNode SUB() { return getToken(AlgebraParser.SUB, 0); }
+		public PotentiallyComplicatedProductContext potentiallyComplicatedProduct() {
+			return getRuleContext(PotentiallyComplicatedProductContext.class,0);
+		}
+		public List<PotentialyComplicatedProductWithSignContext> potentialyComplicatedProductWithSign() {
+			return getRuleContexts(PotentialyComplicatedProductWithSignContext.class);
+		}
+		public PotentialyComplicatedProductWithSignContext potentialyComplicatedProductWithSign(int i) {
+			return getRuleContext(PotentialyComplicatedProductWithSignContext.class,i);
+		}
+		public AlgebraicExpressionFirstTermNegativeContext(AlgebraicExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).enterAlgebraicExpression(this);
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).enterAlgebraicExpressionFirstTermNegative(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).exitAlgebraicExpression(this);
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).exitAlgebraicExpressionFirstTermNegative(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AlgebraVisitor ) return ((AlgebraVisitor<? extends T>)visitor).visitAlgebraicExpression(this);
+			if ( visitor instanceof AlgebraVisitor ) return ((AlgebraVisitor<? extends T>)visitor).visitAlgebraicExpressionFirstTermNegative(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class AlgebraicExpressionFirstTermPositiveContext extends AlgebraicExpressionContext {
+		public PotentiallyComplicatedProductContext potentiallyComplicatedProduct() {
+			return getRuleContext(PotentiallyComplicatedProductContext.class,0);
+		}
+		public List<PotentialyComplicatedProductWithSignContext> potentialyComplicatedProductWithSign() {
+			return getRuleContexts(PotentialyComplicatedProductWithSignContext.class);
+		}
+		public PotentialyComplicatedProductWithSignContext potentialyComplicatedProductWithSign(int i) {
+			return getRuleContext(PotentialyComplicatedProductWithSignContext.class,i);
+		}
+		public AlgebraicExpressionFirstTermPositiveContext(AlgebraicExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).enterAlgebraicExpressionFirstTermPositive(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).exitAlgebraicExpressionFirstTermPositive(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AlgebraVisitor ) return ((AlgebraVisitor<? extends T>)visitor).visitAlgebraicExpressionFirstTermPositive(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -136,44 +167,118 @@ public class AlgebraParser extends Parser {
 		enterRule(_localctx, 0, RULE_algebraicExpression);
 		int _la;
 		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(25);
+			setState(43);
 			_errHandler.sync(this);
-			_la = _input.LA(1);
-			if (_la==SUB) {
-				{
-				setState(24);
-				match(SUB);
-				}
-			}
-
-			setState(27);
-			potentiallyComplicatedProduct();
-			setState(32);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			while (_la==SUB || _la==PLUS) {
-				{
+			switch (_input.LA(1)) {
+			case SUB:
+				_localctx = new AlgebraicExpressionFirstTermNegativeContext(_localctx);
+				enterOuterAlt(_localctx, 1);
 				{
 				setState(28);
-				_la = _input.LA(1);
-				if ( !(_la==SUB || _la==PLUS) ) {
-				_errHandler.recoverInline(this);
-				}
-				else {
-					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-					_errHandler.reportMatch(this);
-					consume();
-				}
+				match(SUB);
 				setState(29);
 				potentiallyComplicatedProduct();
-				}
-				}
-				setState(34);
+				setState(33);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
+				while (_la==SUB || _la==PLUS) {
+					{
+					{
+					setState(30);
+					potentialyComplicatedProductWithSign();
+					}
+					}
+					setState(35);
+					_errHandler.sync(this);
+					_la = _input.LA(1);
+				}
+				}
+				break;
+			case T__0:
+			case POSITIVE_INT:
+			case CHAR:
+				_localctx = new AlgebraicExpressionFirstTermPositiveContext(_localctx);
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(36);
+				potentiallyComplicatedProduct();
+				setState(40);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				while (_la==SUB || _la==PLUS) {
+					{
+					{
+					setState(37);
+					potentialyComplicatedProductWithSign();
+					}
+					}
+					setState(42);
+					_errHandler.sync(this);
+					_la = _input.LA(1);
+				}
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
 			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class PotentialyComplicatedProductWithSignContext extends ParserRuleContext {
+		public Token op;
+		public PotentiallyComplicatedProductContext potentiallyComplicatedProduct() {
+			return getRuleContext(PotentiallyComplicatedProductContext.class,0);
+		}
+		public TerminalNode SUB() { return getToken(AlgebraParser.SUB, 0); }
+		public TerminalNode PLUS() { return getToken(AlgebraParser.PLUS, 0); }
+		public PotentialyComplicatedProductWithSignContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_potentialyComplicatedProductWithSign; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).enterPotentialyComplicatedProductWithSign(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).exitPotentialyComplicatedProductWithSign(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AlgebraVisitor ) return ((AlgebraVisitor<? extends T>)visitor).visitPotentialyComplicatedProductWithSign(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final PotentialyComplicatedProductWithSignContext potentialyComplicatedProductWithSign() throws RecognitionException {
+		PotentialyComplicatedProductWithSignContext _localctx = new PotentialyComplicatedProductWithSignContext(_ctx, getState());
+		enterRule(_localctx, 2, RULE_potentialyComplicatedProductWithSign);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(45);
+			((PotentialyComplicatedProductWithSignContext)_localctx).op = _input.LT(1);
+			_la = _input.LA(1);
+			if ( !(_la==SUB || _la==PLUS) ) {
+				((PotentialyComplicatedProductWithSignContext)_localctx).op = (Token)_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
+			setState(46);
+			potentiallyComplicatedProduct();
 			}
 		}
 		catch (RecognitionException re) {
@@ -188,29 +293,11 @@ public class AlgebraParser extends Parser {
 	}
 
 	public static class PotentiallyComplicatedProductContext extends ParserRuleContext {
-		public List<SimpleFullyFactorisedExpressionContext> simpleFullyFactorisedExpression() {
-			return getRuleContexts(SimpleFullyFactorisedExpressionContext.class);
+		public List<PotentiallyComplicatedFactorContext> potentiallyComplicatedFactor() {
+			return getRuleContexts(PotentiallyComplicatedFactorContext.class);
 		}
-		public SimpleFullyFactorisedExpressionContext simpleFullyFactorisedExpression(int i) {
-			return getRuleContext(SimpleFullyFactorisedExpressionContext.class,i);
-		}
-		public List<PotentiallyComplicatedProductContext> potentiallyComplicatedProduct() {
-			return getRuleContexts(PotentiallyComplicatedProductContext.class);
-		}
-		public PotentiallyComplicatedProductContext potentiallyComplicatedProduct(int i) {
-			return getRuleContext(PotentiallyComplicatedProductContext.class,i);
-		}
-		public List<AlgebraicExpressionContext> algebraicExpression() {
-			return getRuleContexts(AlgebraicExpressionContext.class);
-		}
-		public AlgebraicExpressionContext algebraicExpression(int i) {
-			return getRuleContext(AlgebraicExpressionContext.class,i);
-		}
-		public List<ExpressionInBracketsWithPotentialPowerContext> expressionInBracketsWithPotentialPower() {
-			return getRuleContexts(ExpressionInBracketsWithPotentialPowerContext.class);
-		}
-		public ExpressionInBracketsWithPotentialPowerContext expressionInBracketsWithPotentialPower(int i) {
-			return getRuleContext(ExpressionInBracketsWithPotentialPowerContext.class,i);
+		public PotentiallyComplicatedFactorContext potentiallyComplicatedFactor(int i) {
+			return getRuleContext(PotentiallyComplicatedFactorContext.class,i);
 		}
 		public PotentiallyComplicatedProductContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -233,57 +320,173 @@ public class AlgebraParser extends Parser {
 
 	public final PotentiallyComplicatedProductContext potentiallyComplicatedProduct() throws RecognitionException {
 		PotentiallyComplicatedProductContext _localctx = new PotentiallyComplicatedProductContext(_ctx, getState());
-		enterRule(_localctx, 2, RULE_potentiallyComplicatedProduct);
+		enterRule(_localctx, 4, RULE_potentiallyComplicatedProduct);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(45); 
+			setState(49); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
-				setState(45);
-				_errHandler.sync(this);
-				switch ( getInterpreter().adaptivePredict(_input,2,_ctx) ) {
-				case 1:
-					{
-					setState(35);
-					simpleFullyFactorisedExpression();
-					}
-					break;
-				case 2:
-					{
-					setState(36);
-					match(T__0);
-					setState(37);
-					potentiallyComplicatedProduct();
-					setState(38);
-					match(T__1);
-					}
-					break;
-				case 3:
-					{
-					setState(40);
-					match(T__0);
-					setState(41);
-					algebraicExpression();
-					setState(42);
-					match(T__1);
-					}
-					break;
-				case 4:
-					{
-					setState(44);
-					expressionInBracketsWithPotentialPower();
-					}
-					break;
+				{
+				setState(48);
+				potentiallyComplicatedFactor();
 				}
 				}
-				setState(47); 
+				setState(51); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << POSITIVE_INT) | (1L << CHAR))) != 0) );
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class PotentiallyComplicatedFactorContext extends ParserRuleContext {
+		public PotentiallyComplicatedFactorContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_potentiallyComplicatedFactor; }
+	 
+		public PotentiallyComplicatedFactorContext() { }
+		public void copyFrom(PotentiallyComplicatedFactorContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class PotentiallyComplicatedProductInBracketsContext extends PotentiallyComplicatedFactorContext {
+		public PotentiallyComplicatedProductContext potentiallyComplicatedProduct() {
+			return getRuleContext(PotentiallyComplicatedProductContext.class,0);
+		}
+		public PotentiallyComplicatedProductInBracketsContext(PotentiallyComplicatedFactorContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).enterPotentiallyComplicatedProductInBrackets(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).exitPotentiallyComplicatedProductInBrackets(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AlgebraVisitor ) return ((AlgebraVisitor<? extends T>)visitor).visitPotentiallyComplicatedProductInBrackets(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class PotentiallyComplicatedFactorEIBWPPContext extends PotentiallyComplicatedFactorContext {
+		public ExpressionInBracketsWithPotentialPowerContext expressionInBracketsWithPotentialPower() {
+			return getRuleContext(ExpressionInBracketsWithPotentialPowerContext.class,0);
+		}
+		public PotentiallyComplicatedFactorEIBWPPContext(PotentiallyComplicatedFactorContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).enterPotentiallyComplicatedFactorEIBWPP(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).exitPotentiallyComplicatedFactorEIBWPP(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AlgebraVisitor ) return ((AlgebraVisitor<? extends T>)visitor).visitPotentiallyComplicatedFactorEIBWPP(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class AlgebraicExpressionInBracketsContext extends PotentiallyComplicatedFactorContext {
+		public AlgebraicExpressionContext algebraicExpression() {
+			return getRuleContext(AlgebraicExpressionContext.class,0);
+		}
+		public AlgebraicExpressionInBracketsContext(PotentiallyComplicatedFactorContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).enterAlgebraicExpressionInBrackets(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).exitAlgebraicExpressionInBrackets(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AlgebraVisitor ) return ((AlgebraVisitor<? extends T>)visitor).visitAlgebraicExpressionInBrackets(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class PotentiallyComplicatedFactorSFFEContext extends PotentiallyComplicatedFactorContext {
+		public SimpleFullyFactorisedExpressionContext simpleFullyFactorisedExpression() {
+			return getRuleContext(SimpleFullyFactorisedExpressionContext.class,0);
+		}
+		public PotentiallyComplicatedFactorSFFEContext(PotentiallyComplicatedFactorContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).enterPotentiallyComplicatedFactorSFFE(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AlgebraListener ) ((AlgebraListener)listener).exitPotentiallyComplicatedFactorSFFE(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AlgebraVisitor ) return ((AlgebraVisitor<? extends T>)visitor).visitPotentiallyComplicatedFactorSFFE(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final PotentiallyComplicatedFactorContext potentiallyComplicatedFactor() throws RecognitionException {
+		PotentiallyComplicatedFactorContext _localctx = new PotentiallyComplicatedFactorContext(_ctx, getState());
+		enterRule(_localctx, 6, RULE_potentiallyComplicatedFactor);
+		try {
+			setState(63);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,4,_ctx) ) {
+			case 1:
+				_localctx = new PotentiallyComplicatedFactorSFFEContext(_localctx);
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(53);
+				simpleFullyFactorisedExpression();
+				}
+				break;
+			case 2:
+				_localctx = new PotentiallyComplicatedProductInBracketsContext(_localctx);
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(54);
+				match(T__0);
+				setState(55);
+				potentiallyComplicatedProduct();
+				setState(56);
+				match(T__1);
+				}
+				break;
+			case 3:
+				_localctx = new AlgebraicExpressionInBracketsContext(_localctx);
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(58);
+				match(T__0);
+				setState(59);
+				algebraicExpression();
+				setState(60);
+				match(T__1);
+				}
+				break;
+			case 4:
+				_localctx = new PotentiallyComplicatedFactorEIBWPPContext(_localctx);
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(62);
+				expressionInBracketsWithPotentialPower();
+				}
+				break;
 			}
 		}
 		catch (RecognitionException re) {
@@ -350,20 +553,20 @@ public class AlgebraParser extends Parser {
 
 	public final ExpressionInBracketsWithPotentialPowerContext expressionInBracketsWithPotentialPower() throws RecognitionException {
 		ExpressionInBracketsWithPotentialPowerContext _localctx = new ExpressionInBracketsWithPotentialPowerContext(_ctx, getState());
-		enterRule(_localctx, 4, RULE_expressionInBracketsWithPotentialPower);
+		enterRule(_localctx, 8, RULE_expressionInBracketsWithPotentialPower);
 		try {
-			setState(59);
+			setState(75);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,4,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,5,_ctx) ) {
 			case 1:
 				_localctx = new ExpressionInBracketsWONestedContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(49);
+				setState(65);
 				match(T__0);
-				setState(50);
+				setState(66);
 				expressionWithoutNestedBrackets();
-				setState(51);
+				setState(67);
 				match(T__1);
 				}
 				break;
@@ -371,16 +574,16 @@ public class AlgebraParser extends Parser {
 				_localctx = new ExpressionInBracketsPositivePowerWONestedContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(53);
+				setState(69);
 				match(T__0);
-				setState(54);
+				setState(70);
 				expressionWithoutNestedBrackets();
-				setState(55);
+				setState(71);
 				match(T__1);
 				{
-				setState(56);
+				setState(72);
 				match(T__2);
-				setState(57);
+				setState(73);
 				match(POSITIVE_INT);
 				}
 				}
@@ -513,31 +716,31 @@ public class AlgebraParser extends Parser {
 
 	public final ExpressionWithoutNestedBracketsContext expressionWithoutNestedBrackets() throws RecognitionException {
 		ExpressionWithoutNestedBracketsContext _localctx = new ExpressionWithoutNestedBracketsContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_expressionWithoutNestedBrackets);
+		enterRule(_localctx, 10, RULE_expressionWithoutNestedBrackets);
 		int _la;
 		try {
-			setState(90);
+			setState(106);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,9,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,10,_ctx) ) {
 			case 1:
 				_localctx = new ExpressionWONestedStartingWithNegativeSFFEContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(61);
+				setState(77);
 				match(SUB);
-				setState(62);
+				setState(78);
 				simpleFullyFactorisedExpression();
-				setState(66);
+				setState(82);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la==SUB || _la==PLUS) {
 					{
 					{
-					setState(63);
+					setState(79);
 					termInExprWithoutNestedBrackets();
 					}
 					}
-					setState(68);
+					setState(84);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
@@ -547,19 +750,19 @@ public class AlgebraParser extends Parser {
 				_localctx = new ExpressionWONestedStartingWithSOTContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(69);
+				setState(85);
 				sumofterms();
-				setState(73);
+				setState(89);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la==SUB || _la==PLUS) {
 					{
 					{
-					setState(70);
+					setState(86);
 					termInExprWithoutNestedBrackets();
 					}
 					}
-					setState(75);
+					setState(91);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
@@ -569,19 +772,19 @@ public class AlgebraParser extends Parser {
 				_localctx = new ExpressionWONestedStartingWithSFFEContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(76);
+				setState(92);
 				simpleFullyFactorisedExpression();
-				setState(80);
+				setState(96);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la==SUB || _la==PLUS) {
 					{
 					{
-					setState(77);
+					setState(93);
 					termInExprWithoutNestedBrackets();
 					}
 					}
-					setState(82);
+					setState(98);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
@@ -591,19 +794,19 @@ public class AlgebraParser extends Parser {
 				_localctx = new ExpressionWONestedStartingWithCTContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(83);
+				setState(99);
 				compositeterm();
-				setState(87);
+				setState(103);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la==SUB || _la==PLUS) {
 					{
 					{
-					setState(84);
+					setState(100);
 					termInExprWithoutNestedBrackets();
 					}
 					}
-					setState(89);
+					setState(105);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
@@ -698,18 +901,18 @@ public class AlgebraParser extends Parser {
 
 	public final TermInExprWithoutNestedBracketsContext termInExprWithoutNestedBrackets() throws RecognitionException {
 		TermInExprWithoutNestedBracketsContext _localctx = new TermInExprWithoutNestedBracketsContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_termInExprWithoutNestedBrackets);
+		enterRule(_localctx, 12, RULE_termInExprWithoutNestedBrackets);
 		int _la;
 		try {
-			setState(98);
+			setState(114);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,10,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,11,_ctx) ) {
 			case 1:
 				_localctx = new SffeInExprWithoutNestedBracketsContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				{
-				setState(92);
+				setState(108);
 				((SffeInExprWithoutNestedBracketsContext)_localctx).op = _input.LT(1);
 				_la = _input.LA(1);
 				if ( !(_la==SUB || _la==PLUS) ) {
@@ -721,7 +924,7 @@ public class AlgebraParser extends Parser {
 					consume();
 				}
 				}
-				setState(93);
+				setState(109);
 				simpleFullyFactorisedExpression();
 				}
 				break;
@@ -729,9 +932,9 @@ public class AlgebraParser extends Parser {
 				_localctx = new SotInExprWithoutNestedBracketsContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(94);
+				setState(110);
 				match(PLUS);
-				setState(95);
+				setState(111);
 				sumofterms();
 				}
 				break;
@@ -739,9 +942,9 @@ public class AlgebraParser extends Parser {
 				_localctx = new CtInExprWithoutNestedBracketsContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(96);
+				setState(112);
 				match(PLUS);
-				setState(97);
+				setState(113);
 				compositeterm();
 				}
 				break;
@@ -789,45 +992,45 @@ public class AlgebraParser extends Parser {
 
 	public final SimpleFullyFactorisedExpressionContext simpleFullyFactorisedExpression() throws RecognitionException {
 		SimpleFullyFactorisedExpressionContext _localctx = new SimpleFullyFactorisedExpressionContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_simpleFullyFactorisedExpression);
+		enterRule(_localctx, 14, RULE_simpleFullyFactorisedExpression);
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(102);
+			setState(118);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T__0:
 				{
-				setState(100);
+				setState(116);
 				sumInBracketsPossiblyWithPower();
 				}
 				break;
 			case POSITIVE_INT:
 			case CHAR:
 				{
-				setState(101);
+				setState(117);
 				compositeterm();
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
 			}
-			setState(107);
+			setState(123);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,12,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,13,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(104);
+					setState(120);
 					sumInBracketsPossiblyWithPower();
 					}
 					} 
 				}
-				setState(109);
+				setState(125);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,12,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,13,_ctx);
 			}
 			}
 		}
@@ -895,24 +1098,24 @@ public class AlgebraParser extends Parser {
 
 	public final SumInBracketsPossiblyWithPowerContext sumInBracketsPossiblyWithPower() throws RecognitionException {
 		SumInBracketsPossiblyWithPowerContext _localctx = new SumInBracketsPossiblyWithPowerContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_sumInBracketsPossiblyWithPower);
+		enterRule(_localctx, 16, RULE_sumInBracketsPossiblyWithPower);
 		try {
-			setState(120);
+			setState(136);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,13,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,14,_ctx) ) {
 			case 1:
 				_localctx = new SumInBracketsWithPowerContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(110);
+				setState(126);
 				match(T__0);
-				setState(111);
+				setState(127);
 				sumofterms();
-				setState(112);
+				setState(128);
 				match(T__1);
-				setState(113);
+				setState(129);
 				match(T__2);
-				setState(114);
+				setState(130);
 				match(POSITIVE_INT);
 				}
 				break;
@@ -920,11 +1123,11 @@ public class AlgebraParser extends Parser {
 				_localctx = new SumInBracketsWithoutPowerContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(116);
+				setState(132);
 				match(T__0);
-				setState(117);
+				setState(133);
 				sumofterms();
-				setState(118);
+				setState(134);
 				match(T__1);
 				}
 				break;
@@ -1008,23 +1211,23 @@ public class AlgebraParser extends Parser {
 
 	public final SumoftermsContext sumofterms() throws RecognitionException {
 		SumoftermsContext _localctx = new SumoftermsContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_sumofterms);
+		enterRule(_localctx, 18, RULE_sumofterms);
 		try {
 			int _alt;
-			setState(135);
+			setState(151);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case SUB:
 				_localctx = new SumOfTermsFirstTermNegativeContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(122);
+				setState(138);
 				match(SUB);
 				{
-				setState(123);
+				setState(139);
 				((SumOfTermsFirstTermNegativeContext)_localctx).startTerm = compositeterm();
 				}
-				setState(125); 
+				setState(141); 
 				_errHandler.sync(this);
 				_alt = 1;
 				do {
@@ -1032,7 +1235,7 @@ public class AlgebraParser extends Parser {
 					case 1:
 						{
 						{
-						setState(124);
+						setState(140);
 						termInSum();
 						}
 						}
@@ -1040,9 +1243,9 @@ public class AlgebraParser extends Parser {
 					default:
 						throw new NoViableAltException(this);
 					}
-					setState(127); 
+					setState(143); 
 					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,14,_ctx);
+					_alt = getInterpreter().adaptivePredict(_input,15,_ctx);
 				} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
 				}
 				break;
@@ -1052,10 +1255,10 @@ public class AlgebraParser extends Parser {
 				enterOuterAlt(_localctx, 2);
 				{
 				{
-				setState(129);
+				setState(145);
 				((SumOfTermsFirstTermPositiveContext)_localctx).startTerm = compositeterm();
 				}
-				setState(131); 
+				setState(147); 
 				_errHandler.sync(this);
 				_alt = 1;
 				do {
@@ -1063,7 +1266,7 @@ public class AlgebraParser extends Parser {
 					case 1:
 						{
 						{
-						setState(130);
+						setState(146);
 						termInSum();
 						}
 						}
@@ -1071,9 +1274,9 @@ public class AlgebraParser extends Parser {
 					default:
 						throw new NoViableAltException(this);
 					}
-					setState(133); 
+					setState(149); 
 					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,15,_ctx);
+					_alt = getInterpreter().adaptivePredict(_input,16,_ctx);
 				} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
 				}
 				break;
@@ -1120,13 +1323,13 @@ public class AlgebraParser extends Parser {
 
 	public final TermInSumContext termInSum() throws RecognitionException {
 		TermInSumContext _localctx = new TermInSumContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_termInSum);
+		enterRule(_localctx, 20, RULE_termInSum);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
 			{
-			setState(137);
+			setState(153);
 			((TermInSumContext)_localctx).op = _input.LT(1);
 			_la = _input.LA(1);
 			if ( !(_la==SUB || _la==PLUS) ) {
@@ -1138,7 +1341,7 @@ public class AlgebraParser extends Parser {
 				consume();
 			}
 			}
-			setState(138);
+			setState(154);
 			compositeterm();
 			}
 		}
@@ -1233,46 +1436,46 @@ public class AlgebraParser extends Parser {
 
 	public final CompositetermContext compositeterm() throws RecognitionException {
 		CompositetermContext _localctx = new CompositetermContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_compositeterm);
+		enterRule(_localctx, 22, RULE_compositeterm);
 		int _la;
 		try {
 			int _alt;
-			setState(162);
+			setState(178);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,21,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,22,_ctx) ) {
 			case 1:
 				_localctx = new WithCoefficientContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(140);
+				setState(156);
 				coefficient();
-				setState(141);
+				setState(157);
 				simpleterm();
-				setState(148);
+				setState(164);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,18,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,19,_ctx);
 				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 					if ( _alt==1 ) {
 						{
 						{
-						setState(143);
+						setState(159);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
 						if (_la==T__3) {
 							{
-							setState(142);
+							setState(158);
 							match(T__3);
 							}
 						}
 
-						setState(145);
+						setState(161);
 						simpleterm();
 						}
 						} 
 					}
-					setState(150);
+					setState(166);
 					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,18,_ctx);
+					_alt = getInterpreter().adaptivePredict(_input,19,_ctx);
 				}
 				}
 				break;
@@ -1280,7 +1483,7 @@ public class AlgebraParser extends Parser {
 				_localctx = new SimpleNumberContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(151);
+				setState(167);
 				coefficient();
 				}
 				break;
@@ -1288,33 +1491,33 @@ public class AlgebraParser extends Parser {
 				_localctx = new WithoutCoefficientContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(152);
+				setState(168);
 				simpleterm();
-				setState(159);
+				setState(175);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,20,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,21,_ctx);
 				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 					if ( _alt==1 ) {
 						{
 						{
-						setState(154);
+						setState(170);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
 						if (_la==T__3) {
 							{
-							setState(153);
+							setState(169);
 							match(T__3);
 							}
 						}
 
-						setState(156);
+						setState(172);
 						simpleterm();
 						}
 						} 
 					}
-					setState(161);
+					setState(177);
 					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,20,_ctx);
+					_alt = getInterpreter().adaptivePredict(_input,21,_ctx);
 				}
 				}
 				break;
@@ -1354,11 +1557,11 @@ public class AlgebraParser extends Parser {
 
 	public final CoefficientContext coefficient() throws RecognitionException {
 		CoefficientContext _localctx = new CoefficientContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_coefficient);
+		enterRule(_localctx, 24, RULE_coefficient);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(164);
+			setState(180);
 			match(POSITIVE_INT);
 			}
 		}
@@ -1441,16 +1644,16 @@ public class AlgebraParser extends Parser {
 
 	public final SimpletermContext simpleterm() throws RecognitionException {
 		SimpletermContext _localctx = new SimpletermContext(_ctx, getState());
-		enterRule(_localctx, 22, RULE_simpleterm);
+		enterRule(_localctx, 26, RULE_simpleterm);
 		try {
-			setState(174);
+			setState(190);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,22,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,23,_ctx) ) {
 			case 1:
 				_localctx = new WithoutExponentContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(166);
+				setState(182);
 				match(CHAR);
 				}
 				break;
@@ -1458,11 +1661,11 @@ public class AlgebraParser extends Parser {
 				_localctx = new WithPositiveExponentContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(167);
+				setState(183);
 				match(CHAR);
-				setState(168);
+				setState(184);
 				match(T__2);
-				setState(169);
+				setState(185);
 				match(POSITIVE_INT);
 				}
 				break;
@@ -1470,13 +1673,13 @@ public class AlgebraParser extends Parser {
 				_localctx = new WithNegativeExponentContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(170);
+				setState(186);
 				match(CHAR);
-				setState(171);
+				setState(187);
 				match(T__2);
-				setState(172);
+				setState(188);
 				match(SUB);
-				setState(173);
+				setState(189);
 				match(POSITIVE_INT);
 				}
 				break;
@@ -1494,60 +1697,66 @@ public class AlgebraParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\13\u00b3\4\2\t\2"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\13\u00c3\4\2\t\2"+
 		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
-		"\t\13\4\f\t\f\4\r\t\r\3\2\5\2\34\n\2\3\2\3\2\3\2\7\2!\n\2\f\2\16\2$\13"+
-		"\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\6\3\60\n\3\r\3\16\3\61\3\4"+
-		"\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\5\4>\n\4\3\5\3\5\3\5\7\5C\n\5\f\5"+
-		"\16\5F\13\5\3\5\3\5\7\5J\n\5\f\5\16\5M\13\5\3\5\3\5\7\5Q\n\5\f\5\16\5"+
-		"T\13\5\3\5\3\5\7\5X\n\5\f\5\16\5[\13\5\5\5]\n\5\3\6\3\6\3\6\3\6\3\6\3"+
-		"\6\5\6e\n\6\3\7\3\7\5\7i\n\7\3\7\7\7l\n\7\f\7\16\7o\13\7\3\b\3\b\3\b\3"+
-		"\b\3\b\3\b\3\b\3\b\3\b\3\b\5\b{\n\b\3\t\3\t\3\t\6\t\u0080\n\t\r\t\16\t"+
-		"\u0081\3\t\3\t\6\t\u0086\n\t\r\t\16\t\u0087\5\t\u008a\n\t\3\n\3\n\3\n"+
-		"\3\13\3\13\3\13\5\13\u0092\n\13\3\13\7\13\u0095\n\13\f\13\16\13\u0098"+
-		"\13\13\3\13\3\13\3\13\5\13\u009d\n\13\3\13\7\13\u00a0\n\13\f\13\16\13"+
-		"\u00a3\13\13\5\13\u00a5\n\13\3\f\3\f\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\5"+
-		"\r\u00b1\n\r\3\r\2\2\16\2\4\6\b\n\f\16\20\22\24\26\30\2\3\3\2\7\b\2\u00c4"+
-		"\2\33\3\2\2\2\4/\3\2\2\2\6=\3\2\2\2\b\\\3\2\2\2\nd\3\2\2\2\fh\3\2\2\2"+
-		"\16z\3\2\2\2\20\u0089\3\2\2\2\22\u008b\3\2\2\2\24\u00a4\3\2\2\2\26\u00a6"+
-		"\3\2\2\2\30\u00b0\3\2\2\2\32\34\7\7\2\2\33\32\3\2\2\2\33\34\3\2\2\2\34"+
-		"\35\3\2\2\2\35\"\5\4\3\2\36\37\t\2\2\2\37!\5\4\3\2 \36\3\2\2\2!$\3\2\2"+
-		"\2\" \3\2\2\2\"#\3\2\2\2#\3\3\2\2\2$\"\3\2\2\2%\60\5\f\7\2&\'\7\3\2\2"+
-		"\'(\5\4\3\2()\7\4\2\2)\60\3\2\2\2*+\7\3\2\2+,\5\2\2\2,-\7\4\2\2-\60\3"+
-		"\2\2\2.\60\5\6\4\2/%\3\2\2\2/&\3\2\2\2/*\3\2\2\2/.\3\2\2\2\60\61\3\2\2"+
-		"\2\61/\3\2\2\2\61\62\3\2\2\2\62\5\3\2\2\2\63\64\7\3\2\2\64\65\5\b\5\2"+
-		"\65\66\7\4\2\2\66>\3\2\2\2\678\7\3\2\289\5\b\5\29:\7\4\2\2:;\7\5\2\2;"+
-		"<\7\t\2\2<>\3\2\2\2=\63\3\2\2\2=\67\3\2\2\2>\7\3\2\2\2?@\7\7\2\2@D\5\f"+
-		"\7\2AC\5\n\6\2BA\3\2\2\2CF\3\2\2\2DB\3\2\2\2DE\3\2\2\2E]\3\2\2\2FD\3\2"+
-		"\2\2GK\5\20\t\2HJ\5\n\6\2IH\3\2\2\2JM\3\2\2\2KI\3\2\2\2KL\3\2\2\2L]\3"+
-		"\2\2\2MK\3\2\2\2NR\5\f\7\2OQ\5\n\6\2PO\3\2\2\2QT\3\2\2\2RP\3\2\2\2RS\3"+
-		"\2\2\2S]\3\2\2\2TR\3\2\2\2UY\5\24\13\2VX\5\n\6\2WV\3\2\2\2X[\3\2\2\2Y"+
-		"W\3\2\2\2YZ\3\2\2\2Z]\3\2\2\2[Y\3\2\2\2\\?\3\2\2\2\\G\3\2\2\2\\N\3\2\2"+
-		"\2\\U\3\2\2\2]\t\3\2\2\2^_\t\2\2\2_e\5\f\7\2`a\7\b\2\2ae\5\20\t\2bc\7"+
-		"\b\2\2ce\5\24\13\2d^\3\2\2\2d`\3\2\2\2db\3\2\2\2e\13\3\2\2\2fi\5\16\b"+
-		"\2gi\5\24\13\2hf\3\2\2\2hg\3\2\2\2im\3\2\2\2jl\5\16\b\2kj\3\2\2\2lo\3"+
-		"\2\2\2mk\3\2\2\2mn\3\2\2\2n\r\3\2\2\2om\3\2\2\2pq\7\3\2\2qr\5\20\t\2r"+
-		"s\7\4\2\2st\7\5\2\2tu\7\t\2\2u{\3\2\2\2vw\7\3\2\2wx\5\20\t\2xy\7\4\2\2"+
-		"y{\3\2\2\2zp\3\2\2\2zv\3\2\2\2{\17\3\2\2\2|}\7\7\2\2}\177\5\24\13\2~\u0080"+
-		"\5\22\n\2\177~\3\2\2\2\u0080\u0081\3\2\2\2\u0081\177\3\2\2\2\u0081\u0082"+
-		"\3\2\2\2\u0082\u008a\3\2\2\2\u0083\u0085\5\24\13\2\u0084\u0086\5\22\n"+
-		"\2\u0085\u0084\3\2\2\2\u0086\u0087\3\2\2\2\u0087\u0085\3\2\2\2\u0087\u0088"+
-		"\3\2\2\2\u0088\u008a\3\2\2\2\u0089|\3\2\2\2\u0089\u0083\3\2\2\2\u008a"+
-		"\21\3\2\2\2\u008b\u008c\t\2\2\2\u008c\u008d\5\24\13\2\u008d\23\3\2\2\2"+
-		"\u008e\u008f\5\26\f\2\u008f\u0096\5\30\r\2\u0090\u0092\7\6\2\2\u0091\u0090"+
-		"\3\2\2\2\u0091\u0092\3\2\2\2\u0092\u0093\3\2\2\2\u0093\u0095\5\30\r\2"+
-		"\u0094\u0091\3\2\2\2\u0095\u0098\3\2\2\2\u0096\u0094\3\2\2\2\u0096\u0097"+
-		"\3\2\2\2\u0097\u00a5\3\2\2\2\u0098\u0096\3\2\2\2\u0099\u00a5\5\26\f\2"+
-		"\u009a\u00a1\5\30\r\2\u009b\u009d\7\6\2\2\u009c\u009b\3\2\2\2\u009c\u009d"+
-		"\3\2\2\2\u009d\u009e\3\2\2\2\u009e\u00a0\5\30\r\2\u009f\u009c\3\2\2\2"+
-		"\u00a0\u00a3\3\2\2\2\u00a1\u009f\3\2\2\2\u00a1\u00a2\3\2\2\2\u00a2\u00a5"+
-		"\3\2\2\2\u00a3\u00a1\3\2\2\2\u00a4\u008e\3\2\2\2\u00a4\u0099\3\2\2\2\u00a4"+
-		"\u009a\3\2\2\2\u00a5\25\3\2\2\2\u00a6\u00a7\7\t\2\2\u00a7\27\3\2\2\2\u00a8"+
-		"\u00b1\7\n\2\2\u00a9\u00aa\7\n\2\2\u00aa\u00ab\7\5\2\2\u00ab\u00b1\7\t"+
-		"\2\2\u00ac\u00ad\7\n\2\2\u00ad\u00ae\7\5\2\2\u00ae\u00af\7\7\2\2\u00af"+
-		"\u00b1\7\t\2\2\u00b0\u00a8\3\2\2\2\u00b0\u00a9\3\2\2\2\u00b0\u00ac\3\2"+
-		"\2\2\u00b1\31\3\2\2\2\31\33\"/\61=DKRY\\dhmz\u0081\u0087\u0089\u0091\u0096"+
-		"\u009c\u00a1\u00a4\u00b0";
+		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\3\2\3\2\3\2\7\2\"\n\2\f\2\16"+
+		"\2%\13\2\3\2\3\2\7\2)\n\2\f\2\16\2,\13\2\5\2.\n\2\3\3\3\3\3\3\3\4\6\4"+
+		"\64\n\4\r\4\16\4\65\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\5\5B\n\5\3"+
+		"\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\5\6N\n\6\3\7\3\7\3\7\7\7S\n\7\f"+
+		"\7\16\7V\13\7\3\7\3\7\7\7Z\n\7\f\7\16\7]\13\7\3\7\3\7\7\7a\n\7\f\7\16"+
+		"\7d\13\7\3\7\3\7\7\7h\n\7\f\7\16\7k\13\7\5\7m\n\7\3\b\3\b\3\b\3\b\3\b"+
+		"\3\b\5\bu\n\b\3\t\3\t\5\ty\n\t\3\t\7\t|\n\t\f\t\16\t\177\13\t\3\n\3\n"+
+		"\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\5\n\u008b\n\n\3\13\3\13\3\13\6\13\u0090"+
+		"\n\13\r\13\16\13\u0091\3\13\3\13\6\13\u0096\n\13\r\13\16\13\u0097\5\13"+
+		"\u009a\n\13\3\f\3\f\3\f\3\r\3\r\3\r\5\r\u00a2\n\r\3\r\7\r\u00a5\n\r\f"+
+		"\r\16\r\u00a8\13\r\3\r\3\r\3\r\5\r\u00ad\n\r\3\r\7\r\u00b0\n\r\f\r\16"+
+		"\r\u00b3\13\r\5\r\u00b5\n\r\3\16\3\16\3\17\3\17\3\17\3\17\3\17\3\17\3"+
+		"\17\3\17\5\17\u00c1\n\17\3\17\2\2\20\2\4\6\b\n\f\16\20\22\24\26\30\32"+
+		"\34\2\3\3\2\7\b\2\u00d3\2-\3\2\2\2\4/\3\2\2\2\6\63\3\2\2\2\bA\3\2\2\2"+
+		"\nM\3\2\2\2\fl\3\2\2\2\16t\3\2\2\2\20x\3\2\2\2\22\u008a\3\2\2\2\24\u0099"+
+		"\3\2\2\2\26\u009b\3\2\2\2\30\u00b4\3\2\2\2\32\u00b6\3\2\2\2\34\u00c0\3"+
+		"\2\2\2\36\37\7\7\2\2\37#\5\6\4\2 \"\5\4\3\2! \3\2\2\2\"%\3\2\2\2#!\3\2"+
+		"\2\2#$\3\2\2\2$.\3\2\2\2%#\3\2\2\2&*\5\6\4\2\')\5\4\3\2(\'\3\2\2\2),\3"+
+		"\2\2\2*(\3\2\2\2*+\3\2\2\2+.\3\2\2\2,*\3\2\2\2-\36\3\2\2\2-&\3\2\2\2."+
+		"\3\3\2\2\2/\60\t\2\2\2\60\61\5\6\4\2\61\5\3\2\2\2\62\64\5\b\5\2\63\62"+
+		"\3\2\2\2\64\65\3\2\2\2\65\63\3\2\2\2\65\66\3\2\2\2\66\7\3\2\2\2\67B\5"+
+		"\20\t\289\7\3\2\29:\5\6\4\2:;\7\4\2\2;B\3\2\2\2<=\7\3\2\2=>\5\2\2\2>?"+
+		"\7\4\2\2?B\3\2\2\2@B\5\n\6\2A\67\3\2\2\2A8\3\2\2\2A<\3\2\2\2A@\3\2\2\2"+
+		"B\t\3\2\2\2CD\7\3\2\2DE\5\f\7\2EF\7\4\2\2FN\3\2\2\2GH\7\3\2\2HI\5\f\7"+
+		"\2IJ\7\4\2\2JK\7\5\2\2KL\7\t\2\2LN\3\2\2\2MC\3\2\2\2MG\3\2\2\2N\13\3\2"+
+		"\2\2OP\7\7\2\2PT\5\20\t\2QS\5\16\b\2RQ\3\2\2\2SV\3\2\2\2TR\3\2\2\2TU\3"+
+		"\2\2\2Um\3\2\2\2VT\3\2\2\2W[\5\24\13\2XZ\5\16\b\2YX\3\2\2\2Z]\3\2\2\2"+
+		"[Y\3\2\2\2[\\\3\2\2\2\\m\3\2\2\2][\3\2\2\2^b\5\20\t\2_a\5\16\b\2`_\3\2"+
+		"\2\2ad\3\2\2\2b`\3\2\2\2bc\3\2\2\2cm\3\2\2\2db\3\2\2\2ei\5\30\r\2fh\5"+
+		"\16\b\2gf\3\2\2\2hk\3\2\2\2ig\3\2\2\2ij\3\2\2\2jm\3\2\2\2ki\3\2\2\2lO"+
+		"\3\2\2\2lW\3\2\2\2l^\3\2\2\2le\3\2\2\2m\r\3\2\2\2no\t\2\2\2ou\5\20\t\2"+
+		"pq\7\b\2\2qu\5\24\13\2rs\7\b\2\2su\5\30\r\2tn\3\2\2\2tp\3\2\2\2tr\3\2"+
+		"\2\2u\17\3\2\2\2vy\5\22\n\2wy\5\30\r\2xv\3\2\2\2xw\3\2\2\2y}\3\2\2\2z"+
+		"|\5\22\n\2{z\3\2\2\2|\177\3\2\2\2}{\3\2\2\2}~\3\2\2\2~\21\3\2\2\2\177"+
+		"}\3\2\2\2\u0080\u0081\7\3\2\2\u0081\u0082\5\24\13\2\u0082\u0083\7\4\2"+
+		"\2\u0083\u0084\7\5\2\2\u0084\u0085\7\t\2\2\u0085\u008b\3\2\2\2\u0086\u0087"+
+		"\7\3\2\2\u0087\u0088\5\24\13\2\u0088\u0089\7\4\2\2\u0089\u008b\3\2\2\2"+
+		"\u008a\u0080\3\2\2\2\u008a\u0086\3\2\2\2\u008b\23\3\2\2\2\u008c\u008d"+
+		"\7\7\2\2\u008d\u008f\5\30\r\2\u008e\u0090\5\26\f\2\u008f\u008e\3\2\2\2"+
+		"\u0090\u0091\3\2\2\2\u0091\u008f\3\2\2\2\u0091\u0092\3\2\2\2\u0092\u009a"+
+		"\3\2\2\2\u0093\u0095\5\30\r\2\u0094\u0096\5\26\f\2\u0095\u0094\3\2\2\2"+
+		"\u0096\u0097\3\2\2\2\u0097\u0095\3\2\2\2\u0097\u0098\3\2\2\2\u0098\u009a"+
+		"\3\2\2\2\u0099\u008c\3\2\2\2\u0099\u0093\3\2\2\2\u009a\25\3\2\2\2\u009b"+
+		"\u009c\t\2\2\2\u009c\u009d\5\30\r\2\u009d\27\3\2\2\2\u009e\u009f\5\32"+
+		"\16\2\u009f\u00a6\5\34\17\2\u00a0\u00a2\7\6\2\2\u00a1\u00a0\3\2\2\2\u00a1"+
+		"\u00a2\3\2\2\2\u00a2\u00a3\3\2\2\2\u00a3\u00a5\5\34\17\2\u00a4\u00a1\3"+
+		"\2\2\2\u00a5\u00a8\3\2\2\2\u00a6\u00a4\3\2\2\2\u00a6\u00a7\3\2\2\2\u00a7"+
+		"\u00b5\3\2\2\2\u00a8\u00a6\3\2\2\2\u00a9\u00b5\5\32\16\2\u00aa\u00b1\5"+
+		"\34\17\2\u00ab\u00ad\7\6\2\2\u00ac\u00ab\3\2\2\2\u00ac\u00ad\3\2\2\2\u00ad"+
+		"\u00ae\3\2\2\2\u00ae\u00b0\5\34\17\2\u00af\u00ac\3\2\2\2\u00b0\u00b3\3"+
+		"\2\2\2\u00b1\u00af\3\2\2\2\u00b1\u00b2\3\2\2\2\u00b2\u00b5\3\2\2\2\u00b3"+
+		"\u00b1\3\2\2\2\u00b4\u009e\3\2\2\2\u00b4\u00a9\3\2\2\2\u00b4\u00aa\3\2"+
+		"\2\2\u00b5\31\3\2\2\2\u00b6\u00b7\7\t\2\2\u00b7\33\3\2\2\2\u00b8\u00c1"+
+		"\7\n\2\2\u00b9\u00ba\7\n\2\2\u00ba\u00bb\7\5\2\2\u00bb\u00c1\7\t\2\2\u00bc"+
+		"\u00bd\7\n\2\2\u00bd\u00be\7\5\2\2\u00be\u00bf\7\7\2\2\u00bf\u00c1\7\t"+
+		"\2\2\u00c0\u00b8\3\2\2\2\u00c0\u00b9\3\2\2\2\u00c0\u00bc\3\2\2\2\u00c1"+
+		"\35\3\2\2\2\32#*-\65AMT[biltx}\u008a\u0091\u0097\u0099\u00a1\u00a6\u00ac"+
+		"\u00b1\u00b4\u00c0";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
