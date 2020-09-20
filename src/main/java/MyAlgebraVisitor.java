@@ -35,7 +35,7 @@ public class MyAlgebraVisitor extends AlgebraBaseVisitor<AlgebraicExpression> {
     @Override
     public AlgebraicExpression visitPotentiallyComplicatedProduct(AlgebraParser.PotentiallyComplicatedProductContext ctx) {
         AlgebraicExpression expressionSoFar = new CompositeTerm(1);
-        for (var i : ctx.children) {
+        for (var i : ctx.potentiallyComplicatedFactor()) {
             expressionSoFar = expressionSoFar.multiply(visit(i));
         }
         return expressionSoFar;

@@ -7,7 +7,7 @@ algebraicExpression:
 
 potentialyComplicatedProductWithSign: op=('-'|'+') potentiallyComplicatedProduct;
 
-potentiallyComplicatedProduct: (potentiallyComplicatedFactor)+;
+potentiallyComplicatedProduct: potentiallyComplicatedFactor('*'? potentiallyComplicatedFactor)*;
 
 potentiallyComplicatedFactor:
     simpleFullyFactorisedExpression #potentiallyComplicatedFactorSFFE
