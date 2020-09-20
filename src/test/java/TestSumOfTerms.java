@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TestSumOfTerms {
 
     @Test
-    public void testPlusWhenGivenSumOfTerms() {
+    public void testPlusWhenGivenNonZeroSumOfTerms() {
         var x = new CompositeTerm('x');
         var two_x_squared = new CompositeTerm('x', 2, 2);
         var x_squared = new CompositeTerm('x', 1, 2);
@@ -30,6 +30,21 @@ public class TestSumOfTerms {
         var actualSum = sumOfTerms1.plus(sumOfTerms2);
 
         assertEquals(expectedSum, actualSum);
+    }
+
+    @Test
+    public void testPlusWhenGivenZeroSumOfTerms() {
+        var x = new CompositeTerm('x');
+        var two_x_squared = new CompositeTerm('x', 2, 2);
+        var sumSet = new HashSet<CompositeTerm>();
+        sumSet.add(x);
+        sumSet.add(two_x_squared);
+        var nonZeroSum = new SumOfTerms(sumSet);
+        var zero = new SumOfTerms();
+        var zeroPlusNonZero = zero.plus(nonZeroSum);
+        var nonZeroPlusZero = nonZeroSum.plus(zero);
+        assertEquals(nonZeroSum, nonZeroPlusZero);
+        assertEquals(nonZeroSum, zeroPlusNonZero);
     }
 
     @Test
