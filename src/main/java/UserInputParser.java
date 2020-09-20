@@ -67,7 +67,7 @@ public class UserInputParser {
         parser.removeErrorListeners();
         parser.addErrorListener(errorListener);
         ParseTree tree = parser.algebraicExpression();
-        MyAlgebraVisitor expander = new MyAlgebraVisitor();
+        AlgebraEvaluatorVisitor expander = new AlgebraEvaluatorVisitor();
         return expander.visit(tree);
     }
 

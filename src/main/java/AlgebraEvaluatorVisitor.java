@@ -1,6 +1,6 @@
 import java.util.HashSet;
 
-public class MyAlgebraVisitor extends AlgebraBaseVisitor<AlgebraicExpression> {
+public class AlgebraEvaluatorVisitor extends AlgebraBaseVisitor<AlgebraicExpression> {
 
     @Override
     public AlgebraicExpression visitAlgebraicExpressionFirstTermNegative(AlgebraParser.AlgebraicExpressionFirstTermNegativeContext ctx) {
