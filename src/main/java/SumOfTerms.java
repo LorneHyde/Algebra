@@ -140,10 +140,12 @@ public class SumOfTerms implements AlgebraicExpression {
             CompositeTerm t = it.next();
             if(t.getCoefficient() < 0) {
                 var termWithoutMinusSign = t.toString().substring(1);
-                sb.append(" - " + termWithoutMinusSign);
+                sb.append(" - ");
+                sb.append(termWithoutMinusSign);
             }
             else {
-                sb.append(" + " + t);
+                sb.append(" + ");
+                sb.append(t);
             }
         }
     }
