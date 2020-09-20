@@ -11,6 +11,7 @@ public class UserInputParser {
                     "x^3 + x^2 + x + 1.\n" +
                     "I can also simplify a sum of terms without brackets " +
                     "- for instance, \"x + 2x\" will simplify to 3x.\n" +
+                    "And I can simplify products of terms - for instance, \"yyy\" will simplify to y^3.\n" +
                     "I am able to ignore spaces, so \"x+1\" and \"x + 1\" both mean the same to me.\n" +
                     "I am NOT able to understand any expression which cannot be simplified to a polynomial " +
                     "(possibly with negative exponents).\n" +
