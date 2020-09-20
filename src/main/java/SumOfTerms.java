@@ -20,6 +20,11 @@ public class SumOfTerms implements AlgebraicExpression {
         this.theSum = new HashSet<>();
     }
 
+    public SumOfTerms(CompositeTerm c) {
+        this();
+        theSum.add(c);
+    }
+
     /** Returns a set of all terms in the sum. */
     public final HashSet<CompositeTerm> getSumSet() {
         return new HashSet<>(theSum);

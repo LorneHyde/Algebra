@@ -18,11 +18,8 @@ public class TestUserInputParser {
     }
 
     @Test
-    public void testExpandBracketsWhenGivenNonSimplifiedSumWithoutBracket() {
-        var expectedTerm = new CompositeTerm('x', 2, 1);
-        var expectedSumSet = new HashSet<CompositeTerm>();
-        expectedSumSet.add(expectedTerm);
-        var expectedResult = new SumOfTerms(expectedSumSet);
+    public void testExpandBracketsWhenGivenNonSimplifiedSumWithoutBrackets() {
+        var expectedResult = new SumOfTerms(new CompositeTerm('x', 2, 1));
         var actualResult = UserInputParser.expandBrackets("x + x");
         assertEquals(expectedResult, actualResult);
     }
