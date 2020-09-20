@@ -44,8 +44,8 @@ public class CompositeTerm implements AlgebraicExpression {
      *                to create this CompositeTerm.
      */
     public CompositeTerm(HashSet<SimpleTerm> termSet, int coefficient) {
-        this.termSet = termSet;
         this.coefficient = coefficient;
+        this.termSet = termSet;
     }
 
     /**

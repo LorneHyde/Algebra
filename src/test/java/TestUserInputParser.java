@@ -1,10 +1,22 @@
 import org.junit.jupiter.api.Test;
 
-import java.util.HashSet;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestUserInputParser {
+    @Test
+    public void testExpandBracketsWhenGivenNonSimplifiedCompositeTerm() {
+        AlgebraicExpression actualResult = UserInputParser.expandBrackets("xyxz^2xz^2");
+        AlgebraicExpression expectedResult = UserInputParser.expandBrackets("yx^3z^4");
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void testExpandBracketsWhenGivenNonSimplifiedExponent() {
+        AlgebraicExpression actualResult = UserInputParser.expandBrackets("xxxxxx");
+        AlgebraicExpression expectedResult = new SumOfTerms(new CompositeTerm('x', 1, 6));
+        assertEquals(expectedResult, actualResult);
+    }
+
     @Test
     public void testExpandBracketsWhenGivenSimplifiedExpressionWithoutBrackets() {
         var x = new CompositeTerm('x');
@@ -43,7 +55,7 @@ public class TestUserInputParser {
     }
 
     @Test
-    public void testExpandBracketsWhenGivenPairOfNonNestedBrackets(){
+    public void testExpandBracketsWhenGivenPairOfNonNestedBrackets() {
         var expectedResult = UserInputParser.expandBrackets("x^2 - y^2");
         var actualResult = UserInputParser.expandBrackets("(x+y)(x-y)");
         assertEquals(expectedResult, actualResult);
@@ -57,7 +69,7 @@ public class TestUserInputParser {
     }
 
     @Test
-    public void testExpandBracketsWhenGivenNestedPower(){
+    public void testExpandBracketsWhenGivenNestedPower() {
         var expectedResult = new SumOfTerms(new CompositeTerm('x', 1, 4));
         var actualResult = UserInputParser.expandBrackets("((x+y)(x-y) + y^2)^2");
         assertEquals(expectedResult, actualResult);
@@ -71,14 +83,14 @@ public class TestUserInputParser {
     }
 
     @Test
-    public void testExpandBracketsWhenGivenComplicatedNestedExpression(){
+    public void testExpandBracketsWhenGivenComplicatedNestedExpression() {
         var expectedResult = UserInputParser.expandBrackets("x^3 + x^2 + x + 1");
         var actualResult = UserInputParser.expandBrackets("x(x(x+1)+1)+1");
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    public void testExpandBracketsWhenGivenSeveralZeroTermsWithDifferentSymbols(){
+    public void testExpandBracketsWhenGivenSeveralZeroTermsWithDifferentSymbols() {
         var expectedResult = new SumOfTerms();
         var actualResult = UserInputParser.expandBrackets("0x - 0y + 0xyz + 0");
         assertEquals(expectedResult, actualResult);
