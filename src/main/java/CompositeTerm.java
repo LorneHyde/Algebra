@@ -345,6 +345,9 @@ public class CompositeTerm implements AlgebraicExpression {
         } else if (coefficient == 1){
             return termSetString();
         }
+        else if (coefficient == -1){
+            return '-' + termSetString();
+        }
         else {
             return coefficientString + termSetString();
         }
