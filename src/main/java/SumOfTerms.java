@@ -20,6 +20,10 @@ public class SumOfTerms implements AlgebraicExpression {
         theSum.add(c);
     }
 
+    private boolean isZero() {
+        return (getSumSet().size() == 0 | (getSumSet().size() == 1 && giveATerm().getCoefficient() == 0));
+    }
+
     /** Returns a set of all terms in the sum. */
     public final HashSet<CompositeTerm> getSumSet() {
         return new HashSet<>(theSum);
@@ -109,6 +113,7 @@ public class SumOfTerms implements AlgebraicExpression {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SumOfTerms otherTerm = (SumOfTerms) o;
+        if (isZero() && otherTerm.isZero()) return true;
         return Objects.equals(theSum, otherTerm.theSum);
     }
 
