@@ -205,7 +205,7 @@ public class MyAlgebraVisitor extends AlgebraBaseVisitor<AlgebraicExpression> {
         for (var i : ctx.simpleterm()) {
             var term = visit(i);
             newTermSet.addAll(term.giveATerm().getSet());
-        } //TODO: This would reduce a term such as xx to x. Warn the user.
+        }
         return new CompositeTerm(newTermSet, coefficient);
     }
 
@@ -215,7 +215,7 @@ public class MyAlgebraVisitor extends AlgebraBaseVisitor<AlgebraicExpression> {
         for (var i : ctx.simpleterm()) {
             var term = visit(i);
             newTermSet.addAll(term.giveATerm().getSet());
-        } //TODO: This would reduce a term such as xx to x. Warn the user.
+        }
         return new CompositeTerm(newTermSet);
     }
 
