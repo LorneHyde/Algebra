@@ -2,6 +2,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Objects;
 
+/**The product of one or more variables with exponents, with a coefficient.*/
 public class CompositeTerm implements AlgebraicExpression {
 
     final private int coefficient;
@@ -84,6 +85,11 @@ public class CompositeTerm implements AlgebraicExpression {
         }
     }
 
+    /**
+     * Returns the set of CompositeTerms that make up this sum.
+     * A CompositeTerm will always have sumSet of size 1.
+     */
+    @Override
     public HashSet<CompositeTerm> getSumSet() {
         var set = new HashSet<CompositeTerm>();
         set.add(this);
@@ -135,18 +141,18 @@ public class CompositeTerm implements AlgebraicExpression {
         return new CompositeTerm(termSet, coefficient + otherTerm.coefficient);
     }
 
+
     /**
-     * Adds this term to the parameter Term, only creating a SumOfTerms if the result cannot possibly be expressed
-     * as a Term.
+     * Returns the result of adding the given parameter to this expression.
+     * The result will only be a SumOfTerms if the result cannot possibly be expressed as a CompositeTerm.
      */
+    @Override
     public AlgebraicExpression plus(CompositeTerm otherTerm) {
         if (otherTerm.coefficient == 0) {
             return this;
-        }
-        else if (coefficient == 0) {
+        } else if (coefficient == 0) {
             return otherTerm;
-        }
-        else if (isComparable(otherTerm)) {
+        } else if (isComparable(otherTerm)) {
             return plusComparable(otherTerm);
         } else if (isNumber() && otherTerm.isNumber()) {
             return new CompositeTerm(coefficient + otherTerm.coefficient);
@@ -158,22 +164,22 @@ public class CompositeTerm implements AlgebraicExpression {
     private SumOfTerms plusIncomparableSum(SumOfTerms s) {
         if (coefficient == 0) {
             return s;
-        }
-        else {
+        } else {
             var newSet = s.getSumSet();
             newSet.add(this);
             return new SumOfTerms(newSet);
         }
     }
 
+
     /**
-     * Creates a new SumOfTerms object obtained by adding this term to the given SumOfTerms parameter.
+     * {@inheritDoc}
      */
+    @Override
     public SumOfTerms plus(SumOfTerms otherTerm) {
         if (coefficient == 0) {
             return otherTerm;
-        }
-        else if (isNumber()) {
+        } else if (isNumber()) {
             return numberPlus(otherTerm);
         } else {
             var sumSoFar = new SumOfTerms();
@@ -238,13 +244,20 @@ public class CompositeTerm implements AlgebraicExpression {
         return comparableTerm;
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public CompositeTerm asNegative() {
         return new CompositeTerm(getSet(), coefficient * -1);
     }
 
+
     /**
-     * Returns the result of multiplying this by the given parameter term.
+     * {@inheritDoc}
      */
+    @Override
     public CompositeTerm multiply(CompositeTerm otherTerm) {
         var newTermSet = new HashSet<SimpleTerm>();
         var unusedTerms = otherTerm.getSet();
@@ -252,7 +265,7 @@ public class CompositeTerm implements AlgebraicExpression {
             var t2 = findTermWithSameSymbol(unusedTerms, t1);
             if (!isNumber() && t2 == null) {
                 newTermSet.add(t1);
-            } else if (t2 != null){
+            } else if (t2 != null) {
                 newTermSet.add(t1.multiplyWithSameSymbol(t2));
                 unusedTerms.remove(t2);
             }
@@ -266,10 +279,20 @@ public class CompositeTerm implements AlgebraicExpression {
         return new CompositeTerm(newTermSet, newCoefficient);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public SumOfTerms multiply(SumOfTerms s) {
         return s.multiply(this);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public AlgebraicExpression multiply(AlgebraicExpression e) {
         if (e.isSum()) {
             return multiply((SumOfTerms) e);
@@ -290,10 +313,17 @@ public class CompositeTerm implements AlgebraicExpression {
         return termWithSameSymbol;
     }
 
+    /**
+     * Returns the set of all SimpleTerms that are multiplied together to create this CompositeTerm.
+     * Note that the coefficient is NOT part of this set.
+     */
     public HashSet<SimpleTerm> getSet() {
         return new HashSet<>(termSet);
     }
 
+    /**
+     * Returns the coefficient of this term.
+     */
     public int getCoefficient() {
         return coefficient;
     }
@@ -334,26 +364,24 @@ public class CompositeTerm implements AlgebraicExpression {
         String coefficientString = String.valueOf(coefficient);
         if (isNumber()) {
             return coefficientString;
-        } else if (coefficient == 1){
+        } else if (coefficient == 1) {
             return termSetString();
-        }
-        else if (coefficient == -1){
+        } else if (coefficient == -1) {
             return '-' + termSetString();
-        }
-        else {
+        } else {
             return coefficientString + termSetString();
         }
     }
 
     private String termSetString() {
         Iterator<SimpleTerm> it = termSet.iterator();
-        if (! it.hasNext())
+        if (!it.hasNext())
             return "";
         StringBuilder sb = new StringBuilder();
-        for (;;) {
+        for (; ; ) {
             SimpleTerm e = it.next();
             sb.append(e);
-            if (! it.hasNext())
+            if (!it.hasNext())
                 return sb.toString();
             sb.append('*');
         }

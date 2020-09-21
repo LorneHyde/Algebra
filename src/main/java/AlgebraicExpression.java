@@ -5,8 +5,7 @@ import java.util.HashSet;
  */
 public interface AlgebraicExpression {
     /**
-     * Returns the result of adding this expression to the given CompositeTerm, only creating a SumOfTerms if the result
-     * cannot possibly be expressed as a CompositeTerm.
+     * Returns the result of adding this expression to the given CompositeTerm.
      */
     AlgebraicExpression plus(CompositeTerm t);
 
@@ -15,34 +14,65 @@ public interface AlgebraicExpression {
      */
     SumOfTerms plus(SumOfTerms s);
 
-
+    /**
+     * Returns the result of multiplying this expression with the given CompositeTerm parameter,
+     * simplifying where possible.
+     */
     AlgebraicExpression multiply(CompositeTerm t);
 
+    /**
+     * Returns the result of multiplying this expression with the given SumOfTerms parameter,
+     * simplifying where possible.
+     */
     AlgebraicExpression multiply(SumOfTerms s);
 
+    /**
+     * Returns the result of multiplying this expression by -1.
+     */
     AlgebraicExpression asNegative();
 
+    /**
+     * Returns the set of CompositeTerms that make up this sum.
+     */
     HashSet<CompositeTerm> getSumSet();
 
+    /**
+     * Returns whether the size of sumSet is NOT 1. For instance, note that expressions with empty SumSet will always
+     * have isSum evaluate as true, as will expressions with multiple terms in the sumSet.
+     * Any expression with only 1 element in its sumSet will have isSum() return false, regardless of whether this is a
+     * CompositeTerm or a SumOfTerms.
+     */
     default boolean isSum() {
         return getSumSet().size() != 1;
     }
 
+    /**
+     * Returns an arbitrary term from the sumSet. This is particularly useful if you already know the sumSet has size 1.
+     */
     default CompositeTerm giveATerm() {
         return getSumSet().iterator().next();
     }
 
+    /**
+     * Returns the result of subtracting the given parameter from this expression.
+     * The result may be negative.
+     */
     default AlgebraicExpression subtract(AlgebraicExpression r) {
         return plus(r.asNegative());
     }
 
-
+    /**
+     * Returns the result of adding the given parameter to this expression.
+     */
     default AlgebraicExpression plus(AlgebraicExpression r) {
         if (r.isSum()) {
             return plus((SumOfTerms) r);
         } else return plus((CompositeTerm) r);
     }
 
+    /**
+     * Returns the result of multiplying the given parameter by this expression.
+     */
     default AlgebraicExpression multiply(AlgebraicExpression r) {
         if (r.isSum()) {
             return multiply((SumOfTerms) r);
