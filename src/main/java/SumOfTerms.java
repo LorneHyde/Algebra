@@ -15,16 +15,20 @@ public class SumOfTerms implements AlgebraicExpression {
         this.theSum = new HashSet<>();
     }
 
+    /** Creates a SumOfTerms containing only the given parameter CompositeTerm.
+     * @param c The only term in the sum.*/
     public SumOfTerms(CompositeTerm c) {
         this();
         theSum.add(c);
     }
 
+    /** Returns whether this SumOfTerms represents the number 0.*/
     private boolean isZero() {
         return (getSumSet().size() == 0 | (getSumSet().size() == 1 && giveATerm().getCoefficient() == 0));
     }
 
-    /** Returns a set of all terms in the sum. */
+    /** {@inheritDoc} */
+    @Override
     public final HashSet<CompositeTerm> getSumSet() {
         return new HashSet<>(theSum);
     }
@@ -43,8 +47,8 @@ public class SumOfTerms implements AlgebraicExpression {
         return comparableTerm;
     }
 
-
-
+    /**{@inheritDoc}*/
+    @Override
     public SumOfTerms multiply(CompositeTerm t) {
         var newTermSet = new HashSet<CompositeTerm>();
         for (CompositeTerm i : getSumSet()) {
@@ -53,6 +57,7 @@ public class SumOfTerms implements AlgebraicExpression {
         return new SumOfTerms(newTermSet);
     }
 
+    /**{@inheritDoc}*/
     @Override
     public SumOfTerms multiply(SumOfTerms sum2) {
         var sumSoFar = new SumOfTerms(new HashSet<>());
@@ -64,6 +69,7 @@ public class SumOfTerms implements AlgebraicExpression {
         return sumSoFar;
     }
 
+    /**{@inheritDoc}*/
     @Override
     public SumOfTerms asNegative() {
         var newSumSet = new HashSet<CompositeTerm>();
@@ -73,6 +79,7 @@ public class SumOfTerms implements AlgebraicExpression {
         return new SumOfTerms(newSumSet);
     }
 
+    /**{@inheritDoc}*/
     @Override
     public SumOfTerms plus(SumOfTerms otherTerm) {
         var sumSoFar = new HashSet<CompositeTerm>();
@@ -98,6 +105,11 @@ public class SumOfTerms implements AlgebraicExpression {
             }
         }
         return new SumOfTerms(sumSoFar);
+    }
+
+    /**{@inheritDoc}*/
+    public SumOfTerms plus(CompositeTerm otherTerm) {
+        return otherTerm.plus(this);
     }
 
     @Override
@@ -135,9 +147,5 @@ public class SumOfTerms implements AlgebraicExpression {
                 sb.append(t);
             }
         }
-    }
-
-    public SumOfTerms plus(CompositeTerm otherTerm) {
-        return otherTerm.plus(this);
     }
 }
