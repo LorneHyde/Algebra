@@ -17,6 +17,12 @@ public class UserInputParser {
                     "(possibly with negative exponents).\n" +
                     "For instance, I can understand \"x^-1 + xy\" but I cannot understand \"(x+y)^-1\" or \"x^y\".\n" +
                     "Hence, I will always interpret terms such as x^2y as meaning x^2*y.";
+
+    private final static String initialMessage =
+            "Please enter in an algebraic expression, and I will expand the brackets for you. \n" +
+                    "To find out more about the type of input I expect, type \"rules\".\n" +
+                    "If you would like to quit, type \"quit\".";
+
     private static boolean hasErrors = false;
     private static String errorMessage = "";
     private static String inputString = "";
@@ -25,9 +31,7 @@ public class UserInputParser {
         while (true) {
             hasErrors = false;
             errorMessage = "";
-            System.out.println("Please enter in an algebraic expression, and I will expand the brackets for you.");
-            System.out.println("To find out more about the type of input I expect, type \"rules\".");
-            System.out.println("If you would like to quit, type \"quit\".");
+            System.out.println(initialMessage);
             Scanner scanner = new Scanner(System.in);
             inputString = scanner.nextLine();
             if (inputString.toLowerCase().equals("quit")) {
@@ -35,27 +39,24 @@ public class UserInputParser {
             } else if (inputString.toLowerCase().equals("rules")) {
                 System.out.println(rules);
             } else {
-                try {
-                    AlgebraicExpression a = expandBrackets(inputString);
-                    if (hasErrors) {
-                        printErrorMessage();
-                    } else {
-                        System.out.println("Your expression with brackets expanded is:");
-                        System.out.println(a);
-                    }
-                } catch (RuntimeException e) {
-                    printErrorMessage();
-                }
-                System.out.println();
+                respondToInput();
             }
         }
     }
 
-    private static void printErrorMessage() {
+    private static void respondToInput() {
+        try {
+            AlgebraicExpression a = expandBrackets(inputString);
+            System.out.printf("Your expression with brackets expanded is:\n%s%n", a);
+        } catch (RuntimeException e) {
+            System.out.println(getErrorMessage());
+        }
         System.out.println();
-        System.out.println(errorMessage);
-        System.out.println("Your expression is not valid. To see a list of rules for user input, " +
-                "type \"rules\".");
+    }
+
+    private static String getErrorMessage() {
+        return String.format("\n%s\nYour expression is not valid. To see a list of rules for user input, " +
+                "type \"rules\".", errorMessage);
     }
 
     public static AlgebraicExpression expandBrackets(String algebraString) {
@@ -75,11 +76,14 @@ public class UserInputParser {
 
     private static class MeaningfulErrorListener extends BaseErrorListener {
         @Override
-        public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
+        public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine,
+                                String msg, RecognitionException e) {
             if (!hasErrors) {
                 hasErrors = true;
-                errorMessage += String.format("I was rather confused to see '%s' at position %d of your input. ",
+                errorMessage = String.format("I was rather confused to see '%s' at position %d of your input. ",
                         inputString.charAt(charPositionInLine), charPositionInLine);
+                throw new RuntimeException("Unable to parse input");
+                // ^ This will get caught by the try/catch statement in main ^
             }
         }
     }
