@@ -22,14 +22,19 @@ public class SimpleTerm {
         this.exponent = 1;
     }
 
+    /** Returns the symbol for the variable that this term represents.
+     * For instance, when applied to x^2 it would return x.*/
     public char getSymbol() {
         return symbol;
     }
 
+    /** Returns the exponent that this term is raised to.
+     * For instance, when applied to x^2 it would return 2.*/
     public int getExponent() {
         return exponent;
     }
 
+    /** Returns whether the variable is raised to a non-zero power (this power may be 1 or greater).*/
     public boolean notSimpleNumber() {
         return exponent != 0;
     }
