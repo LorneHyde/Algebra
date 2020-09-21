@@ -2,6 +2,7 @@ import java.util.Iterator;
 import java.util.Objects;
 import java.util.HashSet;
 
+/** Represents a sum of CompositeTerms.*/
 public class SumOfTerms implements AlgebraicExpression {
     final private HashSet<CompositeTerm> theSum;
 
