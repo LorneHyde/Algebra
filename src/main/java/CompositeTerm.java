@@ -238,14 +238,6 @@ public class CompositeTerm implements AlgebraicExpression {
         return comparableTerm;
     }
 
-    public AlgebraicExpression subtract(CompositeTerm t) {
-        return plus(t.asNegative());
-    }
-
-    public AlgebraicExpression subtract(SumOfTerms s) {
-        return plus(s.asNegative());
-    }
-
     public CompositeTerm asNegative() {
         return new CompositeTerm(getSet(), coefficient * -1);
     }

@@ -100,14 +100,6 @@ public class SumOfTerms implements AlgebraicExpression {
         return new SumOfTerms(sumSoFar);
     }
 
-    public AlgebraicExpression subtract(CompositeTerm t) {
-        return plus(t.asNegative());
-    }
-
-    public AlgebraicExpression subtract(SumOfTerms s) {
-        return plus(s.asNegative());
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

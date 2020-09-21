@@ -4,19 +4,23 @@ import java.util.HashSet;
  * Represents an algebraic expression, which may be either a composite term or a sum of terms.
  */
 public interface AlgebraicExpression {
+    /**
+     * Returns the result of adding this expression to the given CompositeTerm, only creating a SumOfTerms if the result
+     * cannot possibly be expressed as a CompositeTerm.
+     */
     AlgebraicExpression plus(CompositeTerm t);
 
-    AlgebraicExpression plus(SumOfTerms s);
+    /**
+     * Returns the result of adding this expression to the given sum of terms.
+     */
+    SumOfTerms plus(SumOfTerms s);
+
 
     AlgebraicExpression multiply(CompositeTerm t);
 
     AlgebraicExpression multiply(SumOfTerms s);
 
     AlgebraicExpression asNegative();
-
-    AlgebraicExpression subtract(CompositeTerm t);
-
-    AlgebraicExpression subtract(SumOfTerms s);
 
     HashSet<CompositeTerm> getSumSet();
 
@@ -29,10 +33,9 @@ public interface AlgebraicExpression {
     }
 
     default AlgebraicExpression subtract(AlgebraicExpression r) {
-        if (isSum()) {
-            return subtract((SumOfTerms) r);
-        } else return subtract((CompositeTerm) r);
+        return plus(r.asNegative());
     }
+
 
     default AlgebraicExpression plus(AlgebraicExpression r) {
         if (r.isSum()) {
