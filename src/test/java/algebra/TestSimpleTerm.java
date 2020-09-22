@@ -5,21 +5,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestSimpleTerm {
+    final private static SimpleTerm x = new SimpleTerm('x');
+    final private static SimpleTerm xCubed = new SimpleTerm('x', 3);
+    final private static SimpleTerm xToTheFour = new SimpleTerm('x', 4);
+    final private static SimpleTerm y = new SimpleTerm('y');
     @Test
     public void testMultiplyWithSameSymbolWorksForSimpleTermWithSameSymbol() {
-        var t1 = new SimpleTerm('x', 1);
-        var t2 = new SimpleTerm('x', 3);
-        var expected_result = new SimpleTerm('x', 4);
-        var actual_result = t1.multiplyWithSameSymbol(t2);
-        var also_actual_result = t2.multiplyWithSameSymbol(t1);
-        assertEquals(expected_result, actual_result);
-        assertEquals(expected_result, also_actual_result);
+        //act
+        var answer = x.multiplyWithSameSymbol(xCubed);
+        var alsoAnswer = xCubed.multiplyWithSameSymbol(x);
+        //assert
+        assertEquals(xToTheFour, answer);
+        assertEquals(xToTheFour, alsoAnswer);
     }
 
     @Test
     public void testMultiplyWithSameSymbolThrowsExceptionWhenGivenSimpleTermWithDifferentSymbol() {
-        var t1 = new SimpleTerm('x');
-        var t2 = new SimpleTerm('y');
-        assertThrows(IllegalArgumentException.class, () -> t1.multiplyWithSameSymbol(t2));
+        assertThrows(IllegalArgumentException.class, () -> x.multiplyWithSameSymbol(y));
+        assertThrows(IllegalArgumentException.class, () -> y.multiplyWithSameSymbol(x));
     }
 }
