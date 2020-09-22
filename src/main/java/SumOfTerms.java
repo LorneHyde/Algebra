@@ -134,19 +134,19 @@ public class SumOfTerms implements AlgebraicExpression {
             return "0";
         StringBuilder sb = new StringBuilder();
         sb.append(it.next());
-        for (;;) {
-            if (! it.hasNext())
-                return sb.toString();
-            CompositeTerm t = it.next();
-            if(t.getCoefficient() < 0) {
-                var termWithoutMinusSign = t.toString().substring(1);
-                sb.append(" - ");
-                sb.append(termWithoutMinusSign);
-            }
-            else {
-                sb.append(" + ");
-                sb.append(t);
-            }
+        it.forEachRemaining((term) -> addTermToSumString(sb, term));
+        return sb.toString();
+    }
+
+    private void addTermToSumString(StringBuilder sb, CompositeTerm t) {
+        if(t.getCoefficient() < 0) {
+            var termWithoutMinusSign = t.toString().substring(1);
+            sb.append(" - ");
+            sb.append(termWithoutMinusSign);
+        }
+        else {
+            sb.append(" + ");
+            sb.append(t);
         }
     }
 }
