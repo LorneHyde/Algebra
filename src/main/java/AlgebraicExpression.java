@@ -7,24 +7,24 @@ public interface AlgebraicExpression {
     /**
      * Returns the result of adding this expression to the given CompositeTerm.
      */
-    AlgebraicExpression plus(CompositeTerm t);
+    AlgebraicExpression plus(CompositeTerm term);
 
     /**
      * Returns the result of adding this expression to the given sum of terms.
      */
-    SumOfTerms plus(SumOfTerms s);
+    SumOfTerms plus(SumOfTerms sum);
 
     /**
      * Returns the result of multiplying this expression with the given CompositeTerm parameter,
      * simplifying where possible.
      */
-    AlgebraicExpression multiply(CompositeTerm t);
+    AlgebraicExpression multiply(CompositeTerm term);
 
     /**
      * Returns the result of multiplying this expression with the given SumOfTerms parameter,
      * simplifying where possible.
      */
-    AlgebraicExpression multiply(SumOfTerms s);
+    AlgebraicExpression multiply(SumOfTerms sum);
 
     /**
      * Returns the result of multiplying this expression by -1.
@@ -57,25 +57,25 @@ public interface AlgebraicExpression {
      * Returns the result of subtracting the given parameter from this expression.
      * The result may be negative.
      */
-    default AlgebraicExpression subtract(AlgebraicExpression r) {
-        return plus(r.asNegative());
+    default AlgebraicExpression subtract(AlgebraicExpression other) {
+        return plus(other.asNegative());
     }
 
     /**
      * Returns the result of adding the given parameter to this expression.
      */
-    default AlgebraicExpression plus(AlgebraicExpression r) {
-        if (r.isSum()) {
-            return plus((SumOfTerms) r);
-        } else return plus((CompositeTerm) r);
+    default AlgebraicExpression plus(AlgebraicExpression other) {
+        if (other.isSum()) {
+            return plus((SumOfTerms) other);
+        } else return plus((CompositeTerm) other);
     }
 
     /**
      * Returns the result of multiplying the given parameter by this expression.
      */
-    default AlgebraicExpression multiply(AlgebraicExpression r) {
-        if (r.isSum()) {
-            return multiply((SumOfTerms) r);
-        } else return multiply((CompositeTerm) r);
+    default AlgebraicExpression multiply(AlgebraicExpression other) {
+        if (other.isSum()) {
+            return multiply((SumOfTerms) other);
+        } else return multiply((CompositeTerm) other);
     }
 }

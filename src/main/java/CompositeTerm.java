@@ -161,11 +161,11 @@ public class CompositeTerm implements AlgebraicExpression {
         }
     }
 
-    private SumOfTerms plusIncomparableSum(SumOfTerms s) {
+    private SumOfTerms plusIncomparableSum(SumOfTerms incomparableSum) {
         if (coefficient == 0) {
-            return s;
+            return incomparableSum;
         } else {
-            var newSet = s.getSumSet();
+            var newSet = incomparableSum.getSumSet();
             newSet.add(this);
             return new SumOfTerms(newSet);
         }
@@ -176,20 +176,20 @@ public class CompositeTerm implements AlgebraicExpression {
      * {@inheritDoc}
      */
     @Override
-    public SumOfTerms plus(SumOfTerms otherTerm) {
+    public SumOfTerms plus(SumOfTerms otherSum) {
         if (coefficient == 0) {
-            return otherTerm;
+            return otherSum;
         } else if (isNumber()) {
-            return numberPlus(otherTerm);
+            return numberPlus(otherSum);
         } else {
             var sumSoFar = new SumOfTerms();
             boolean hasThisTermBeenAdded = false;
-            for (CompositeTerm x : otherTerm.getSumSet()) {
+            for (CompositeTerm x : otherSum.getSumSet()) {
                 if (x.coefficient != 0) {
                     if (!hasThisTermBeenAdded && isComparable(x)) { //Add this to its comparable term
                         var mergedTerm = plusComparable(x);
                         sumSoFar = mergedTerm.plusIncomparableSum(sumSoFar);
-                        hasThisTermBeenAdded = true; // If 'otherTerm' has already been added, we need not add it again
+                        hasThisTermBeenAdded = true; // If 'otherSum' has already been added, we need not add it again
                     } else {
                         // Keep x unchanged in the new sum
                         sumSoFar = x.plusIncomparableSum(sumSoFar);
@@ -203,11 +203,11 @@ public class CompositeTerm implements AlgebraicExpression {
         }
     }
 
-    private SumOfTerms numberPlus(SumOfTerms otherTerm) {
+    private SumOfTerms numberPlus(SumOfTerms otherSum) {
         if (isNumber()) {
             var sumSoFar = new SumOfTerms();
             boolean hasThisTermBeenAdded = false;
-            for (CompositeTerm x : otherTerm.getSumSet()) {
+            for (CompositeTerm x : otherSum.getSumSet()) {
                 if (x.coefficient != 0) {
                     if (!hasThisTermBeenAdded && x.isNumber()) { //Add this to its comparable term
                         var mergedTerm = new CompositeTerm(coefficient + x.coefficient);
@@ -232,11 +232,11 @@ public class CompositeTerm implements AlgebraicExpression {
      * Returns a term in the product that can be added to the given parameter to produce a Term
      * (rather than a sum of terms), or returns null if no such term exists.
      */
-    SimpleTerm findComparable(SimpleTerm x) {
+    SimpleTerm findComparable(SimpleTerm term) {
         boolean found = false;
         SimpleTerm comparableTerm = null;
         for (SimpleTerm i : getSet()) {
-            if (!found && i.isComparable(x)) {
+            if (!found && i.isComparable(term)) {
                 found = true;
                 comparableTerm = i;
             }
@@ -284,8 +284,8 @@ public class CompositeTerm implements AlgebraicExpression {
      * {@inheritDoc}
      */
     @Override
-    public SumOfTerms multiply(SumOfTerms s) {
-        return s.multiply(this);
+    public SumOfTerms multiply(SumOfTerms otherSum) {
+        return otherSum.multiply(this);
     }
 
 
@@ -293,19 +293,19 @@ public class CompositeTerm implements AlgebraicExpression {
      * {@inheritDoc}
      */
     @Override
-    public AlgebraicExpression multiply(AlgebraicExpression e) {
-        if (e.isSum()) {
-            return multiply((SumOfTerms) e);
+    public AlgebraicExpression multiply(AlgebraicExpression other) {
+        if (other.isSum()) {
+            return multiply((SumOfTerms) other);
         } else {
-            return multiply(e.giveATerm());
+            return multiply(other.giveATerm());
         }
     }
 
-    private SimpleTerm findTermWithSameSymbol(HashSet<SimpleTerm> termSet, SimpleTerm t) {
+    private SimpleTerm findTermWithSameSymbol(HashSet<SimpleTerm> termSet, SimpleTerm term) {
         boolean found = false;
         SimpleTerm termWithSameSymbol = null;
         for (SimpleTerm i : termSet) {
-            if (!found && i.getSymbol() == t.getSymbol()) {
+            if (!found && i.getSymbol() == term.getSymbol()) {
                 found = true;
                 termWithSameSymbol = i;
             }
