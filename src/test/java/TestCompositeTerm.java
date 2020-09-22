@@ -2,239 +2,291 @@ import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class TestCompositeTerm {
+    private static final CompositeTerm zero = new CompositeTerm(0);
+    private static final CompositeTerm one = new CompositeTerm(1);
+    private static final CompositeTerm three = new CompositeTerm(3);
+    private static final CompositeTerm four = new CompositeTerm(4);
+    private static final CompositeTerm x = new CompositeTerm('x');
+    private static final CompositeTerm two_x = new CompositeTerm('x', 2, 1);
+    private static final CompositeTerm three_x = new CompositeTerm('x', 3, 1);
+    private static final CompositeTerm xSquared = new CompositeTerm('x', 1, 2);
+    private static final CompositeTerm y = new CompositeTerm('y');
+    private static final CompositeTerm z = new CompositeTerm('z');
+    private static final CompositeTerm xyCubed = get_xyCubed();
+    private static final CompositeTerm xySquared = get_xySquared();
+    private static final CompositeTerm three_xySquared = new CompositeTerm(xySquared.getSet(), 3);
+    private static final CompositeTerm four_xySquared = new CompositeTerm(xySquared.getSet(), 4);
+
+    private static final SumOfTerms x_plus_three = get_x_plus_three();
+    private static final SumOfTerms x_plus_four = get_x_plus_four();
+    private static final SumOfTerms x_plus_y = get_x_plus_y();
+    private static final SumOfTerms y_plus_three_x = get_y_plus_three_x();
+    private static final SumOfTerms y_plus_three_x_plus_three = get_y_plus_three_x_plus_three();
+    private static final SumOfTerms x_plus_xSquared = get_x_plus_xSquared();
+    private static final SumOfTerms y_plus_xSquared_plus_two_x = get_y_plus_xSquared_plus_two_x();
+    private static final SumOfTerms y_plus_xSquared_plus_three_x = get_y_plus_xSquared_plus_three_x();
+    private static final SumOfTerms y_plus_z_plus_xSquared_plus_three_x = get_y_plus_z_plus_xSquared_plus_two_x();
+    private static final SumOfTerms x_plus_xySquared = get_x_plus_xySquared();
+    private static final SumOfTerms xySquared_plus_xyCubed = get_xySquared_plus_xyCubed();
+
+    private static SumOfTerms get_x_plus_y() {
+        HashSet<CompositeTerm> sumSet = new HashSet<>();
+        sumSet.add(x);
+        sumSet.add(y);
+        return new SumOfTerms(sumSet);
+    }
+
+    private static SumOfTerms get_y_plus_three_x() {
+        HashSet<CompositeTerm> sumSet = new HashSet<>();
+        sumSet.add(three_x);
+        sumSet.add(y);
+        return new SumOfTerms(sumSet);
+    }
+
+    private static SumOfTerms get_y_plus_three_x_plus_three() {
+        HashSet<CompositeTerm> sumSet = new HashSet<>();
+        sumSet.add(three_x);
+        sumSet.add(y);
+        sumSet.add(three);
+        return new SumOfTerms(sumSet);
+    }
+
+    private static SumOfTerms get_x_plus_xSquared() {
+        HashSet<CompositeTerm> sumSet = new HashSet<>();
+        sumSet.add(x);
+        sumSet.add(xSquared);
+        return new SumOfTerms(sumSet);
+    }
+
+    private static SumOfTerms get_y_plus_xSquared_plus_two_x() {
+        var sumSet = new HashSet<CompositeTerm>();
+        sumSet.add(y);
+        sumSet.add(two_x);
+        sumSet.add(xSquared);
+        return new SumOfTerms(sumSet);
+    }
+
+    private static SumOfTerms get_y_plus_xSquared_plus_three_x() {
+        var sumSet = new HashSet<CompositeTerm>();
+        sumSet.add(y);
+        sumSet.add(xSquared);
+        sumSet.add(three_x);
+        return new SumOfTerms(sumSet);
+    }
+
+    private static SumOfTerms get_y_plus_z_plus_xSquared_plus_two_x() {
+        var sumSet = new HashSet<CompositeTerm>();
+        sumSet.add(y);
+        sumSet.add(two_x);
+        sumSet.add(xSquared);
+        sumSet.add(z);
+        return new SumOfTerms(sumSet);
+    }
+
+    private static CompositeTerm get_xySquared() {
+        var termSet = new HashSet<SimpleTerm>();
+        termSet.add(new SimpleTerm('x'));
+        termSet.add(new SimpleTerm('y', 2));
+        return new CompositeTerm(termSet);
+    }
+
+    private static SumOfTerms get_x_plus_xySquared() {
+        var sumSet = new HashSet<CompositeTerm>();
+        sumSet.add(xySquared);
+        sumSet.add(x);
+        return new SumOfTerms(sumSet);
+    }
+
+    private static CompositeTerm get_xyCubed() {
+        var termSet = new HashSet<SimpleTerm>();
+        termSet.add(new SimpleTerm('x'));
+        termSet.add(new SimpleTerm('y', 3));
+        return new CompositeTerm(termSet);
+    }
+
+    private static SumOfTerms get_xySquared_plus_xyCubed() {
+        var sumSet = new HashSet<CompositeTerm>();
+        sumSet.add(xySquared);
+        sumSet.add(xyCubed);
+        return new SumOfTerms(sumSet);
+    }
+
+    private static SumOfTerms get_x_plus_three() {
+        var sumSet = new HashSet<CompositeTerm>();
+        sumSet.add(three);
+        sumSet.add(x);
+        return new SumOfTerms(sumSet);
+    }
+
+    private static SumOfTerms get_x_plus_four() {
+        var sumSet = new HashSet<CompositeTerm>();
+        sumSet.add(four);
+        sumSet.add(x);
+        return new SumOfTerms(sumSet);
+    }
 
     @Test
     public void testPlusOnTwoSingleVariableTermsWithSameSymbol() {
-        var two_x = new CompositeTerm('x', 2, 1);
-        var x = new CompositeTerm('x');
-        var sum = x.plus(two_x);
-        assertTrue(sum instanceof CompositeTerm);
-        assertEquals(((CompositeTerm) sum).getCoefficient(), 3);
+        //act:
+        var answer = x.plus(two_x);
+        var alsoAnswer = two_x.plus(x);
+        //assert:
+        assertEquals(three_x, answer);
+        assertEquals(three_x, alsoAnswer);
     }
 
     @Test
     public void testPlusOnTwoSingleVariableTermsWithDifferentSymbols() {
-        var x = new CompositeTerm('x');
-        var y = new CompositeTerm('y');
-        var sum = x.plus(y);
-        HashSet<CompositeTerm> termList;
-        if (sum instanceof SumOfTerms) {
-            termList = ((SumOfTerms) sum).getSumSet();
-        } else termList = null;
-        assertTrue(sum instanceof SumOfTerms);
-        assertTrue((termList.contains(x) && termList.contains(y) && termList.size() == 2));
+        //act
+        var answer = x.plus(y);
+        var alsoAnswer = y.plus(x);
+        //assert
+        assertEquals(x_plus_y, answer);
+        assertEquals(x_plus_y, alsoAnswer);
     }
 
     @Test
     public void testPlusOnTwoSingleVariableTermsWithDifferentExponents() {
-        var x = new CompositeTerm('x');
-        var xSquared = new CompositeTerm('x', 1, 2);
+        //act
         var sum = x.plus(xSquared);
-
-        HashSet<CompositeTerm> termList;
-        if (sum instanceof SumOfTerms) {
-            termList = ((SumOfTerms) sum).getSumSet();
-        } else termList = null;
-
-        assertTrue(sum instanceof SumOfTerms);
-        assertTrue((termList.contains(x) && termList.contains(xSquared) && termList.size() == 2));
+        //assert
+        assertEquals(x_plus_xSquared, sum);
     }
 
     @Test
     public void testPlusOnSingleVariableTermWithComparableSumOfTerms() {
-        var x = new CompositeTerm('x');
-        var sumSet = new HashSet<CompositeTerm>();
-        sumSet.add(new CompositeTerm('y'));
-        sumSet.add(new CompositeTerm('x', 2, 2));
-        sumSet.add(new CompositeTerm('x', 3, 1));
-        var sum = new SumOfTerms(sumSet);
-        var expected_answer_set = new HashSet<CompositeTerm>();
-        expected_answer_set.add(new CompositeTerm('y'));
-        expected_answer_set.add(new CompositeTerm('x', 2, 2));
-        expected_answer_set.add(new CompositeTerm('x', 4, 1));
-
-        var answer = x.plus(sum);
-        var also_answer = sum.plus(x);
-
-        assertEquals(answer, also_answer);
-        assertEquals(answer, new SumOfTerms(expected_answer_set));
+        //act
+        var answer = x.plus(y_plus_xSquared_plus_two_x);
+        var alsoAnswer = y_plus_xSquared_plus_two_x.plus(x);
+        //assert
+        assertEquals(y_plus_xSquared_plus_three_x, answer);
+        assertEquals(y_plus_xSquared_plus_three_x, alsoAnswer);
     }
 
     @Test
     public void testPlusOnSingleVariableTermWithIncomparableSumOfTerms() {
-        var x = new CompositeTerm('z');
-        var sumSet = new HashSet<CompositeTerm>();
-        sumSet.add(new CompositeTerm('y'));
-        sumSet.add(new CompositeTerm('x', 2, 2));
-        sumSet.add(new CompositeTerm('x', 3, 1));
-        var sum = new SumOfTerms(sumSet);
-        var expected_answer_set = new HashSet<CompositeTerm>();
-        expected_answer_set.add(new CompositeTerm('y'));
-        expected_answer_set.add(new CompositeTerm('x', 2, 2));
-        expected_answer_set.add(new CompositeTerm('x', 3, 1));
-        expected_answer_set.add(new CompositeTerm('z'));
-
-        var answer = x.plus(sum);
-        var also_answer = sum.plus(x);
-
-        assertEquals(new SumOfTerms(expected_answer_set), answer);
-        assertEquals(new SumOfTerms(expected_answer_set), also_answer);
+        //act
+        var answer = z.plus(y_plus_xSquared_plus_two_x);
+        var alsoAnswer = y_plus_xSquared_plus_two_x.plus(z);
+        //assert
+        assertEquals(y_plus_z_plus_xSquared_plus_three_x, answer);
+        assertEquals(y_plus_z_plus_xSquared_plus_three_x, alsoAnswer);
     }
 
     @Test
     public void testPlusWhenGivenTwoComparableMultivariableTerms() {
-        var termSet = new HashSet<SimpleTerm>();
-        termSet.add(new SimpleTerm('x'));
-        termSet.add(new SimpleTerm('y', 2));
-        var product1 = new CompositeTerm(termSet, 1);
-        var product2 = new CompositeTerm(termSet, 3);
-        var sum = product1.plus(product2);
-        assertEquals(new CompositeTerm(termSet, 4), sum);
+        //act
+        var answer = xySquared.plus(three_xySquared);
+        var alsoAnswer = three_xySquared.plus(xySquared);
+        //assert
+        assertEquals(four_xySquared, answer);
+        assertEquals(four_xySquared, alsoAnswer);
     }
 
     @Test
     public void testPlusWhenGivenSingleVariableTermAndMultiVariableTerm() {
-        var termSet = new HashSet<SimpleTerm>();
-        termSet.add(new SimpleTerm('x'));
-        termSet.add(new SimpleTerm('y', 2));
-        var product1 = new CompositeTerm(termSet);
-        var simpleTerm = new CompositeTerm('x');
-        var sum = product1.plus(simpleTerm);
-        var expectedTermSet = new HashSet<CompositeTerm>();
-        expectedTermSet.add(product1);
-        expectedTermSet.add(simpleTerm);
-        var expected_answer = new SumOfTerms(expectedTermSet);
-        assertEquals(sum, expected_answer);
+        //act
+        var answer = xySquared.plus(x);
+        var alsoAnswer = x.plus(xySquared);
+        //assert
+        assertEquals(x_plus_xySquared, answer);
+        assertEquals(x_plus_xySquared, alsoAnswer);
     }
 
     @Test
     public void testPlusWhenGivenTwoIncomparableMultiVariableTerms() {
-        var termSet1 = new HashSet<SimpleTerm>();
-        termSet1.add(new SimpleTerm('x'));
-        termSet1.add(new SimpleTerm('y', 2));
-        var termSet2 = new HashSet<SimpleTerm>();
-        termSet2.add(new SimpleTerm('x'));
-        termSet2.add(new SimpleTerm('y', 3));
-        var product1 = new CompositeTerm(termSet1);
-        var product2 = new CompositeTerm(termSet2);
-        var sum = product1.plus(product2);
-        var expectedTermSet = new HashSet<CompositeTerm>();
-        expectedTermSet.add(product1);
-        expectedTermSet.add(product2);
-        var expected_answer = new SumOfTerms(expectedTermSet);
-        assertEquals(sum, expected_answer);
+        //act
+        var answer = xySquared.plus(xyCubed);
+        var alsoAnswer = xyCubed.plus(xySquared);
+        //assert
+        assertEquals(answer, xySquared_plus_xyCubed);
+        assertEquals(alsoAnswer, xySquared_plus_xyCubed);
     }
 
     @Test
     public void testPlusWhenGivenNumberAndSingleVariableTerm() {
-        var x_cubed = new CompositeTerm('x', 3, 3);
-        var three = new CompositeTerm(3);
-        var expectedTermSet = new HashSet<CompositeTerm>();
-        expectedTermSet.add(x_cubed);
-        expectedTermSet.add(three);
-        var expectedResult = new SumOfTerms(expectedTermSet);
-        var result = x_cubed.plus(three);
-        var also_result = three.plus(x_cubed);
-        assertEquals(expectedResult, result);
-        assertEquals(expectedResult, also_result);
+        //act
+        var answer = x.plus(three);
+        var alsoAnswer = three.plus(x);
+        //assert
+        assertEquals(x_plus_three, answer);
+        assertEquals(x_plus_three, alsoAnswer);
     }
 
     @Test
     public void testPlusWhenGivenTwoNumbers() {
-        var three = new CompositeTerm(3);
-        var one = new CompositeTerm(1);
-        var four = new CompositeTerm(4);
-        assertEquals(four, three.plus(one));
-        assertEquals(four, one.plus(three));
+        //act
+        var answer = three.plus(one);
+        var alsoAnswer = one.plus(three);
+        //assert
+        assertEquals(four, answer);
+        assertEquals(four, alsoAnswer);
     }
 
     @Test
     public void testPlusOnNumberWithComparableSumOfTerms() {
-        var two = new CompositeTerm(2);
-        var sumSet = new HashSet<CompositeTerm>();
-        sumSet.add(new CompositeTerm(3));
-        sumSet.add(new CompositeTerm('x'));
-        var sum = new SumOfTerms(sumSet);
-        var expected_answer_set = new HashSet<CompositeTerm>();
-        expected_answer_set.add(new CompositeTerm('x'));
-        expected_answer_set.add(new CompositeTerm(5));
-
-        var answer = two.plus(sum);
-        var also_answer = sum.plus(two);
-
-        assertEquals(answer, also_answer);
-        assertEquals(answer, new SumOfTerms(expected_answer_set));
+        //act
+        var answer = one.plus(x_plus_three);
+        var alsoAnswer = x_plus_three.plus(one);
+        //assert
+        assertEquals(x_plus_four, answer);
+        assertEquals(x_plus_four, alsoAnswer);
     }
 
     @Test
     public void testPlusOnNumberWithIncomparableSumOfTerms() {
-        var two = new CompositeTerm(2);
-        var sumSet = new HashSet<CompositeTerm>();
-        sumSet.add(new CompositeTerm('y'));
-        sumSet.add(new CompositeTerm('x', 2, 2));
-        sumSet.add(new CompositeTerm('x', 3, 1));
-        var sum = new SumOfTerms(sumSet);
-        var expected_answer_set = new HashSet<CompositeTerm>();
-        expected_answer_set.add(new CompositeTerm('y'));
-        expected_answer_set.add(new CompositeTerm('x', 2, 2));
-        expected_answer_set.add(new CompositeTerm('x', 3, 1));
-        expected_answer_set.add(two);
-
-        var answer = two.plus(sum);
-        var also_answer = sum.plus(two);
-
-        assertEquals(new SumOfTerms(expected_answer_set), answer);
-        assertEquals(new SumOfTerms(expected_answer_set), also_answer);
+        //act
+        var answer = three.plus(y_plus_three_x);
+        var alsoAnswer = y_plus_three_x.plus(three);
+        //assert
+        assertEquals(y_plus_three_x_plus_three, answer);
+        assertEquals(y_plus_three_x_plus_three, alsoAnswer);
     }
 
     @Test
     public void testPlusOnTwoZeroTerms() {
-        var zero = new CompositeTerm(0);
-        var zeroPlusZero = zero.plus(zero);
-        assertEquals(zero, zeroPlusZero);
+        //act
+        var answer = zero.plus(zero);
+        //assert
+        assertEquals(zero, answer);
     }
 
     @Test
-    public void testPlusOnZeroTermWithNonZeroTerm(){
-        var zero = new CompositeTerm(0);
-        var x = new CompositeTerm('x');
-        var zeroPlusX = zero.plus(x);
-        var xPlusZero = x.plus(zero);
-        assertEquals(x, zeroPlusX);
-        assertEquals(x, xPlusZero);
+    public void testPlusOnZeroTermWithNonZeroTerm() {
+        //act
+        var answer = zero.plus(x);
+        var alsoAnswer = x.plus(zero);
+        //assert
+        assertEquals(x, answer);
+        assertEquals(x, alsoAnswer);
     }
 
     @Test
     public void testPlusOnZeroTermWhenGivenNonZeroSumOfTerms() {
-        var zero = new CompositeTerm(0);
-        var sum = UserInputParser.simplify("x + 1");
-        assertEquals(sum, zero.plus(sum));
-        assertEquals(sum, sum.plus(zero));
+        //act
+        var answer = zero.plus(x_plus_three);
+        var alsoAnswer = x_plus_three.plus(zero);
+        //assert
+        assertEquals(x_plus_three, answer);
+        assertEquals(x_plus_three, alsoAnswer);
     }
 
     @Test
     public void testEqualsReturnsFalseWhenGivenSingleVariableTermsWithDifferentSymbols() {
-        var x = new CompositeTerm('x');
-        var y = new CompositeTerm('y');
         assertNotEquals(x, y);
     }
 
     @Test
     public void testEqualsReturnsFalseWhenGivenSingleVariableTermsWithDifferentExponents() {
-        var x = new CompositeTerm('x');
-        var x_squared = new CompositeTerm('x', 1, 2);
-        assertNotEquals(x, x_squared);
+        assertNotEquals(x, xSquared);
     }
 
     @Test
     public void testEqualsReturnsFalseWhenGivenSingleVariableTermsWithDifferentQuantities() {
-        var x = new CompositeTerm('x');
-        var two_x = new CompositeTerm('x', 2, 1);
         assertNotEquals(x, two_x);
     }
-
-
 }
