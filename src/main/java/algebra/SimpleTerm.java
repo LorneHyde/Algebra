@@ -1,3 +1,5 @@
+package algebra;
+
 import java.util.Objects;
 
 public class SimpleTerm {

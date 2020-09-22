@@ -1,3 +1,5 @@
+package algebra;
+
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.HashSet;

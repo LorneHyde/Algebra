@@ -1,134 +1,13 @@
+package algebra;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static algebra.ConstantsForTests.*;
 
 public class TestCompositeTerm {
-    private static final CompositeTerm zero = new CompositeTerm(0);
-    private static final CompositeTerm one = new CompositeTerm(1);
-    private static final CompositeTerm three = new CompositeTerm(3);
-    private static final CompositeTerm four = new CompositeTerm(4);
-    private static final CompositeTerm x = new CompositeTerm('x');
-    private static final CompositeTerm two_x = new CompositeTerm('x', 2, 1);
-    private static final CompositeTerm three_x = new CompositeTerm('x', 3, 1);
-    private static final CompositeTerm xSquared = new CompositeTerm('x', 1, 2);
-    private static final CompositeTerm y = new CompositeTerm('y');
-    private static final CompositeTerm z = new CompositeTerm('z');
-    private static final CompositeTerm xyCubed = get_xyCubed();
-    private static final CompositeTerm xySquared = get_xySquared();
-    private static final CompositeTerm three_xySquared = new CompositeTerm(xySquared.getSet(), 3);
-    private static final CompositeTerm four_xySquared = new CompositeTerm(xySquared.getSet(), 4);
-
-    private static final SumOfTerms x_plus_three = get_x_plus_three();
-    private static final SumOfTerms x_plus_four = get_x_plus_four();
-    private static final SumOfTerms x_plus_y = get_x_plus_y();
-    private static final SumOfTerms y_plus_three_x = get_y_plus_three_x();
-    private static final SumOfTerms y_plus_three_x_plus_three = get_y_plus_three_x_plus_three();
-    private static final SumOfTerms x_plus_xSquared = get_x_plus_xSquared();
-    private static final SumOfTerms y_plus_xSquared_plus_two_x = get_y_plus_xSquared_plus_two_x();
-    private static final SumOfTerms y_plus_xSquared_plus_three_x = get_y_plus_xSquared_plus_three_x();
-    private static final SumOfTerms y_plus_z_plus_xSquared_plus_three_x = get_y_plus_z_plus_xSquared_plus_two_x();
-    private static final SumOfTerms x_plus_xySquared = get_x_plus_xySquared();
-    private static final SumOfTerms xySquared_plus_xyCubed = get_xySquared_plus_xyCubed();
-
-    private static SumOfTerms get_x_plus_y() {
-        HashSet<CompositeTerm> sumSet = new HashSet<>();
-        sumSet.add(x);
-        sumSet.add(y);
-        return new SumOfTerms(sumSet);
-    }
-
-    private static SumOfTerms get_y_plus_three_x() {
-        HashSet<CompositeTerm> sumSet = new HashSet<>();
-        sumSet.add(three_x);
-        sumSet.add(y);
-        return new SumOfTerms(sumSet);
-    }
-
-    private static SumOfTerms get_y_plus_three_x_plus_three() {
-        HashSet<CompositeTerm> sumSet = new HashSet<>();
-        sumSet.add(three_x);
-        sumSet.add(y);
-        sumSet.add(three);
-        return new SumOfTerms(sumSet);
-    }
-
-    private static SumOfTerms get_x_plus_xSquared() {
-        HashSet<CompositeTerm> sumSet = new HashSet<>();
-        sumSet.add(x);
-        sumSet.add(xSquared);
-        return new SumOfTerms(sumSet);
-    }
-
-    private static SumOfTerms get_y_plus_xSquared_plus_two_x() {
-        var sumSet = new HashSet<CompositeTerm>();
-        sumSet.add(y);
-        sumSet.add(two_x);
-        sumSet.add(xSquared);
-        return new SumOfTerms(sumSet);
-    }
-
-    private static SumOfTerms get_y_plus_xSquared_plus_three_x() {
-        var sumSet = new HashSet<CompositeTerm>();
-        sumSet.add(y);
-        sumSet.add(xSquared);
-        sumSet.add(three_x);
-        return new SumOfTerms(sumSet);
-    }
-
-    private static SumOfTerms get_y_plus_z_plus_xSquared_plus_two_x() {
-        var sumSet = new HashSet<CompositeTerm>();
-        sumSet.add(y);
-        sumSet.add(two_x);
-        sumSet.add(xSquared);
-        sumSet.add(z);
-        return new SumOfTerms(sumSet);
-    }
-
-    private static CompositeTerm get_xySquared() {
-        var termSet = new HashSet<SimpleTerm>();
-        termSet.add(new SimpleTerm('x'));
-        termSet.add(new SimpleTerm('y', 2));
-        return new CompositeTerm(termSet);
-    }
-
-    private static SumOfTerms get_x_plus_xySquared() {
-        var sumSet = new HashSet<CompositeTerm>();
-        sumSet.add(xySquared);
-        sumSet.add(x);
-        return new SumOfTerms(sumSet);
-    }
-
-    private static CompositeTerm get_xyCubed() {
-        var termSet = new HashSet<SimpleTerm>();
-        termSet.add(new SimpleTerm('x'));
-        termSet.add(new SimpleTerm('y', 3));
-        return new CompositeTerm(termSet);
-    }
-
-    private static SumOfTerms get_xySquared_plus_xyCubed() {
-        var sumSet = new HashSet<CompositeTerm>();
-        sumSet.add(xySquared);
-        sumSet.add(xyCubed);
-        return new SumOfTerms(sumSet);
-    }
-
-    private static SumOfTerms get_x_plus_three() {
-        var sumSet = new HashSet<CompositeTerm>();
-        sumSet.add(three);
-        sumSet.add(x);
-        return new SumOfTerms(sumSet);
-    }
-
-    private static SumOfTerms get_x_plus_four() {
-        var sumSet = new HashSet<CompositeTerm>();
-        sumSet.add(four);
-        sumSet.add(x);
-        return new SumOfTerms(sumSet);
-    }
-
     @Test
     public void testPlusOnTwoSingleVariableTermsWithSameSymbol() {
         //act:

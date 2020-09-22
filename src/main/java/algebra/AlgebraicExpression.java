@@ -1,3 +1,4 @@
+package algebra;
 import java.util.HashSet;
 
 /**
