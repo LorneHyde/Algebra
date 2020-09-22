@@ -3,7 +3,9 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.Scanner;
 
-/** Contains the main method for the program.*/
+/**
+ * Contains the main method for the program.
+ */
 public class UserInputParser {
     private final static String rules =
             "Your input should be a valid algebraic expression, which I will then simplify.\n" +
@@ -27,6 +29,8 @@ public class UserInputParser {
     private static boolean hasErrors = false;
     private static String errorMessage = "";
     private static String inputString = "";
+    private static MeaningfulErrorListener errorListener = new MeaningfulErrorListener();
+    private static AlgebraEvaluatorVisitor expander = new AlgebraEvaluatorVisitor();
 
     public static void main(String[] args) {
         while (true) {
@@ -61,21 +65,31 @@ public class UserInputParser {
                 "type \"rules\".", errorMessage);
     }
 
-    /** Parses the given string as an algebraic expression, and returns the simplified result.
-     * All brackets will be expanded, and any sums that can be reduced will be reduced.*/
+    /**
+     * Parses the given string as an algebraic expression, and returns the simplified result.
+     * All brackets will be expanded, and any sums that can be reduced will be reduced.
+     */
     public static AlgebraicExpression simplify(String algebraString) {
+        AlgebraLexer lexer = newAlgebraLexerFor(algebraString);
+        AlgebraParser parser = newAlgebraParserFrom(lexer);
+        ParseTree tree = parser.algebraicExpression();
+        return expander.visit(tree);
+    }
+
+    private static AlgebraLexer newAlgebraLexerFor(String algebraString) {
         CodePointCharStream inputCharStream = CharStreams.fromString(algebraString);
-        MeaningfulErrorListener errorListener = new MeaningfulErrorListener();
         AlgebraLexer lexer = new AlgebraLexer(inputCharStream);
         lexer.removeErrorListeners();
         lexer.addErrorListener(errorListener);
+        return lexer;
+    }
+
+    private static AlgebraParser newAlgebraParserFrom(AlgebraLexer lexer) {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         AlgebraParser parser = new AlgebraParser(tokens);
         parser.removeErrorListeners();
         parser.addErrorListener(errorListener);
-        ParseTree tree = parser.algebraicExpression();
-        AlgebraEvaluatorVisitor expander = new AlgebraEvaluatorVisitor();
-        return expander.visit(tree);
+        return parser;
     }
 
     private static class MeaningfulErrorListener extends BaseErrorListener {
