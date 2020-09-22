@@ -3,6 +3,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.Scanner;
 
+/** Contains the main method for the program.*/
 public class UserInputParser {
     private final static String rules =
             "Your input should be a valid algebraic expression, which I will then simplify.\n" +
@@ -46,7 +47,7 @@ public class UserInputParser {
 
     private static void respondToInput() {
         try {
-            AlgebraicExpression a = expandBrackets(inputString);
+            AlgebraicExpression a = simplify(inputString);
             System.out.printf("Your expression with brackets expanded is:\n%s%n", a);
         } catch (RuntimeException e) {
             System.out.println(getErrorMessage());
@@ -54,12 +55,15 @@ public class UserInputParser {
         System.out.println();
     }
 
+
     private static String getErrorMessage() {
         return String.format("\n%s\nYour expression is not valid. To see a list of rules for user input, " +
                 "type \"rules\".", errorMessage);
     }
 
-    public static AlgebraicExpression expandBrackets(String algebraString) {
+    /** Parses the given string as an algebraic expression, and returns the simplified result.
+     * All brackets will be expanded, and any sums that can be reduced will be reduced.*/
+    public static AlgebraicExpression simplify(String algebraString) {
         CodePointCharStream inputCharStream = CharStreams.fromString(algebraString);
         MeaningfulErrorListener errorListener = new MeaningfulErrorListener();
         AlgebraLexer lexer = new AlgebraLexer(inputCharStream);

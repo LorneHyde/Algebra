@@ -210,7 +210,7 @@ public class TestCompositeTerm {
     @Test
     public void testPlusOnZeroTermWhenGivenNonZeroSumOfTerms() {
         var zero = new CompositeTerm(0);
-        var sum = UserInputParser.expandBrackets("x + 1");
+        var sum = UserInputParser.simplify("x + 1");
         assertEquals(sum, zero.plus(sum));
         assertEquals(sum, sum.plus(zero));
     }

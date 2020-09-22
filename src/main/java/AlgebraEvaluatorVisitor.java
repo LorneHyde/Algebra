@@ -275,8 +275,9 @@ public class AlgebraEvaluatorVisitor extends AlgebraBaseVisitor<AlgebraicExpress
             var term = visit(i);
             thisTermSetLoop:
             for (SimpleTerm j : term.giveATerm().getSet()) {
+                final char jSymbol = j.getSymbol();
                 for (SimpleTerm k : newTermSet) {
-                    if (j.getSymbol() == k.getSymbol()) {
+                    if (jSymbol == k.getSymbol()) {
                         var multipliedTerm = j.multiplyWithSameSymbol(k);
                         newTermSet.remove(k);
                         newTermSet.add(multipliedTerm);
