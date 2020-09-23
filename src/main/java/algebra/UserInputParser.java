@@ -30,8 +30,8 @@ public class UserInputParser {
     private static boolean hasErrors = false;
     private static String errorMessage = "";
     private static String inputString = "";
-    private static MeaningfulErrorListener errorListener = new MeaningfulErrorListener();
-    private static AlgebraEvaluatorVisitor expander = new AlgebraEvaluatorVisitor();
+    private static final MeaningfulErrorListener errorListener = new MeaningfulErrorListener();
+    private static final AlgebraEvaluatorVisitor expander = new AlgebraEvaluatorVisitor();
 
     public static void main(String[] args) {
         while (true) {
