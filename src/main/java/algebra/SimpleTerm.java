@@ -65,7 +65,7 @@ public class SimpleTerm {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         else {
-            var otherTerm = (SimpleTerm) o;
+            SimpleTerm otherTerm = (SimpleTerm) o;
             return symbol == otherTerm.symbol &&
                     exponent == otherTerm.exponent;
         }

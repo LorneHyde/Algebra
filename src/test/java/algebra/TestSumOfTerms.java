@@ -11,8 +11,8 @@ public class TestSumOfTerms {
     @Test
     public void testPlusWhenGivenNonZeroSumOfTerms() {
         //act
-        var answer = y_plus_three_x.plus(x_plus_xySquared);
-        var alsoAnswer = x_plus_xySquared.plus(y_plus_three_x);
+        SumOfTerms answer = y_plus_three_x.plus(x_plus_xySquared);
+        SumOfTerms alsoAnswer = x_plus_xySquared.plus(y_plus_three_x);
         //assert
         assertEquals(y_plus_four_x_plus_xySquared, answer);
         assertEquals(y_plus_four_x_plus_xySquared, alsoAnswer);
@@ -21,8 +21,8 @@ public class TestSumOfTerms {
     @Test
     public void testPlusWhenGivenZeroSumOfTerms() {
         //act
-        var answer = x_plus_xySquared.plus(zeroSum);
-        var alsoAnswer = zeroSum.plus(x_plus_xySquared);
+        SumOfTerms answer = x_plus_xySquared.plus(zeroSum);
+        SumOfTerms alsoAnswer = zeroSum.plus(x_plus_xySquared);
         //assert
         assertEquals(x_plus_xySquared, answer);
         assertEquals(x_plus_xySquared, alsoAnswer);
@@ -31,8 +31,8 @@ public class TestSumOfTerms {
     @Test
     public void testMultiplyWhenGivenCompositeTerm() {
         //act
-        var answer = x_plus_y.multiply(x);
-        var alsoAnswer = x.multiply(x_plus_y);
+        SumOfTerms answer = x_plus_y.multiply(x);
+        SumOfTerms alsoAnswer = x.multiply(x_plus_y);
         //assert
         assertEquals(xSquared_plus_x_y, answer);
         assertEquals(xSquared_plus_x_y, alsoAnswer);
@@ -41,7 +41,7 @@ public class TestSumOfTerms {
     @Test
     public void testMultiplyWhenGivenSumOfTerms() {
         //act
-        var actualResult = x_plus_y.multiply(x_plus_y);
+        SumOfTerms actualResult = x_plus_y.multiply(x_plus_y);
         //assert
         assertEquals(xSquared_plus_ySquared_plus_two_x_y, actualResult);
     }
@@ -49,7 +49,7 @@ public class TestSumOfTerms {
     @Test
     public void testAsNegative() {
         //act
-        var answer = xSquared_plus_ySquared_plus_two_x_y.asNegative();
+        SumOfTerms answer = xSquared_plus_ySquared_plus_two_x_y.asNegative();
         //assert
         assertEquals(minus_xSquared_minus_ySquared_minus_two_x_y, answer);
     }

@@ -65,7 +65,7 @@ public class CompositeTerm implements AlgebraicExpression {
      * Returns whether this is simply a number (rather than a term with variables)
      */
     public boolean isNumber() {
-        var foundNonZeroExponent = false;
+        boolean foundNonZeroExponent = false;
         for (SimpleTerm i : termSet) {
             if (i.getExponent() != 0) {
                 foundNonZeroExponent = true;
@@ -93,16 +93,16 @@ public class CompositeTerm implements AlgebraicExpression {
      */
     @Override
     public HashSet<CompositeTerm> getSumSet() {
-        var set = new HashSet<CompositeTerm>();
+        HashSet<CompositeTerm> set = new HashSet<>();
         set.add(this);
         return set;
     }
 
     private boolean isComparableToProduct(CompositeTerm otherTerm) {
-        var foundIncomparableTerm = false;
-        var unpairedTerms = otherTerm.getSet(); // This is a new set to prevent concurrent modification
+        boolean foundIncomparableTerm = false;
+        HashSet<SimpleTerm> unpairedTerms = otherTerm.getSet(); // This is a new set to prevent concurrent modification
         for (SimpleTerm x : getSet()) {
-            var comparableTerm = otherTerm.findComparable(x);
+            SimpleTerm comparableTerm = otherTerm.findComparable(x);
             if (comparableTerm == null) {
                 foundIncomparableTerm = true;
                 break;
@@ -123,7 +123,7 @@ public class CompositeTerm implements AlgebraicExpression {
         if (isComparable(otherTerm)) {
             throw new IllegalArgumentException(otherTerm + " is comparable to " + this);
         }
-        var sum = new HashSet<CompositeTerm>();
+        HashSet<CompositeTerm> sum = new HashSet<>();
         sum.add(this);
         sum.add(otherTerm);
         return new SumOfTerms(sum);
@@ -167,7 +167,7 @@ public class CompositeTerm implements AlgebraicExpression {
         if (coefficient == 0) {
             return incomparableSum;
         } else {
-            var newSet = incomparableSum.getSumSet();
+            HashSet<CompositeTerm> newSet = incomparableSum.getSumSet();
             newSet.add(this);
             return new SumOfTerms(newSet);
         }
@@ -184,12 +184,12 @@ public class CompositeTerm implements AlgebraicExpression {
         } else if (isNumber()) {
             return numberPlus(otherSum);
         } else {
-            var sumSoFar = new SumOfTerms();
+            SumOfTerms sumSoFar = new SumOfTerms();
             boolean hasThisTermBeenAdded = false;
             for (CompositeTerm x : otherSum.getSumSet()) {
                 if (x.coefficient != 0) {
                     if (!hasThisTermBeenAdded && isComparable(x)) { //Add this to its comparable term
-                        var mergedTerm = plusComparable(x);
+                        CompositeTerm mergedTerm = plusComparable(x);
                         sumSoFar = mergedTerm.plusIncomparableSum(sumSoFar);
                         hasThisTermBeenAdded = true; // If 'otherSum' has already been added, we need not add it again
                     } else {
@@ -207,12 +207,12 @@ public class CompositeTerm implements AlgebraicExpression {
 
     private SumOfTerms numberPlus(SumOfTerms otherSum) {
         if (isNumber()) {
-            var sumSoFar = new SumOfTerms();
+            SumOfTerms sumSoFar = new SumOfTerms();
             boolean hasThisTermBeenAdded = false;
             for (CompositeTerm x : otherSum.getSumSet()) {
                 if (x.coefficient != 0) {
                     if (!hasThisTermBeenAdded && x.isNumber()) { //Add this to its comparable term
-                        var mergedTerm = new CompositeTerm(coefficient + x.coefficient);
+                        CompositeTerm mergedTerm = new CompositeTerm(coefficient + x.coefficient);
                         sumSoFar = mergedTerm.plusIncomparableSum(sumSoFar);
                         hasThisTermBeenAdded = true; // If 'otherTerm' has already been added, we need not add it again
                     } else {
@@ -261,10 +261,10 @@ public class CompositeTerm implements AlgebraicExpression {
      */
     @Override
     public CompositeTerm multiply(CompositeTerm otherTerm) {
-        var newTermSet = new HashSet<SimpleTerm>();
-        var unusedTerms = otherTerm.getSet();
+        HashSet<SimpleTerm> newTermSet = new HashSet<>();
+        HashSet<SimpleTerm> unusedTerms = otherTerm.getSet();
         for (SimpleTerm t1 : getSet()) {
-            var t2 = findTermWithSameSymbol(unusedTerms, t1);
+            SimpleTerm t2 = findTermWithSameSymbol(unusedTerms, t1);
             if (!isNumber() && t2 == null) {
                 newTermSet.add(t1);
             } else if (t2 != null) {
@@ -277,7 +277,7 @@ public class CompositeTerm implements AlgebraicExpression {
                 newTermSet.add(i);
             }
         }
-        var newCoefficient = getCoefficient() * otherTerm.getCoefficient();
+        int newCoefficient = getCoefficient() * otherTerm.getCoefficient();
         return new CompositeTerm(newTermSet, newCoefficient);
     }
 
@@ -334,7 +334,7 @@ public class CompositeTerm implements AlgebraicExpression {
      * Returns the number of factors in the set of terms
      */
     private int factorCount() {
-        var count = 0;
+        int count = 0;
         for (SimpleTerm i : termSet) {
             if (i.notSimpleNumber()) {
                 count += 1;

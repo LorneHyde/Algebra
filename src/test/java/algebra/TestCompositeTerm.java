@@ -11,8 +11,8 @@ public class TestCompositeTerm {
     @Test
     public void testPlusOnTwoSingleVariableTermsWithSameSymbol() {
         //act:
-        var answer = x.plus(two_x);
-        var alsoAnswer = two_x.plus(x);
+        AlgebraicExpression answer = x.plus(two_x);
+        AlgebraicExpression alsoAnswer = two_x.plus(x);
         //assert:
         assertEquals(three_x, answer);
         assertEquals(three_x, alsoAnswer);
@@ -21,8 +21,8 @@ public class TestCompositeTerm {
     @Test
     public void testPlusOnTwoSingleVariableTermsWithDifferentSymbols() {
         //act
-        var answer = x.plus(y);
-        var alsoAnswer = y.plus(x);
+        AlgebraicExpression answer = x.plus(y);
+        AlgebraicExpression alsoAnswer = y.plus(x);
         //assert
         assertEquals(x_plus_y, answer);
         assertEquals(x_plus_y, alsoAnswer);
@@ -31,7 +31,7 @@ public class TestCompositeTerm {
     @Test
     public void testPlusOnTwoSingleVariableTermsWithDifferentExponents() {
         //act
-        var sum = x.plus(xSquared);
+        AlgebraicExpression sum = x.plus(xSquared);
         //assert
         assertEquals(x_plus_xSquared, sum);
     }
@@ -39,8 +39,8 @@ public class TestCompositeTerm {
     @Test
     public void testPlusOnSingleVariableTermWithComparableSumOfTerms() {
         //act
-        var answer = x.plus(y_plus_xSquared_plus_two_x);
-        var alsoAnswer = y_plus_xSquared_plus_two_x.plus(x);
+        SumOfTerms answer = x.plus(y_plus_xSquared_plus_two_x);
+        SumOfTerms alsoAnswer = y_plus_xSquared_plus_two_x.plus(x);
         //assert
         assertEquals(y_plus_xSquared_plus_three_x, answer);
         assertEquals(y_plus_xSquared_plus_three_x, alsoAnswer);
@@ -49,8 +49,8 @@ public class TestCompositeTerm {
     @Test
     public void testPlusOnSingleVariableTermWithIncomparableSumOfTerms() {
         //act
-        var answer = z.plus(y_plus_xSquared_plus_two_x);
-        var alsoAnswer = y_plus_xSquared_plus_two_x.plus(z);
+        SumOfTerms answer = z.plus(y_plus_xSquared_plus_two_x);
+        SumOfTerms alsoAnswer = y_plus_xSquared_plus_two_x.plus(z);
         //assert
         assertEquals(y_plus_z_plus_xSquared_plus_three_x, answer);
         assertEquals(y_plus_z_plus_xSquared_plus_three_x, alsoAnswer);
@@ -59,8 +59,8 @@ public class TestCompositeTerm {
     @Test
     public void testPlusWhenGivenTwoComparableMultivariableTerms() {
         //act
-        var answer = xySquared.plus(three_xySquared);
-        var alsoAnswer = three_xySquared.plus(xySquared);
+        AlgebraicExpression answer = xySquared.plus(three_xySquared);
+        AlgebraicExpression alsoAnswer = three_xySquared.plus(xySquared);
         //assert
         assertEquals(four_xySquared, answer);
         assertEquals(four_xySquared, alsoAnswer);
@@ -69,8 +69,8 @@ public class TestCompositeTerm {
     @Test
     public void testPlusWhenGivenSingleVariableTermAndMultiVariableTerm() {
         //act
-        var answer = xySquared.plus(x);
-        var alsoAnswer = x.plus(xySquared);
+        AlgebraicExpression answer = xySquared.plus(x);
+        AlgebraicExpression alsoAnswer = x.plus(xySquared);
         //assert
         assertEquals(x_plus_xySquared, answer);
         assertEquals(x_plus_xySquared, alsoAnswer);
@@ -79,8 +79,8 @@ public class TestCompositeTerm {
     @Test
     public void testPlusWhenGivenTwoIncomparableMultiVariableTerms() {
         //act
-        var answer = xySquared.plus(xyCubed);
-        var alsoAnswer = xyCubed.plus(xySquared);
+        AlgebraicExpression answer = xySquared.plus(xyCubed);
+        AlgebraicExpression alsoAnswer = xyCubed.plus(xySquared);
         //assert
         assertEquals(answer, xySquared_plus_xyCubed);
         assertEquals(alsoAnswer, xySquared_plus_xyCubed);
@@ -89,8 +89,8 @@ public class TestCompositeTerm {
     @Test
     public void testPlusWhenGivenNumberAndSingleVariableTerm() {
         //act
-        var answer = x.plus(three);
-        var alsoAnswer = three.plus(x);
+        AlgebraicExpression answer = x.plus(three);
+        AlgebraicExpression alsoAnswer = three.plus(x);
         //assert
         assertEquals(x_plus_three, answer);
         assertEquals(x_plus_three, alsoAnswer);
@@ -99,8 +99,8 @@ public class TestCompositeTerm {
     @Test
     public void testPlusWhenGivenTwoNumbers() {
         //act
-        var answer = three.plus(one);
-        var alsoAnswer = one.plus(three);
+        AlgebraicExpression answer = three.plus(one);
+        AlgebraicExpression alsoAnswer = one.plus(three);
         //assert
         assertEquals(four, answer);
         assertEquals(four, alsoAnswer);
@@ -109,8 +109,8 @@ public class TestCompositeTerm {
     @Test
     public void testPlusOnNumberWithComparableSumOfTerms() {
         //act
-        var answer = one.plus(x_plus_three);
-        var alsoAnswer = x_plus_three.plus(one);
+        SumOfTerms answer = one.plus(x_plus_three);
+        SumOfTerms alsoAnswer = x_plus_three.plus(one);
         //assert
         assertEquals(x_plus_four, answer);
         assertEquals(x_plus_four, alsoAnswer);
@@ -119,8 +119,8 @@ public class TestCompositeTerm {
     @Test
     public void testPlusOnNumberWithIncomparableSumOfTerms() {
         //act
-        var answer = three.plus(y_plus_three_x);
-        var alsoAnswer = y_plus_three_x.plus(three);
+        SumOfTerms answer = three.plus(y_plus_three_x);
+        SumOfTerms alsoAnswer = y_plus_three_x.plus(three);
         //assert
         assertEquals(y_plus_three_x_plus_three, answer);
         assertEquals(y_plus_three_x_plus_three, alsoAnswer);
@@ -129,7 +129,7 @@ public class TestCompositeTerm {
     @Test
     public void testPlusOnTwoZeroTerms() {
         //act
-        var answer = zero.plus(zero);
+        AlgebraicExpression answer = zero.plus(zero);
         //assert
         assertEquals(zero, answer);
     }
@@ -137,8 +137,8 @@ public class TestCompositeTerm {
     @Test
     public void testPlusOnZeroTermWithNonZeroTerm() {
         //act
-        var answer = zero.plus(x);
-        var alsoAnswer = x.plus(zero);
+        AlgebraicExpression answer = zero.plus(x);
+        AlgebraicExpression alsoAnswer = x.plus(zero);
         //assert
         assertEquals(x, answer);
         assertEquals(x, alsoAnswer);
@@ -147,8 +147,8 @@ public class TestCompositeTerm {
     @Test
     public void testPlusOnZeroTermWhenGivenNonZeroSumOfTerms() {
         //act
-        var answer = zero.plus(x_plus_three);
-        var alsoAnswer = x_plus_three.plus(zero);
+        AlgebraicExpression answer = zero.plus(x_plus_three);
+        SumOfTerms alsoAnswer = x_plus_three.plus(zero);
         //assert
         assertEquals(x_plus_three, answer);
         assertEquals(x_plus_three, alsoAnswer);

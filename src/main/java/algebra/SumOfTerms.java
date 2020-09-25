@@ -53,7 +53,7 @@ public class SumOfTerms implements AlgebraicExpression {
     /**{@inheritDoc}*/
     @Override
     public SumOfTerms multiply(CompositeTerm term) {
-        var newTermSet = new HashSet<CompositeTerm>();
+        HashSet<CompositeTerm> newTermSet = new HashSet<>();
         for (CompositeTerm i : getSumSet()) {
             newTermSet.add(i.multiply(term));
         }
@@ -63,7 +63,7 @@ public class SumOfTerms implements AlgebraicExpression {
     /**{@inheritDoc}*/
     @Override
     public SumOfTerms multiply(SumOfTerms other) {
-        var sumSoFar = new SumOfTerms(new HashSet<>());
+        SumOfTerms sumSoFar = new SumOfTerms(new HashSet<>());
         for (CompositeTerm i : getSumSet()) {
             for (CompositeTerm j : other.getSumSet()) {
                 sumSoFar = sumSoFar.plus(i.multiply(j));
@@ -75,7 +75,7 @@ public class SumOfTerms implements AlgebraicExpression {
     /**{@inheritDoc}*/
     @Override
     public SumOfTerms asNegative() {
-        var newSumSet = new HashSet<CompositeTerm>();
+        HashSet<CompositeTerm> newSumSet = new HashSet<>();
         for (CompositeTerm i : getSumSet()) {
             newSumSet.add(i.asNegative());
         }
@@ -85,16 +85,16 @@ public class SumOfTerms implements AlgebraicExpression {
     /**{@inheritDoc}*/
     @Override
     public SumOfTerms plus(SumOfTerms other) {
-        var sumSoFar = new HashSet<CompositeTerm>();
-        var unpairedTerms = other.getSumSet();
+        HashSet<CompositeTerm> sumSoFar = new HashSet<>();
+        HashSet<CompositeTerm> unpairedTerms = other.getSumSet();
         for (CompositeTerm x : getSumSet()) {
             if (x.getCoefficient() != 0) {
-                var comparableTerm = other.findComparable(x);
+                CompositeTerm comparableTerm = other.findComparable(x);
                 if (comparableTerm == null) {
                     sumSoFar.add(x);
                 }
                 else {
-                    var termToAdd = x.plusComparable(comparableTerm);
+                    CompositeTerm termToAdd = x.plusComparable(comparableTerm);
                     if (termToAdd.getCoefficient() != 0) {
                         sumSoFar.add(termToAdd);
                     }
@@ -142,7 +142,7 @@ public class SumOfTerms implements AlgebraicExpression {
 
     private void addTermToSumString(StringBuilder sb, CompositeTerm t) {
         if(t.getCoefficient() < 0) {
-            var termWithoutMinusSign = t.toString().substring(1);
+            String termWithoutMinusSign = t.toString().substring(1);
             sb.append(" - ");
             sb.append(termWithoutMinusSign);
         }

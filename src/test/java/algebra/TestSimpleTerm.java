@@ -12,8 +12,8 @@ public class TestSimpleTerm {
     @Test
     public void testMultiplyWithSameSymbolWorksForSimpleTermWithSameSymbol() {
         //act
-        var answer = x.multiplyWithSameSymbol(xCubed);
-        var alsoAnswer = xCubed.multiplyWithSameSymbol(x);
+        SimpleTerm answer = x.multiplyWithSameSymbol(xCubed);
+        SimpleTerm alsoAnswer = xCubed.multiplyWithSameSymbol(x);
         //assert
         assertEquals(xToTheFour, answer);
         assertEquals(xToTheFour, alsoAnswer);

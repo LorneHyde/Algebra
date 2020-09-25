@@ -90,7 +90,7 @@ public class ConstantsForTests {
     }
 
     private static SumOfTerms get_y_plus_xSquared_plus_two_x() {
-        var sumSet = new HashSet<CompositeTerm>();
+        HashSet<CompositeTerm> sumSet = new HashSet<>();
         sumSet.add(y);
         sumSet.add(two_x);
         sumSet.add(xSquared);
@@ -98,7 +98,7 @@ public class ConstantsForTests {
     }
 
     private static SumOfTerms get_y_plus_xSquared_plus_three_x() {
-        var sumSet = new HashSet<CompositeTerm>();
+        HashSet<CompositeTerm> sumSet = new HashSet<>();
         sumSet.add(y);
         sumSet.add(xSquared);
         sumSet.add(three_x);
@@ -106,7 +106,7 @@ public class ConstantsForTests {
     }
 
     private static SumOfTerms get_y_plus_z_plus_xSquared_plus_two_x() {
-        var sumSet = new HashSet<CompositeTerm>();
+        HashSet<CompositeTerm> sumSet = new HashSet<>();
         sumSet.add(y);
         sumSet.add(two_x);
         sumSet.add(xSquared);
@@ -115,63 +115,63 @@ public class ConstantsForTests {
     }
 
     private static CompositeTerm get_xySquared() {
-        var termSet = new HashSet<SimpleTerm>();
+        HashSet<SimpleTerm> termSet = new HashSet<>();
         termSet.add(new SimpleTerm('x'));
         termSet.add(new SimpleTerm('y', 2));
         return new CompositeTerm(termSet);
     }
 
     private static SumOfTerms get_x_plus_xySquared() {
-        var sumSet = new HashSet<CompositeTerm>();
+        HashSet<CompositeTerm> sumSet = new HashSet<>();
         sumSet.add(xySquared);
         sumSet.add(x);
         return new SumOfTerms(sumSet);
     }
 
     private static CompositeTerm get_xyCubed() {
-        var termSet = new HashSet<SimpleTerm>();
+        HashSet<SimpleTerm> termSet = new HashSet<>();
         termSet.add(new SimpleTerm('x'));
         termSet.add(new SimpleTerm('y', 3));
         return new CompositeTerm(termSet);
     }
 
     private static CompositeTerm get_six_xSquared_yCubed() {
-        var termSet = new HashSet<SimpleTerm>();
+        HashSet<SimpleTerm> termSet = new HashSet<>();
         termSet.add(new SimpleTerm('x', 2));
         termSet.add(new SimpleTerm('y', 3));
         return new CompositeTerm(termSet, 6);
     }
 
     private static SumOfTerms get_xySquared_plus_xyCubed() {
-        var sumSet = new HashSet<CompositeTerm>();
+        HashSet<CompositeTerm> sumSet = new HashSet<>();
         sumSet.add(xySquared);
         sumSet.add(xyCubed);
         return new SumOfTerms(sumSet);
     }
 
     private static SumOfTerms get_xSquared_plus_x_y() {
-        var sumSet = new HashSet<CompositeTerm>();
+        HashSet<CompositeTerm> sumSet = new HashSet<>();
         sumSet.add(xSquared);
         sumSet.add(x_y);
         return new SumOfTerms(sumSet);
     }
 
     private static SumOfTerms get_x_plus_three() {
-        var sumSet = new HashSet<CompositeTerm>();
+        HashSet<CompositeTerm> sumSet = new HashSet<>();
         sumSet.add(three);
         sumSet.add(x);
         return new SumOfTerms(sumSet);
     }
 
     private static SumOfTerms get_x_plus_four() {
-        var sumSet = new HashSet<CompositeTerm>();
+        HashSet<CompositeTerm> sumSet = new HashSet<>();
         sumSet.add(four);
         sumSet.add(x);
         return new SumOfTerms(sumSet);
     }
 
     private static SumOfTerms get_xSquared_plus_ySquared_plus_two_x_y() {
-        var sumSet = new HashSet<CompositeTerm>();
+        HashSet<CompositeTerm> sumSet = new HashSet<>();
         sumSet.add(xSquared);
         sumSet.add(ySquared);
         sumSet.add(two_x_y);
@@ -179,7 +179,7 @@ public class ConstantsForTests {
     }
 
     private static SumOfTerms get_minus_xSquared_minus_ySquared_minus_two_x_y(){
-        var sumSet = new HashSet<CompositeTerm>();
+        HashSet<CompositeTerm> sumSet = new HashSet<>();
         sumSet.add(minus_xSquared);
         sumSet.add(minus_ySquared);
         sumSet.add(minus_two_x_y);
@@ -187,7 +187,7 @@ public class ConstantsForTests {
     }
 
     private static CompositeTerm get_two_w_xSquared_yCubed() {
-        var termSet = new HashSet<SimpleTerm>();
+        HashSet<SimpleTerm> termSet = new HashSet<>();
         termSet.add(new SimpleTerm('w'));
         termSet.add(new SimpleTerm('x', 2));
         termSet.add(new SimpleTerm('y', 3));
@@ -195,7 +195,7 @@ public class ConstantsForTests {
     }
 
     private static CompositeTerm get_three_x_z_yToTheEight() {
-        var termSet = new HashSet<SimpleTerm>();
+        HashSet<SimpleTerm> termSet = new HashSet<>();
         termSet.add(new SimpleTerm('x'));
         termSet.add(new SimpleTerm('y', 8));
         termSet.add(new SimpleTerm('z'));
@@ -203,7 +203,7 @@ public class ConstantsForTests {
     }
 
     private static CompositeTerm get_w_z_xCubed_yToTheEleven() {
-        var termSet = new HashSet<SimpleTerm>();
+        HashSet<SimpleTerm> termSet = new HashSet<>();
         termSet.add(new SimpleTerm('w'));
         termSet.add(new SimpleTerm('x', 3));
         termSet.add(new SimpleTerm('y', 11));
@@ -212,21 +212,21 @@ public class ConstantsForTests {
     }
 
     private static CompositeTerm get_x_y() {
-        var termSet = new HashSet<SimpleTerm>();
+        HashSet<SimpleTerm> termSet = new HashSet<>();
         termSet.add(new SimpleTerm('x'));
         termSet.add(new SimpleTerm('y'));
         return new CompositeTerm(termSet);
     }
 
     private static CompositeTerm get_two_x_y() {
-        var termSet = new HashSet<SimpleTerm>();
+        HashSet<SimpleTerm> termSet = new HashSet<>();
         termSet.add(new SimpleTerm('x'));
         termSet.add(new SimpleTerm('y'));
         return new CompositeTerm(termSet, 2);
     }
 
     private static CompositeTerm get_minus_two_x_y() {
-        var termSet = new HashSet<SimpleTerm>();
+        HashSet<SimpleTerm> termSet = new HashSet<>();
         termSet.add(new SimpleTerm('x'));
         termSet.add(new SimpleTerm('y'));
         return new CompositeTerm(termSet, -2);

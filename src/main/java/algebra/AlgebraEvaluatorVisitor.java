@@ -1,7 +1,10 @@
 package algebra;
 
+import org.antlr.v4.runtime.tree.ParseTree;
+
 import java.util.HashSet;
 import java.util.List;
+import algebra.AlgebraParser.*;
 
 public class AlgebraEvaluatorVisitor extends AlgebraBaseVisitor<AlgebraicExpression> {
 
@@ -12,7 +15,7 @@ public class AlgebraEvaluatorVisitor extends AlgebraBaseVisitor<AlgebraicExpress
     public AlgebraicExpression visitAlgebraicExpressionFirstTermNegative(AlgebraParser.AlgebraicExpressionFirstTermNegativeContext ctx) {
         AlgebraicExpression sumSoFar = new SumOfTerms();
         sumSoFar = sumSoFar.plus(visit(ctx.potentiallyComplicatedProduct()).asNegative());
-        for (var x : ctx.potentialyComplicatedProductWithSign()) {
+        for (PotentialyComplicatedProductWithSignContext x : ctx.potentialyComplicatedProductWithSign()) {
             sumSoFar = sumSoFar.plus(visit(x));
         }
         return sumSoFar;
@@ -25,7 +28,7 @@ public class AlgebraEvaluatorVisitor extends AlgebraBaseVisitor<AlgebraicExpress
     public AlgebraicExpression visitAlgebraicExpressionFirstTermPositive(AlgebraParser.AlgebraicExpressionFirstTermPositiveContext ctx) {
         AlgebraicExpression sumSoFar = new SumOfTerms();
         sumSoFar = sumSoFar.plus(visit(ctx.potentiallyComplicatedProduct()));
-        for (var x : ctx.potentialyComplicatedProductWithSign()) {
+        for (PotentialyComplicatedProductWithSignContext x : ctx.potentialyComplicatedProductWithSign()) {
             sumSoFar = sumSoFar.plus(visit(x));
         }
         return sumSoFar;
@@ -49,7 +52,7 @@ public class AlgebraEvaluatorVisitor extends AlgebraBaseVisitor<AlgebraicExpress
     @Override
     public AlgebraicExpression visitPotentiallyComplicatedProduct(AlgebraParser.PotentiallyComplicatedProductContext ctx) {
         AlgebraicExpression expressionSoFar = new CompositeTerm(1);
-        for (var i : ctx.potentiallyComplicatedFactor()) {
+        for (PotentiallyComplicatedFactorContext i : ctx.potentiallyComplicatedFactor()) {
             expressionSoFar = expressionSoFar.multiply(visit(i));
         }
         return expressionSoFar;
@@ -101,7 +104,7 @@ public class AlgebraEvaluatorVisitor extends AlgebraBaseVisitor<AlgebraicExpress
     @Override
     public AlgebraicExpression visitExpressionInBracketsPositivePowerWONested(AlgebraParser.ExpressionInBracketsPositivePowerWONestedContext ctx) {
         int power = Integer.parseInt(ctx.POSITIVE_INT().getText());
-        var sumInBrackets = visit(ctx.expressionWithoutNestedBrackets());
+        AlgebraicExpression sumInBrackets = visit(ctx.expressionWithoutNestedBrackets());
         AlgebraicExpression sumRaisedSoFar = new CompositeTerm(1);
         for (int i = 1; i <= power; i++) {
             sumRaisedSoFar = sumRaisedSoFar.multiply(sumInBrackets);
@@ -115,8 +118,8 @@ public class AlgebraEvaluatorVisitor extends AlgebraBaseVisitor<AlgebraicExpress
     @Override
     public AlgebraicExpression visitExpressionWONestedStartingWithNegativeSFFE(AlgebraParser.ExpressionWONestedStartingWithNegativeSFFEContext ctx) {
         AlgebraicExpression sumSoFar = visit(ctx.simpleFullyFactorisedExpression()).asNegative();
-        var remainingTerms = ctx.termInExprWithoutNestedBrackets();
-        for (var i : remainingTerms) {
+        List<TermInExprWithoutNestedBracketsContext> remainingTerms = ctx.termInExprWithoutNestedBrackets();
+        for (TermInExprWithoutNestedBracketsContext i : remainingTerms) {
             sumSoFar = sumSoFar.plus(visit(i));
         }
         return sumSoFar;
@@ -125,8 +128,8 @@ public class AlgebraEvaluatorVisitor extends AlgebraBaseVisitor<AlgebraicExpress
     @Override
     public AlgebraicExpression visitExpressionWONestedStartingWithSOT(AlgebraParser.ExpressionWONestedStartingWithSOTContext ctx) {
         AlgebraicExpression sumSoFar = visit(ctx.sumofterms());
-        var remainingTerms = ctx.termInExprWithoutNestedBrackets();
-        for (var i : remainingTerms) {
+        List<TermInExprWithoutNestedBracketsContext> remainingTerms = ctx.termInExprWithoutNestedBrackets();
+        for (TermInExprWithoutNestedBracketsContext i : remainingTerms) {
             sumSoFar = sumSoFar.plus(visit(i));
         }
         return sumSoFar;
@@ -138,8 +141,8 @@ public class AlgebraEvaluatorVisitor extends AlgebraBaseVisitor<AlgebraicExpress
     @Override
     public AlgebraicExpression visitExpressionWONestedStartingWithSFFE(AlgebraParser.ExpressionWONestedStartingWithSFFEContext ctx) {
         AlgebraicExpression sumSoFar = visit(ctx.simpleFullyFactorisedExpression());
-        var remainingTerms = ctx.termInExprWithoutNestedBrackets();
-        for (var i : remainingTerms) {
+        List<TermInExprWithoutNestedBracketsContext> remainingTerms = ctx.termInExprWithoutNestedBrackets();
+        for (TermInExprWithoutNestedBracketsContext i : remainingTerms) {
             sumSoFar = sumSoFar.plus(visit(i));
         }
         return sumSoFar;
@@ -151,8 +154,8 @@ public class AlgebraEvaluatorVisitor extends AlgebraBaseVisitor<AlgebraicExpress
     @Override
     public AlgebraicExpression visitExpressionWONestedStartingWithCT(AlgebraParser.ExpressionWONestedStartingWithCTContext ctx) {
         AlgebraicExpression sumSoFar = visit(ctx.compositeterm());
-        var remainingTerms = ctx.termInExprWithoutNestedBrackets();
-        for (var i : remainingTerms) {
+        List<TermInExprWithoutNestedBracketsContext> remainingTerms = ctx.termInExprWithoutNestedBrackets();
+        for (TermInExprWithoutNestedBracketsContext i : remainingTerms) {
             sumSoFar = sumSoFar.plus(visit(i));
         }
         return sumSoFar;
@@ -192,7 +195,7 @@ public class AlgebraEvaluatorVisitor extends AlgebraBaseVisitor<AlgebraicExpress
     @Override
     public AlgebraicExpression visitSimpleFullyFactorisedExpression(AlgebraParser.SimpleFullyFactorisedExpressionContext ctx) {
         AlgebraicExpression expressionSoFar = new CompositeTerm(1);
-        for (var i : ctx.children) {
+        for (ParseTree i : ctx.children) {
             expressionSoFar = expressionSoFar.multiply(visit(i));
         }
         return expressionSoFar;
@@ -204,7 +207,7 @@ public class AlgebraEvaluatorVisitor extends AlgebraBaseVisitor<AlgebraicExpress
     @Override
     public AlgebraicExpression visitSumInBracketsWithPower(AlgebraParser.SumInBracketsWithPowerContext ctx) {
         int power = Integer.parseInt(ctx.POSITIVE_INT().getText());
-        var sumInBrackets = visit(ctx.sumofterms());
+        AlgebraicExpression sumInBrackets = visit(ctx.sumofterms());
         AlgebraicExpression sumRaisedSoFar = new CompositeTerm(1);
         for (int i = 1; i <= power; i++) {
             sumRaisedSoFar = sumRaisedSoFar.multiply(sumInBrackets);
@@ -227,7 +230,7 @@ public class AlgebraEvaluatorVisitor extends AlgebraBaseVisitor<AlgebraicExpress
     public AlgebraicExpression visitSumOfTermsFirstTermNegative(AlgebraParser.SumOfTermsFirstTermNegativeContext ctx) {
         AlgebraicExpression sumSoFar = new SumOfTerms();
         sumSoFar = sumSoFar.plus(visit(ctx.startTerm).asNegative());
-        for (var x : ctx.termInSum()) {
+        for (TermInSumContext x : ctx.termInSum()) {
             sumSoFar = sumSoFar.plus(visit(x));
         }
         return sumSoFar;
@@ -240,7 +243,7 @@ public class AlgebraEvaluatorVisitor extends AlgebraBaseVisitor<AlgebraicExpress
     public AlgebraicExpression visitSumOfTermsFirstTermPositive(AlgebraParser.SumOfTermsFirstTermPositiveContext ctx) {
         AlgebraicExpression sumSoFar = new SumOfTerms();
         sumSoFar = sumSoFar.plus(visit(ctx.startTerm));
-        for (var x : ctx.termInSum()) {
+        for (TermInSumContext x : ctx.termInSum()) {
             sumSoFar = sumSoFar.plus(visit(x));
         }
         return sumSoFar;
@@ -251,7 +254,7 @@ public class AlgebraEvaluatorVisitor extends AlgebraBaseVisitor<AlgebraicExpress
      */
     @Override
     public AlgebraicExpression visitTermInSum(AlgebraParser.TermInSumContext ctx) {
-        var evaluatedTerm = visit(ctx.compositeterm());
+        AlgebraicExpression evaluatedTerm = visit(ctx.compositeterm());
         if (ctx.op.getType() == AlgebraParser.SUB) {
             evaluatedTerm = evaluatedTerm.asNegative();
         }
@@ -272,15 +275,15 @@ public class AlgebraEvaluatorVisitor extends AlgebraBaseVisitor<AlgebraicExpress
      * by multiplying the terms in the list together..
      */
     private HashSet<SimpleTerm> getSimpleTerms(List<AlgebraParser.SimpletermContext> termContextList) {
-        var newTermSet = new HashSet<SimpleTerm>();
-        for (var i : termContextList) {
-            var term = visit(i);
+        HashSet<SimpleTerm> newTermSet = new HashSet<>();
+        for (SimpletermContext i : termContextList) {
+            AlgebraicExpression term = visit(i);
             thisTermSetLoop:
             for (SimpleTerm j : term.giveATerm().getSet()) {
                 final char jSymbol = j.getSymbol();
                 for (SimpleTerm k : newTermSet) {
                     if (jSymbol == k.getSymbol()) {
-                        var multipliedTerm = j.multiplyWithSameSymbol(k);
+                        SimpleTerm multipliedTerm = j.multiplyWithSameSymbol(k);
                         newTermSet.remove(k);
                         newTermSet.add(multipliedTerm);
                         continue thisTermSetLoop;
