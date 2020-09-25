@@ -8,7 +8,7 @@ The only prerequesite is the **jvm** (https://www.java.com/en/download/)
 
 This app only works on Windows. The jar is too large to store on GitHub, so feel free to 
 download it from my Google Drive instead 
-(https://drive.google.com/file/d/1_SSqXgHrTwpiJs3AOPSRMXAGe2UzvzSs/view?usp=sharing). Simply download it, and double click on the jar to run!
+(https://drive.google.com/file/d/1mS7p3-cr35QWTIhZMY_zZstRHFCyQ3Dk/view?usp=sharing). Simply download it, and double click on the jar to run!
 
 ## How to Use
 - This program will simplify valid algebraic expressions. 
