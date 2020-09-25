@@ -1,0 +1,8 @@
+/target/classes/
+/Algebra.iml
+/target/test-classes/
+/target/maven-status/
+/target/maven-archiver/
+/target/javadoc/
+/target/generated-test-sources/
+/out/
